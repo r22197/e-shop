@@ -24,16 +24,17 @@ public class User {
     private String password;
     private String role;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private List<Address> addresses = new ArrayList<>();
 
     private LocalDateTime dateOfRegistration;
 
     public User() {
+        this.dateOfRegistration = LocalDateTime.now();
     }
 
-    public User(Long id, String firstName, String lastName, String email, String phoneNumber, String password, String role, List<Address> addresses, LocalDateTime dateOfRegistration) {
+    public User(Long id, String firstName, String lastName, String email, String phoneNumber, String password, String role, List<Address> addresses) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -42,7 +43,7 @@ public class User {
         this.password = password;
         this.role = role;
         this.addresses = addresses;
-        this.dateOfRegistration = dateOfRegistration;
+        this.dateOfRegistration = LocalDateTime.now();
     }
 
 }
