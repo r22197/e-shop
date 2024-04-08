@@ -11,10 +11,11 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String firstName;
     private String lastName;
@@ -24,6 +25,7 @@ public class User {
     private String role;
 
     @OneToMany
+    @JoinColumn(name = "user_id")
     private List<Address> addresses = new ArrayList<>();
 
     private LocalDateTime dateOfRegistration;
