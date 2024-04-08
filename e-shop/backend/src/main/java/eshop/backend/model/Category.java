@@ -1,7 +1,11 @@
 package eshop.backend.model;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
 @Entity
 public class Category {
     @Id
@@ -9,6 +13,7 @@ public class Category {
     private Long id;
 
     private String name;
+    private int level;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_category_id")
@@ -17,33 +22,12 @@ public class Category {
     public Category() {
     }
 
-    public Category(Long id, String name, Category parentCategory) {
+    public Category(Long id, String name, int level, Category parentCategory) {
         this.id = id;
         this.name = name;
+        this.level = level;
         this.parentCategory = parentCategory;
     }
 
-    public Long getId() {
-        return id;
-    }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Category getParentCategory() {
-        return parentCategory;
-    }
-
-    public void setParentCategory(Category parentCategory) {
-        this.parentCategory = parentCategory;
-    }
 }
