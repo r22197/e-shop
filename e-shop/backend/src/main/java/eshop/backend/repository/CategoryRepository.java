@@ -8,7 +8,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Long> {
-    public Category findCategoryByName(String name);
 
     @Query("select c from Category c where c.name=:name and c.parentCategory.name=:parentCategoryName")
     public Category findCategoryByNameAndParent(
