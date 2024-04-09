@@ -16,10 +16,13 @@ public class Product {
     @NotNull
     private String name;
     private String description;
+
+    @NotNull
     private double price;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
+    @NotNull
     private Category category;
 
     public Product() {

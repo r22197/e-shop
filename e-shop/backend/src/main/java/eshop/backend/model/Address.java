@@ -17,6 +17,7 @@ public class Address {
     private int zipCode;
 
     @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Address() {
@@ -30,5 +31,4 @@ public class Address {
         this.zipCode = zipCode;
         this.user = user;
     }
-
 }

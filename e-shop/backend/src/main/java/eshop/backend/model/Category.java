@@ -13,7 +13,6 @@ public class Category {
     private Long id;
 
     private String name;
-    private int level;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_category_id")
@@ -22,12 +21,8 @@ public class Category {
     public Category() {
     }
 
-    public Category(Long id, String name, int level, Category parentCategory) {
-        this.id = id;
+    public Category(String name, Category parentCategory) {
         this.name = name;
-        this.level = level;
         this.parentCategory = parentCategory;
     }
-
-
 }

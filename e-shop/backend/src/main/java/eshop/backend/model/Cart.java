@@ -1,11 +1,11 @@
 package eshop.backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -15,4 +15,16 @@ public class Cart {
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id")
+    private User user;
+
+    @OneToMany(mappedBy = "cart")
+    private Set<CartHasProduct> cartHasProducts = new HashSet<>();
+
+    private int totalQuantity;
+    private double totalPrice;
+
+    public Cart() {
+    }
 }
