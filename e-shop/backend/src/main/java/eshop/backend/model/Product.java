@@ -5,12 +5,14 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Set;
+
 @Getter
 @Setter
 @Entity
 public class Product {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -24,6 +26,9 @@ public class Product {
     @JoinColumn(name = "category_id")
     @NotNull
     private Category category;
+
+    @OneToMany(mappedBy = "id", fetch = FetchType.EAGER)
+    private Set<CartHasProduct> productInCarts;
 
     public Product() {
     }

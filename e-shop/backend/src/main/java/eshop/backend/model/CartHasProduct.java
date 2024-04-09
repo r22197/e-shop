@@ -9,9 +9,9 @@ import lombok.Setter;
 @Entity
 public class CartHasProduct {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int price;
+    private Integer price;
     private double amount;
 
     @ManyToOne
