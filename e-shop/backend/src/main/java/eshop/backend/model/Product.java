@@ -2,14 +2,12 @@ package eshop.backend.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
-
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import java.util.Set;
 
-@Getter
-@Setter
 @Entity
+@Data @NoArgsConstructor
 public class Product {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -29,16 +27,4 @@ public class Product {
 
     @OneToMany(mappedBy = "id", fetch = FetchType.EAGER)
     private Set<CartHasProduct> productInCarts;
-
-    public Product() {
-    }
-
-    public Product(Long id, String name, String description, double price, Category category) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.category = category;
-    }
-
 }

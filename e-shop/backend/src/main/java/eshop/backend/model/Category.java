@@ -1,12 +1,11 @@
 package eshop.backend.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
 @Entity
+@Data @NoArgsConstructor
 public class Category {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
@@ -17,12 +16,4 @@ public class Category {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "parent_category_id")
     private Category parentCategory;
-
-    public Category() {
-    }
-
-    public Category(String name, Category parentCategory) {
-        this.name = name;
-        this.parentCategory = parentCategory;
-    }
 }

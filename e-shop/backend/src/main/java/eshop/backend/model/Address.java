@@ -1,12 +1,11 @@
 package eshop.backend.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
 @Entity
+@Data @NoArgsConstructor
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,16 +18,4 @@ public class Address {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
-
-    public Address() {
-    }
-
-    public Address(Long id, String streetName, int numberOfHouse, String city, int zipCode, User user) {
-        this.id = id;
-        this.streetName = streetName;
-        this.numberOfHouse = numberOfHouse;
-        this.city = city;
-        this.zipCode = zipCode;
-        this.user = user;
-    }
 }

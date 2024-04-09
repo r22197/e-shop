@@ -1,18 +1,16 @@
 package eshop.backend.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import jakarta.validation.constraints.Min;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-@Getter
-@Setter
 @Entity
+@Data @NoArgsConstructor
 public class CartHasProduct {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer price;
-    private double amount;
 
     @ManyToOne
     private Cart cart;
@@ -20,6 +18,6 @@ public class CartHasProduct {
     @ManyToOne
     private Product product;
 
-    public CartHasProduct() {
-    }
+    @Min(1)
+    private Integer amount;
 }
