@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p WHERE p.category =: category")
-    public List<Product> filterProducts(
+    List<Product> filterProducts(
             @Param("category") String category
     );
 }
