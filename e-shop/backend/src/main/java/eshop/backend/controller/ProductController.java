@@ -1,22 +1,31 @@
-package eshop.backend.Controller;
+package eshop.backend.controller;
 
 import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.model.Product;
 import eshop.backend.request.ProductDto;
 import eshop.backend.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Product>> getAllProducts(
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize) {
+        Page<Product> products = productService.getAllProducts(pageNumber, pageSize);
+        return ResponseEntity.ok(products);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Product> getProductById(@PathVariable Long id) throws ProductNotFoundException {
@@ -41,11 +50,4 @@ public class ProductController {
         productService.deleteProduct(id);
         return ResponseEntity.ok().build();
     }
-
-    @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts() {
-        List<Product> products = productService.getAllProducts();
-        return ResponseEntity.ok(products);
-    }
-
 }
