@@ -1,6 +1,5 @@
 package eshop.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -23,10 +22,8 @@ public class Product {
 
     @ManyToOne
     @JoinColumn(name = "category_id")
-    @NotNull
     private Category category;
 
-    @OneToMany(mappedBy = "id", fetch = FetchType.EAGER)
-    @JsonIgnore
+    @OneToMany(mappedBy = "product")
     private Set<CartHasProduct> productInCarts;
 }

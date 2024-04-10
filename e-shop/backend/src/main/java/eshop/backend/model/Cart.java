@@ -17,7 +17,6 @@ public class Cart {
     @OneToOne
     private User user;
 
-    @OneToMany(mappedBy = "id")
-    @JsonIgnore
+    @OneToMany(mappedBy = "cart")
     private Set<CartHasProduct> cartHasProducts;
 }
