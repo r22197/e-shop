@@ -37,6 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
         category.setId(categoryDto.getId());
         category.setName(categoryDto.getName());
         category.setParentCategory(categoryDto.getParentCategory());
+        category.setProducts(categoryDto.getProducts());
 
         return categoryRepository.save(category);
     }
@@ -48,6 +49,7 @@ public class CategoryServiceImpl implements CategoryService {
         category.setId(categoryDto.getId());
         category.setName(categoryDto.getName());
         category.setParentCategory(categoryDto.getParentCategory());
+        category.setProducts(categoryDto.getProducts());
 
         return categoryRepository.save(category);
     }
