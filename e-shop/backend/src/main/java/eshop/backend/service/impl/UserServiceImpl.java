@@ -1,8 +1,9 @@
-package eshop.backend.service;
+package eshop.backend.service.impl;
 
 import eshop.backend.exception.UserNotFoundException;
 import eshop.backend.model.User;
 import eshop.backend.repository.UserRepository;
+import eshop.backend.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;

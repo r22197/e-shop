@@ -1,5 +1,6 @@
 package eshop.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.Data;
@@ -18,6 +19,5 @@ public class CartHasProduct {
     @ManyToOne
     private Product product;
 
-    @Min(1)
-    private Integer amount;
+    private Integer quantity;
 }

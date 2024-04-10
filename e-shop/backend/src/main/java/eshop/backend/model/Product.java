@@ -1,5 +1,6 @@
 package eshop.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -26,5 +27,6 @@ public class Product {
     private Category category;
 
     @OneToMany(mappedBy = "id", fetch = FetchType.EAGER)
+    @JsonIgnore
     private Set<CartHasProduct> productInCarts;
 }

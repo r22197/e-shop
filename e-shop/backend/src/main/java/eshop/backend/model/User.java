@@ -2,8 +2,6 @@ package eshop.backend.model;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +24,9 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private List<Address> addresses = new ArrayList<>();
+
+    @OneToOne
+    private Cart cart;
 
     private LocalDateTime dateOfRegistration;
 
