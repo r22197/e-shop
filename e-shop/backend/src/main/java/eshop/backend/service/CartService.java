@@ -14,4 +14,6 @@ public interface CartService {
     void addProduct(Long ProductId);
     void removeProduct(Long ProductId);
     List<CartHasProduct> getCart();
+
+    CartHasProduct updateProductCartQuantity(Long id, Integer quantity);
 }

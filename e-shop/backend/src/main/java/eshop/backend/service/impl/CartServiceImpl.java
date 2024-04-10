@@ -28,19 +28,10 @@ public class CartServiceImpl implements CartService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Product not found"));
 
-
-        Optional<CartHasProduct> optionalCartItem = cartHasProductRepository.findByProduct(product);
-
-        if (optionalCartItem.isPresent()) {
-            CartHasProduct cartItem = optionalCartItem.get();
-            cartItem.setQuantity(cartItem.getQuantity() + 1);
-            cartHasProductRepository.save(cartItem);
-        } else {
-            CartHasProduct newCartItem = new CartHasProduct();
-            newCartItem.setProduct(product);
-            newCartItem.setQuantity(1);
-            cartHasProductRepository.save(newCartItem);
-        }
+        CartHasProduct newCartItem = new CartHasProduct();
+        newCartItem.setProduct(product);
+        newCartItem.setQuantity(1);
+        cartHasProductRepository.save(newCartItem);
     }
 
     @Override
@@ -68,6 +59,18 @@ public class CartServiceImpl implements CartService {
     @Override
     public List<CartHasProduct> getCart() {
         return cartHasProductRepository.findAll();
+    }
+
+    @Override
+    public CartHasProduct updateProductCartQuantity(Long id, Integer quantity) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("Product not found"));
+
+        Optional<CartHasProduct> optionalCartItem = cartHasProductRepository.findByProduct(product);
+
+        CartHasProduct cartItem = optionalCartItem.get();
+        cartItem.setQuantity(cartItem.getQuantity() + quantity);
+        return cartHasProductRepository.save(cartItem);
     }
 }
 
