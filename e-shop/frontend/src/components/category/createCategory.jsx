@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { createCategory } from "../utils/ApiFunctions";
 
-const CreateCategory = () => {
+export const CreateCategory = () => {
     const [newCategory, setNewCategory] = useState({
         name: "",
-        parentCategory: null // předpokládáme, že vytváříme kořenovou kategorii
+        parentCategory: null
     });
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
@@ -50,5 +50,3 @@ const CreateCategory = () => {
         </div>
     );
 };
-
-export default CreateCategory;
