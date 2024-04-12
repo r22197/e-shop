@@ -1,9 +1,11 @@
 package eshop.backend.controller;
 
+import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.model.Product;
-import eshop.backend.request.ProductDto;
+import eshop.backend.response.ProductDto;
 import eshop.backend.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,13 +36,13 @@ public class ProductController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<Product> createProduct(@RequestBody ProductDto productDto) {
-        Product createdProduct = productService.createProduct(productDto);
+    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) throws CategoryNotFoundException {
+        Product createdProduct = productService.create(productDto);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) throws ProductNotFoundException {
+    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) throws ProductNotFoundException, CategoryNotFoundException {
         Product updatedProduct = productService.updateProduct(id, productDto);
         return ResponseEntity.ok(updatedProduct);
     }
