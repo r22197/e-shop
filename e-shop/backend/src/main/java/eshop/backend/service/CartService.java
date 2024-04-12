@@ -1,9 +1,6 @@
 package eshop.backend.service;
 
-import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.model.CartHasProduct;
-import eshop.backend.model.Product;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

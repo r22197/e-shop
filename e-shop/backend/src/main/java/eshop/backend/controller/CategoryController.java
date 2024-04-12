@@ -2,7 +2,7 @@ package eshop.backend.controller;
 
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.model.Category;
-import eshop.backend.request.CategoryDto;
+import eshop.backend.response.CategoryDto;
 import eshop.backend.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

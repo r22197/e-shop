@@ -2,7 +2,7 @@ package eshop.backend.service;
 
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.model.Category;
-import eshop.backend.request.CategoryDto;
+import eshop.backend.response.CategoryDto;
 
 import java.util.List;
 

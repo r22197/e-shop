@@ -1,10 +1,6 @@
 package eshop.backend.controller;
 
-import eshop.backend.exception.ProductNotFoundException;
-import eshop.backend.model.Cart;
 import eshop.backend.model.CartHasProduct;
-import eshop.backend.model.Product;
-import eshop.backend.request.ProductDto;
 import eshop.backend.service.CartService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

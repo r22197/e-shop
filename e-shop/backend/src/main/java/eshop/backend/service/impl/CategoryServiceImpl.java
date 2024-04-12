@@ -3,7 +3,7 @@ package eshop.backend.service.impl;
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.model.Category;
 import eshop.backend.repository.CategoryRepository;
-import eshop.backend.request.CategoryDto;
+import eshop.backend.response.CategoryDto;
 import eshop.backend.service.CategoryService;
 import org.springframework.stereotype.Service;
 
@@ -36,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
         Category category = new Category();
         category.setId(categoryDto.getId());
         category.setName(categoryDto.getName());
-        category.setParentCategory(categoryDto.getParentCategory());
+        category.setParent(categoryDto.getParentCategory());
         category.setProducts(categoryDto.getProducts());
 
         return categoryRepository.save(category);
@@ -48,7 +48,7 @@ public class CategoryServiceImpl implements CategoryService {
 
         category.setId(categoryDto.getId());
         category.setName(categoryDto.getName());
-        category.setParentCategory(categoryDto.getParentCategory());
+        category.setParent(categoryDto.getParentCategory());
         category.setProducts(categoryDto.getProducts());
 
         return categoryRepository.save(category);
