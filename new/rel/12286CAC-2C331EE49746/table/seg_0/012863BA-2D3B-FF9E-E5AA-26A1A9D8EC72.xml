@@ -1,0 +1,47 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="012863BA-2D3B-FF9E-E5AA-26A1A9D8EC72" name="Znacka">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:34:01 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<ordsAlias>table_24</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="9DB63F7D-E6E0-BC09-DB02-9F3F8A787723">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:34:35 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="nazev" id="D6ACEE05-31F2-32EB-9A40-DBE6F5F8ADC9">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:34:35 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B4628FC0-A77D-C8B9-DFFD-1761B3BE2E3E" name="Znacka_PK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:34:35 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9DB63F7D-E6E0-BC09-DB02-9F3F8A787723"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

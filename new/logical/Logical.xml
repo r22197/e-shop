@@ -1,0 +1,7 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<LogicalDesign class="oracle.dbtools.crest.model.design.logical.LogicalDesign" name="Logical" id="3DE1C7B2-B804-5BF2-A17E-3501844E258B" mainViewID="D08D3579-C5AE-4087-30D1-9845678057A0">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 14:52:36 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<shouldBeOpen>false</shouldBeOpen>
+</LogicalDesign>

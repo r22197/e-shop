@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="2049B9A6-C3C4-FCDB-68D4-E851FE8098EF" containerWithKeyObject="04A35EBD-56E7-2FDF-C326-91AE10C180DA" localFKIndex="4C730FA3-B5B2-E066-AEEE-848F4B15F933" name="Oblibene_produkt_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>6BBE715F-8BE2-0F05-B250-15E617ED3AE4</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<referredTableLongName>Oblibene_produkty</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>662F93E5-C543-408F-8562-31A25022077F</referredTableID>
+<keyObject>0E6B4679-7D41-C6A1-4E1E-352EC0AD7BA1</keyObject>
+<referredKeyID>0E6B4679-7D41-C6A1-4E1E-352EC0AD7BA1</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

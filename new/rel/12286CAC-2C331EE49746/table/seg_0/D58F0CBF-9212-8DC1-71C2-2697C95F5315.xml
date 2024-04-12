@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="D58F0CBF-9212-8DC1-71C2-2697C95F5315" name="Kosik_produkt">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<ordsAlias>relation_14</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Nakupni_kosik_id" id="253A8A3C-78AE-9EF0-105B-64A084F8C6E0">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="BC66327F-BCEE-968D-97A7-329841134D66" referredColumn="AFAF67C5-2CC3-C75B-B2F8-2D4B9A68C1E6"/>
+</associations>
+</Column>
+<Column name="Produkt_specifikace_id" id="CE33BAB6-5959-3C4A-1979-D702FA6F6A7A">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="FB2A0CEB-0E7D-0535-70A7-EFFDDEA04442" referredColumn="9B2CCC3E-B55F-FD7C-A199-F40020DCF3ED"/>
+</associations>
+</Column>
+<Column name="mnozstvi" id="F92DD6EA-AAB5-F6BC-40AC-0FB4422477A7">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:36:26 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="EE26D7CC-214E-7644-B283-6F2DD3CCFCEB" name="Kosik_produkt_PK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="253A8A3C-78AE-9EF0-105B-64A084F8C6E0"/>
+<colUsage columnID="CE33BAB6-5959-3C4A-1979-D702FA6F6A7A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="403951DB-45FB-52DD-AA9B-C7745F13EB8E" name="Kosik_produkt_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>8EBF2611-643E-4C7B-9D53-464E08F264F4</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="253A8A3C-78AE-9EF0-105B-64A084F8C6E0"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="56E9F15C-A885-F590-DF12-271CA19DBA8E" name="Specifikace_kosik_produkt_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>8EBF2611-643E-4C7B-9D53-464E08F264F4</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="CE33BAB6-5959-3C4A-1979-D702FA6F6A7A"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

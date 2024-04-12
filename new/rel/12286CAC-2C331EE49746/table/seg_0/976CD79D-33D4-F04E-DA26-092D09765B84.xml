@@ -1,0 +1,102 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="976CD79D-33D4-F04E-DA26-092D09765B84" name="Recenze">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>3A12F07F-EB99-4FA8-001D-648BB9EBD516</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="EB75088B-3678-F482-C3C4-537A63532951">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>1D4661CC-982B-BD6C-ADC4-382F09891CC0</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="text" id="4C018384-78D1-FFD9-9DDD-79FBE069C2E5">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>65B8316C-C931-28BA-5767-50E1BE2514E2</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Zakaznik_id" id="49A84478-6736-CD10-1E7D-498E8581FD8B">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>7155DA95-029E-A6DF-6002-14E9885FEFB2</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="939A039C-7FFA-98FA-2E69-3018BF089647" referredColumn="8E870B74-BABC-7F87-61F3-5DE430C04202"/>
+</associations>
+</Column>
+<Column name="Produkt_id" id="13346246-3542-F659-5B8A-45B6F9C0A9A3">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>BFEC5F4A-F993-F252-495D-F00F5FD3A7B6</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="5E939BB0-E155-60AF-820B-2BF70ED59880" referredColumn="116DADFB-FAB6-E1DB-70AF-B427543E1850"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="CD08801B-8A66-9CDC-2037-54CAB7704232" name="Recenze_PK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>51ABD488-DD6A-A4D7-06D4-28E1D15D2690</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="EB75088B-3678-F482-C3C4-537A63532951"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="E360192C-A9F3-0995-6D27-40E544852D97" name="Recenze_Produkt_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>B2CBF3C5-A65A-F8B2-6F02-E6F55C2AC3AF</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="13346246-3542-F659-5B8A-45B6F9C0A9A3"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="DC3FA090-A15D-A97E-EC9A-CFDB56BFEF19" name="Recenze_Zakaznik_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>3330D070-8396-9691-BED4-5FB52E107CEA</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="49A84478-6736-CD10-1E7D-498E8581FD8B"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

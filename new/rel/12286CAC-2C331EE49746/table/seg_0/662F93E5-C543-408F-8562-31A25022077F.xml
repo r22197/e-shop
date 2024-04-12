@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="662F93E5-C543-408F-8562-31A25022077F" name="Oblibene_produkty">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>AD71655F-7C73-17D3-6B96-82D45CF8D488</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="A5DB8BC6-6BE1-C887-3A3D-5C9C0E70CDD1">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>2283292B-68E0-53FF-8C2F-AA393AB3D6AB</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Zakaznik_id" id="43363921-F9BC-1706-480E-3A85CC766012">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>D7B769A5-EA98-7F35-0D51-01FC47EDE2CA</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="BA6EDE3F-74F1-2BE5-5CE5-63852E867894" referredColumn="8E870B74-BABC-7F87-61F3-5DE430C04202"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="0E6B4679-7D41-C6A1-4E1E-352EC0AD7BA1" name="Oblibene_produkty_PK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>7EC519E5-6FBD-91F8-6176-415B62A9B315</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="A5DB8BC6-6BE1-C887-3A3D-5C9C0E70CDD1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="17727C8C-ED29-C00D-F129-32768232D062" name="Oblibene_produkty_Zakaznik_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>FF20290B-9187-1988-894E-A7A35A1D063C</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="43363921-F9BC-1706-480E-3A85CC766012"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

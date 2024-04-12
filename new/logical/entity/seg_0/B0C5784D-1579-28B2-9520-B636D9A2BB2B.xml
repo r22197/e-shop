@@ -1,0 +1,93 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="B0C5784D-1579-28B2-9520-B636D9A2BB2B" name="Produkt_specifikace">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:13:07 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="4961F77E-BD9B-C8C7-DBC1-304608851F98">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:14:33 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="mnozstvi_skladem" id="01926690-781A-F9AB-0922-B798F94735A1">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:14:53 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="barva" id="DE607428-A0C7-ED61-A15C-4C8FA6E8130F">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:15:06 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="velikost" id="6BAF85A8-FF34-BC39-D930-A2E866E10885">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:15:11 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<use>0</use>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id1" id="7EB0C431-0DB0-46E1-F86E-A1A5B97E853E">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:15:47 UTC</createdTime>
+<generatorID>8469B99B-D8D1-C2F9-457C-D120F5923E8A</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<referedAttribute>848EA59A-0984-7D6C-4B9E-1A5939D7DFB2</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="7D3B01BD-AFE2-4AA3-B699-8ECDABC17E3E" name="Produkt_detaily PK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:14:52 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>4961F77E-BD9B-C8C7-DBC1-304608851F98</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

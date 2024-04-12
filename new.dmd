@@ -1,0 +1,8 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<OSDM_Design class="oracle.dbtools.crest.model.design.Design" name="new" id="D77F79BF-51F1-1516-3FAA-771E7ABF8813" version="3.5">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 14:52:36 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<capitalNames>false</capitalNames>
+<designId>D77F79BF-51F1-1516-3FAA-771E7ABF8813</designId>
+</OSDM_Design>

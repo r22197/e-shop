@@ -1,0 +1,86 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="4FD87D3A-CAF8-FC7F-B944-64580FD5920F" name="Objednavka_produkt">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<ordsAlias>relation_8</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="Objednavka_id" id="9EFC8865-EB7E-9432-869A-D50101679124">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="06AD28E4-6910-778B-E1B5-DCC693E9C251" referredColumn="0DAD98AE-C420-D797-C9F3-8AE252BA93EF"/>
+</associations>
+</Column>
+<Column name="Produkt_specifikace_id" id="759EAEE6-5AEA-F96C-D887-B7BC9A8D8E5E">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F79E0F9A-000D-7795-45F6-81A1EE9B935F" referredColumn="9B2CCC3E-B55F-FD7C-A199-F40020DCF3ED"/>
+</associations>
+</Column>
+<Column name="mnozstvi" id="39EE659E-8AB6-C67A-C9EA-608924A907BC">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:37:07 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="B51CBB01-E775-FAAA-FA69-1AA2A0DF13DD" name="Objednavka_produkt_PK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9EFC8865-EB7E-9432-869A-D50101679124"/>
+<colUsage columnID="759EAEE6-5AEA-F96C-D887-B7BC9A8D8E5E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="30181C07-8404-AB89-DB97-3474D8FAE00E" name="Objednavka_produkt_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>3A3D89B9-A22A-0EC7-4DDB-CDA803C1421F</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="9EFC8865-EB7E-9432-869A-D50101679124"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="A51F77E3-53F7-94A0-1362-07431A0DCFC4" name="Specifikace_produkt_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>3A3D89B9-A22A-0EC7-4DDB-CDA803C1421F</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="759EAEE6-5AEA-F96C-D887-B7BC9A8D8E5E"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

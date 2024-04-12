@@ -1,0 +1,63 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A0C3695C-7E8E-8A41-8069-4EC90BA97B4E" name="Nakupni_kosik">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>3038A805-3CAC-C9A3-48E0-5BAE6439B139</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="AFAF67C5-2CC3-C75B-B2F8-2D4B9A68C1E6">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>D9DA2083-8D5F-6614-6105-35512351FE55</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Zakaznik_id" id="92307AAF-42CB-E36B-E942-70A2EBA978B2">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>5DFA236B-4F88-E996-D4B2-CFD2E21B84CD</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="F65BB1E0-9B38-1931-EB69-C0F08AF2A79C" referredColumn="8E870B74-BABC-7F87-61F3-5DE430C04202"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="3EADDE33-1C8C-F28F-80D7-AC3E75F62BB0" name="Nakupni_kosik_PK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>0F19D1B0-DE8E-602F-9A32-24D28633FCBC</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="AFAF67C5-2CC3-C75B-B2F8-2D4B9A68C1E6"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="39853D19-3371-3E76-77BF-3FEC210C5705" name="Nakupni_kosik_Zakaznik_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>9EC461B6-8202-E84B-B8B9-871AA5442767</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="92307AAF-42CB-E36B-E942-70A2EBA978B2"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

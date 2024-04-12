@@ -1,0 +1,17 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<FKIndexAssociation class="oracle.dbtools.crest.model.design.relational.FKIndexAssociation" directorySegmentName="seg_0" id="FB2A0CEB-0E7D-0535-70A7-EFFDDEA04442" containerWithKeyObject="D58F0CBF-9212-8DC1-71C2-2697C95F5315" localFKIndex="56E9F15C-A885-F590-DF12-271CA19DBA8E" name="Specifikace_kosik_produkt_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>8EBF2611-643E-4C7B-9D53-464E08F264F4</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<referredTableLongName>Produkt_specifikace</referredTableLongName>
+<deleteRule>NO ACTION</deleteRule>
+<referredTableID>4FAD7386-D294-F8B8-5840-BC5AFAB828EC</referredTableID>
+<keyObject>FB7CB31C-8164-0082-48D3-F7E5C46BA0F5</keyObject>
+<referredKeyID>FB7CB31C-8164-0082-48D3-F7E5C46BA0F5</referredKeyID>
+<mandatory>true</mandatory>
+<refColNames>id</refColNames>
+<transferable>true</transferable>
+<rely>false</rely>
+<columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
+</FKIndexAssociation>

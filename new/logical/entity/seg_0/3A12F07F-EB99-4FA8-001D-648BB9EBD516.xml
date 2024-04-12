@@ -1,0 +1,87 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Entity class="oracle.dbtools.crest.model.design.logical.Entity" directorySegmentName="seg_0" id="3A12F07F-EB99-4FA8-001D-648BB9EBD516" name="Recenze">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:16:28 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<adequatelyNormalized>NO</adequatelyNormalized>
+<expectedVolumes>0</expectedVolumes>
+<fwdEngineeringStrategyName>Single Table</fwdEngineeringStrategyName>
+<growthPercent>0</growthPercent>
+<growthType>Year</growthType>
+<maxVolumes>9999999</maxVolumes>
+<minVolumes>0</minVolumes>
+<normalForm>Third</normalForm>
+<attributes itemClass="oracle.dbtools.crest.model.design.logical.Attribute">
+<Attribute name="id" id="1D4661CC-982B-BD6C-ADC4-382F09891CC0">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:16:36 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="text" id="65B8316C-C931-28BA-5767-50E1BE2514E2">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:16:44 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id1" id="7155DA95-029E-A6DF-6002-14E9885FEFB2">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:17:18 UTC</createdTime>
+<generatorID>3330D070-8396-9691-BED4-5FB52E107CEA</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<referedAttribute>E915AD55-5BDA-4453-2441-F9A9CA4E821A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id2" id="BFEC5F4A-F993-F252-495D-F00F5FD3A7B6">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:17:35 UTC</createdTime>
+<generatorID>B2CBF3C5-A65A-F8B2-6F02-E6F55C2AC3AF</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<referedAttribute>848EA59A-0984-7D6C-4B9E-1A5939D7DFB2</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+</attributes>
+<identifiers itemClass="oracle.dbtools.crest.model.design.logical.CandidateKey">
+<identifier id="51ABD488-DD6A-A4D7-06D4-28E1D15D2690" name="Recenze PK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:16:43 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<pk>true</pk>
+<usedAttributes>
+<attributeRef>1D4661CC-982B-BD6C-ADC4-382F09891CC0</attributeRef>
+</usedAttributes>
+</identifier>
+</identifiers>
+</Entity>

@@ -1,0 +1,77 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="164085A8-F61B-A762-C498-1159D77FF085" name="Adresa">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:52:00 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<ordsAlias>table_27</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="61317A07-964D-9EBF-B340-5A83AFF923CB">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:52:58 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="mesto" id="05C38055-5B8B-C585-D440-DA4D0CB9D272">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:52:58 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ulice" id="1F489540-B23A-D2F5-6771-200CA7D47FA1">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:52:58 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>30</dataTypeSize>
+<ownDataTypeParameters>30,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cislo_popisne" id="D86A6416-A8E5-48A2-B700-642EDC6C578B">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:52:58 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="psc" id="999CE6F3-026A-CD0E-D8FA-52CB3A265527">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:52:58 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="CA74145F-9AE5-62CB-AE15-0DB37C41AA0A" name="Adresa_PK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:52:58 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="61317A07-964D-9EBF-B340-5A83AFF923CB"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

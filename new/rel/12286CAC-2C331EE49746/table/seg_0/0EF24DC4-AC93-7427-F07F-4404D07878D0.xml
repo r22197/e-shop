@@ -1,0 +1,123 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="0EF24DC4-AC93-7427-F07F-4404D07878D0" name="Produkt">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>7FBE4F78-2624-E2AE-4BF4-D37141C38715</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="id" id="116DADFB-FAB6-E1DB-70AF-B427543E1850">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>848EA59A-0984-7D6C-4B9E-1A5939D7DFB2</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="cena" id="920B2D48-1E91-607E-0932-70B6C450F489">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>DE93895F-61C2-9FE2-FFBE-812A9DD6CE3B</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="Kategorie_id" id="1E52D4A8-6D0A-32DC-583B-4ED490D263C1">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:33:41 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="B9BFB3AB-FAE4-C605-0A92-ED1DE64BD60D" referredColumn="737403FB-65B6-B742-16AE-4E013A7E1836"/>
+</associations>
+</Column>
+<Column name="Znacka_id" id="5E7B896A-952B-7CC8-EEDF-74A4C40E5ABD">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:34:40 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="3668E1B0-AA63-2558-051A-48AE2241D1F6" referredColumn="9DB63F7D-E6E0-BC09-DB02-9F3F8A787723"/>
+</associations>
+</Column>
+<Column name="Zamestnanec_id" id="5FDD36B5-5FE5-C575-CCE5-83170897A748">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>3B246B6E-0A93-B1AE-631B-04EDB6F1B1A3</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<previousColumn>false</previousColumn>
+<autoIncrementCycle>false</autoIncrementCycle>
+<associations>
+<colAssociation fkAssociation="0BCA6349-96E8-DFF0-F471-7AF0D0ED134B" referredColumn="703BAA56-CDC6-1732-8D3B-2F83BA029DF8"/>
+</associations>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="9054A59D-8453-5127-3AC7-EDE08D4D5DD9" name="Produkt_PK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>EB50F413-7955-2D4C-2B07-4A31824DBFDC</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="116DADFB-FAB6-E1DB-70AF-B427543E1850"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="B0AA9800-E7E9-8557-1ACA-32DEFB7155FF" name="Produkt_Zamestnanec_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:29:05 UTC</createdTime>
+<generatorID>608931D9-9DBF-12DE-60C8-015FBBA8D9D3</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5FDD36B5-5FE5-C575-CCE5-83170897A748"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="BEFE6CC8-594D-32C6-9BA2-FD00DE0A8909" name="Produkt_Kategorie_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:33:41 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="1E52D4A8-6D0A-32DC-583B-4ED490D263C1"/>
+</indexColumnUsage>
+</ind_PK_UK>
+<ind_PK_UK id="065A7E49-1CB3-F55E-6398-39424490BE90" name="Produkt_Znacka_FK">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-12 16:34:40 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<indexState>Foreign Key</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="5E7B896A-952B-7CC8-EEDF-74A4C40E5ABD"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
