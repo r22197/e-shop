@@ -1,6 +1,6 @@
 import apiBaseUrl from "./apiBaseUrl";
 
-const BASE_URL = "/api/categories";
+const BASE_URL = "/api/products";
 
 export const getAllProducts = async (pageNumber, pageSize) => {
     try {
