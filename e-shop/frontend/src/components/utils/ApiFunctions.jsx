@@ -14,9 +14,9 @@ export const createProduct = async (name, description, price, category) => {
     }
 };
 
-export const getAllProducts = async () => {
+export const getAllProducts = async (pageNumber, pageSize) => {
     try {
-        const response = await api.get("/api/products");
+        const response = await api.get(`/api/products?pageNumber=${pageNumber}&pageSize=${pageSize}`);
         return response.data;
     } catch (error) {
         throw new Error("Error fetching products: " + error.message);
@@ -26,10 +26,10 @@ export const getAllProducts = async () => {
 export const createCategory = async (name, parentCategory) => {
     try {
         const response = await api.post("/api/category/create", { name, parentCategory });
-        return response.status === 201;
+        return response.data;
     } catch (error) {
         console.error("Error while creating category:", error);
-        return false;
+        throw error;
     }
 };
 
@@ -59,5 +59,22 @@ export const getCategoryById = async (categoryId) => {
         return response.data;
     } catch (error) {
         throw error;
+    }
+};
+
+export const getProductsByCategory = async (categoryId) => {
+    try {
+        const response = await api.get(`/api/product/category/${categoryId}`);
+        return response.data;
+    } catch (error) {
+        throw new Error("Error fetching products by category: " + error.message);
+    }
+};
+
+export const deleteProduct = async (productId) => {
+    try {
+        await api.delete(`/api/products/${productId}`);
+    } catch (error) {
+        throw new Error("Error deleting product: " + error.message);
     }
 };

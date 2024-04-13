@@ -1,6 +1,8 @@
+// CreateProduct.jsx
 import React, { useState, useEffect } from "react";
 import { createProduct } from "../utils/ApiFunctions";
 import { getAllCategories } from "../utils/ApiFunctions";
+import {Link} from "react-router-dom";
 
 const CreateProduct = () => {
     const [newProduct, setNewProduct] = useState({
@@ -50,38 +52,45 @@ const CreateProduct = () => {
     };
 
     return (
-        <div>
+        <div className="container">
             <h2>Create Product</h2>
             <form onSubmit={handleSubmit}>
-                <div>
-                    <label>Name:</label>
+                <div className="mb-3">
+                    <label className="form-label">
+                        Name: <span className="text-danger">*</span>
+                    </label>
                     <input
                         type="text"
+                        className="form-control"
                         name="name"
                         value={newProduct.name}
                         onChange={handleInputChange}
+                        required
                     />
                 </div>
-                <div>
-                    <label>Description:</label>
+                <div className="mb-3">
+                    <label className="form-label">Description:</label>
                     <textarea
+                        className="form-control"
                         name="description"
                         value={newProduct.description}
                         onChange={handleInputChange}
                     />
                 </div>
-                <div>
-                    <label>Price:</label>
+                <div className="mb-3">
+                    <label className="form-label">Price:</label>
                     <input
                         type="number"
+                        className="form-control"
                         name="price"
                         value={newProduct.price}
                         onChange={handleInputChange}
                     />
                 </div>
-                <div>
-                    <label>Category:</label>
+                <div className="mb-3">
+                    <label className="form-label">Category:</label>
                     <select
+                        className="form-select"
                         name="category"
                         value={newProduct.category.id}
                         onChange={handleInputChange}
@@ -95,11 +104,13 @@ const CreateProduct = () => {
                     </select>
                 </div>
                 <div>
-                    <button type="submit">Create Product</button>
+                    <button type="submit" className="btn btn-primary">Create Product</button>
                 </div>
             </form>
-            {successMessage && <div>{successMessage}</div>}
-            {errorMessage && <div>{errorMessage}</div>}
+            <Link to={`/admin/products`} className="mt-3 btn btn-info me-2">Vrátit se</Link>
+            <div className="mt-3 alert alert-info"><strong>Pozor!</strong> Pola označena <span className="text-danger">*</span> jsou povinná.</div>
+            {successMessage && <div className="mt-3 alert alert-success">{successMessage}</div>}
+            {errorMessage && <div className="mt-3 alert alert-danger">{errorMessage}</div>}
         </div>
     );
 };
