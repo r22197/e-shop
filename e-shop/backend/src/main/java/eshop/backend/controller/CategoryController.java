@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/category")
+@RequestMapping("/api/categories")
 public class CategoryController {
     private final CategoryService categoryService;
 
@@ -31,7 +31,7 @@ public class CategoryController {
         return ResponseEntity.ok(category);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Category> createCategory(@RequestBody CategoryDto categoryDto) {
         Category category = categoryService.create(categoryDto);
         return new ResponseEntity<>(category, HttpStatus.CREATED);

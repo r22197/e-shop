@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { getCategoryById, updateCategory } from "../utils/ApiFunctions";
+import { getCategoryById, updateCategory } from "../utils/CategoryApi";
 
 const EditCategory = () => {
     const { id } = useParams();

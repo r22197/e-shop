@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { updateCategory } from "../utils/ApiFunctions";
+import { updateCategory } from "../utils/CategoryApi";
 
 const UpdateCategory = ({ categoryId }) => {
     const [categoryName, setCategoryName] = useState("");

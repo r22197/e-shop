@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getProductById, updateProduct } from "../utils/ProductApi";
-import { getAllCategories } from "../utils/ApiFunctions";
+import { getAllCategories } from "../utils/CategoryApi";
 import { Link, useParams } from "react-router-dom";
 
 const EditProduct = () => {

@@ -1,7 +1,7 @@
 // CreateProduct.jsx
 import React, { useState, useEffect } from "react";
-import { createProduct } from "../utils/ApiFunctions";
-import { getAllCategories } from "../utils/ApiFunctions";
+import { getAllCategories } from "../utils/CategoryApi";
+import {createProduct} from "../utils/ProductApi"
 import {Link} from "react-router-dom";
 
 const CreateProduct = () => {
@@ -39,7 +39,7 @@ const CreateProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await createProduct(newProduct.name, newProduct.description, newProduct.price, newProduct.category);
+            const response = await createProduct(newProduct);
             if (response) {
                 setSuccessMessage("Product has been created successfully");
                 setNewProduct({ name: "", description: "", price: "", category: { id: "" } });
