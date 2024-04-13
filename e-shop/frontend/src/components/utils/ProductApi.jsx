@@ -1,6 +1,6 @@
 import apiBaseUrl from "./apiBaseUrl";
 
-const BASE_URL = "/api/products";
+const BASE_URL = "/api/categories";
 
 export const getAllProducts = async (pageNumber, pageSize) => {
     try {
@@ -30,12 +30,12 @@ export const createProduct = async (newProductData) => {
     }
 };
 
-export const updateCategory = async (id, categoryData) => {
+export const updateProduct = async (productId, updatedProductData) => {
     try {
-        const response = await apiBaseUrl.put(`${BASE_URL}`, categoryData);
+        const response = await apiBaseUrl.put(`${BASE_URL}/${productId}`, updatedProductData);
         return response.data;
     } catch (error) {
-        throw new Error("Error updating category: " + error.message);
+        throw new Error("Error updating product: " + error.message);
     }
 };
 
