@@ -1,7 +1,7 @@
 // AdminProductList.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getAllProducts, deleteProduct } from "../utils/ApiFunctions";
+import { getAllProducts, deleteProduct } from "../utils/ProductApi";
 
 const AdminProductList = () => {
     const [pageInfo, setPageInfo] = useState({

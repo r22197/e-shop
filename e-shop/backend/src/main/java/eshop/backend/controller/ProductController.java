@@ -35,7 +35,7 @@ public class ProductController {
         return ResponseEntity.ok(product);
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) throws CategoryNotFoundException {
         Product createdProduct = productService.create(productDto);
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
