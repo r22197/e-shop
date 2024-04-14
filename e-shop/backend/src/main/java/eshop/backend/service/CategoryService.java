@@ -9,7 +9,7 @@ import java.util.List;
 public interface CategoryService {
     List<Category> getAll();
     Category getById(Long id)  throws CategoryNotFoundException;
-    Category create(CategoryDto categoryDto);
+    Category create(CategoryDto categoryDto) throws CategoryNotFoundException;
 
     Category update(Long id, CategoryDto categoryDto) throws CategoryNotFoundException;
 

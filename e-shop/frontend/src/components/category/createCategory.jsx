@@ -1,13 +1,29 @@
-import React, { useState } from "react";
-import { createCategory } from "../utils/CategoryApi";
+import React, { useState, useEffect } from "react";
+import { createCategory, getAllCategories } from "../utils/CategoryApi";
 
 export const CreateCategory = () => {
     const [newCategory, setNewCategory] = useState({
         name: "",
-        parentCategory: null
+        parent: ""
     });
+
+    const [categories, setCategories] = useState([]);
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+
+    useEffect(() => {
+        fetchCategories();
+    }, []);
+
+    const fetchCategories = async () => {
+        try {
+            const data = await getAllCategories();
+            setCategories(data);
+        } catch (error) {
+            console.error("Error fetching categories:", error);
+            setErrorMessage("Error fetching categories: " + error.message);
+        }
+    };
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -20,11 +36,11 @@ export const CreateCategory = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await createCategory(newCategory.name, newCategory.parentCategory);
+            console.log(newCategory)
+            const response = await createCategory(newCategory);
             if (response) {
                 setSuccessMessage("Category has been created successfully");
-                setNewCategory({ name: "", parentCategory: null });
-                setErrorMessage("");
+                setNewCategory({ name: "", parent: {id: ""} });
             } else {
                 setErrorMessage("Error creating category");
             }
@@ -44,9 +60,27 @@ export const CreateCategory = () => {
                     <input type="text" className="form-control" id="name" name="name" value={newCategory.name} onChange={handleInputChange} required />
                 </div>
                 <div className="mb-3">
+                    <label htmlFor="parent" className="form-label">Parent Category</label>
+                    <select
+                        className="form-select"
+                        name="parent"
+                        value={newCategory.parent.id}
+                        onChange={handleInputChange}>
+
+                        <option value="">None</option>
+                        {categories.map((category) => (
+                            <option key={category.id} value={category.id}>
+                                {category.name}
+                            </option>
+                        ))}
+                    </select>
+                </div>
+                <div className="mb-3">
                     <button type="submit" className="btn btn-primary">Create Category</button>
                 </div>
             </form>
         </div>
     );
 };
+
+export default CreateCategory;
