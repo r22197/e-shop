@@ -2,7 +2,6 @@ package eshop.backend.response;
 
 
 import eshop.backend.model.CartHasProduct;
-import eshop.backend.model.Category;
 import lombok.*;
 
 import java.util.Set;
@@ -13,6 +12,6 @@ public class ProductDto {
     private String name;
     private String description;
     private double price;
-    private Category category;
+    private Long category;
     private Set<CartHasProduct> productInCarts;
 }

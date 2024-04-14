@@ -3,27 +3,32 @@ import { getProductById, updateProduct } from "../utils/ProductApi";
 import { getAllCategories } from "../utils/CategoryApi";
 import { Link, useParams } from "react-router-dom";
 
-const EditProduct = () => {
+
+
+const UpdateProduct = () => {
     const { id } = useParams();
     const [product, setProduct] = useState({
         name: "",
         description: "",
         price: "",
-        category: { id: "" }
+        category: ""
     });
+
     const [categories, setCategories] = useState([]);
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
-        fetchProduct(); // Načtení dat produktu při načtení komponenty
+        fetchProduct();
         fetchCategories();
-    }, []); // Zde je prázdné pole zajišťuje, že se useEffect spustí jen při načtení komponenty
+    }, [id]);
 
     const fetchProduct = async () => {
         try {
             const fetchedProduct = await getProductById(id);
-            setProduct(fetchedProduct); // Aktualizace stavu `product` s načtenými daty produktu
+            console.log(id)
+            console.log(fetchedProduct)
+            setProduct(fetchedProduct);
         } catch (error) {
             console.error("Error fetching product:", error);
         }
@@ -42,7 +47,7 @@ const EditProduct = () => {
         const { name, value } = e.target;
         setProduct({
             ...product,
-            [name]: name === "category" ? { id: value } : value
+            [name]: value
         });
     };
 
@@ -76,10 +81,15 @@ const EditProduct = () => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">Category</label>
-                    <select className="form-select" id="category" name="category" value={product.category.id} onChange={handleInputChange}>
+                    <select className="form-select"
+                            //id="category"
+                            name="category"
+                            value={product.category.id}
+                            onChange={handleInputChange}>
                         <option value="">Select Category</option>
                         {categories.map((category) => (
-                            <option key={category.id} value={category.id}>{category.name}</option>
+                            <option key={category.id} value={category.id}>
+                                {category.name}</option>
                         ))}
                     </select>
                 </div>
@@ -92,4 +102,4 @@ const EditProduct = () => {
     );
 };
 
-export default EditProduct;
+export default UpdateProduct;

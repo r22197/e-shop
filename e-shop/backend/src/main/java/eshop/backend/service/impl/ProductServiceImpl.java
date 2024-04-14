@@ -43,11 +43,8 @@ public class ProductServiceImpl implements ProductService {
     public Product create(ProductDto productDto) throws CategoryNotFoundException {
         Product product = new Product();
         convertDtoToProduct(productDto, product);
-        product.setProductInCarts(productDto.getProductInCarts());
-
         return productRepository.save(product);
     }
-
 
     @Override
     public void deleteProduct(Long productId) throws ProductNotFoundException {
@@ -71,9 +68,8 @@ public class ProductServiceImpl implements ProductService {
         product.setPrice(productDto.getPrice());
 
         CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository);
-        Category category = categoryService.getById(productDto.getCategory().getId());
+        Category category1 = categoryService.getById(productDto.getCategory());
 
-
-        product.setCategory(category);
+        product.setCategory(category1);
     }
 }

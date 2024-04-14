@@ -25,8 +25,7 @@ export const createProduct = async (newProductData) => {
         const response = await apiBaseUrl.post(`${BASE_URL}`, newProductData);
         return response.data;
     } catch (error) {
-        console.error("Error while adding product:", error);
-        throw error;
+        throw new Error("Error while adding product: " + error.message);
     }
 };
 

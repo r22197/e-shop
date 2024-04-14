@@ -1,4 +1,3 @@
-// CreateProduct.jsx
 import React, { useState, useEffect } from "react";
 import { getAllCategories } from "../utils/CategoryApi";
 import {createProduct} from "../utils/ProductApi"
@@ -9,7 +8,7 @@ const CreateProduct = () => {
         name: "",
         description: "",
         price: "",
-        category: { id: "" }
+        category: ""
     });
     const [categories, setCategories] = useState([]);
     const [successMessage, setSuccessMessage] = useState("");
@@ -32,17 +31,18 @@ const CreateProduct = () => {
         const { name, value } = e.target;
         setNewProduct({
             ...newProduct,
-            [name]: name === "category" ? { id: value } : value
+            [name]: value
         });
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            console.log(newProduct)
             const response = await createProduct(newProduct);
             if (response) {
                 setSuccessMessage("Product has been created successfully");
-                setNewProduct({ name: "", description: "", price: "", category: { id: "" } });
+                setNewProduct({ name: "", description: "", price: "", category: "" });
             } else {
                 setErrorMessage("Error while creating product");
             }
