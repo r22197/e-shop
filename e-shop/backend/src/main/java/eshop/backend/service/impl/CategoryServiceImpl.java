@@ -31,13 +31,16 @@ public class CategoryServiceImpl implements CategoryService {
                 .orElseThrow(() -> new CategoryNotFoundException("Category not found with ID: " + id));
     }
 
-    @Override
     public Category create(CategoryDto categoryDto) throws CategoryNotFoundException {
         Category category = new Category();
         category.setName(categoryDto.getName());
 
-        Category parent = getById(categoryDto.getParent());
-        category.setParent(parent);
+        if (categoryDto.getParent() != null) {
+            Category parent = getById(categoryDto.getParent());
+            category.setParent(parent);
+        } else {
+            category.setParent(null);
+        }
 
         return categoryRepository.save(category);
     }
@@ -48,7 +51,12 @@ public class CategoryServiceImpl implements CategoryService {
 
         category.setId(categoryDto.getId());
         category.setName(categoryDto.getName());
-        //category.setParent(categoryDto.getParent());
+        if (categoryDto.getParent() != null) {
+            Category parent = getById(categoryDto.getParent());
+            category.setParent(parent);
+        } else {
+            category.setParent(null);
+        }
         category.setProducts(categoryDto.getProducts());
 
         return categoryRepository.save(category);

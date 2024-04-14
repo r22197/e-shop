@@ -32,9 +32,9 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody CategoryDto categoryDto) throws CategoryNotFoundException {
-        Category category = categoryService.create(categoryDto);
-        return new ResponseEntity<>(category, HttpStatus.CREATED);
+    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto) throws CategoryNotFoundException {
+        categoryService.create(categoryDto);
+        return new ResponseEntity<>(categoryDto, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
