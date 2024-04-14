@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAllProducts, deleteProduct } from "../utils/ProductApi";
+import UpdateProduct from "../product/updateProduct";
 
 const AdminProductList = () => {
     const [pageInfo, setPageInfo] = useState({
@@ -57,32 +58,32 @@ const AdminProductList = () => {
 
     return (
         <div>
-            <h2>Administrační panel</h2>
-            <Link to="/admin/products/new" className="btn btn-primary mb-3">Create New Product</Link>
-            <table className="table">
+            <table className="table text-center mt-4">
                 <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Price</th>
-                    <th>Actions</th>
+                    <th>Název</th>
+                    <th>Kategorie</th>
+                    <th>Popis</th>
+                    <th>Cena</th>
+                    <th>Možnosti</th>
                 </tr>
                 </thead>
                 <tbody>
                 {pageInfo.products.map((product) => (
                     <tr key={product.id}>
-                        <td>{product.name}</td>
+                    <td>{product.name}</td>
+                        <td>{product.category.name}</td>
                         <td>{product.description}</td>
                         <td>{product.price}</td>
                         <td>
-                            <Link to={`/admin/products/${product.id}`} className="btn btn-info me-2">Edit</Link>
-                            <button className="btn btn-danger" onClick={() => handleDelete(product.id)}>Delete</button>
+                            <Link to={`/admin/products/update/${product.id}`} className="btn btn-info me-2">Upravit</Link>
+                            <button className="btn btn-danger" onClick={() => handleDelete(product.id)}>Smazat</button>
                         </td>
                     </tr>
                 ))}
                 </tbody>
             </table>
-            <div className="d-flex justify-content-center mt-4">
+            <div className="text-center mt-4">
                 <button className="btn btn-primary me-2" onClick={goToPreviousPage}
                         disabled={pageInfo.pageNumber === 0}>Previous Page
                 </button>
@@ -91,6 +92,8 @@ const AdminProductList = () => {
                         disabled={pageInfo.pageNumber === pageInfo.totalPages - 1}>Next Page
                 </button>
             </div>
+            <Link to="/admin/products/new" className="btn btn-primary mt-3 mb-3">Vytvořit nový produkt</Link>
+
         </div>
     );
 };
