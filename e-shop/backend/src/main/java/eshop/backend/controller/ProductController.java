@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/api/products")
 public class ProductController {
-
     private final ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -22,33 +21,44 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Product>> getAllProducts(
+    public ResponseEntity<Page<ProductDto>> getAllProducts(
             @RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize) {
         Page<Product> products = productService.getAllProducts(pageNumber, pageSize);
-        return ResponseEntity.ok(products);
+
+        Page<ProductDto> productsDto = products.map(product ->
+                new ProductDto(
+                        product.getName(),
+                        product.getDescription(),
+                        product.getPrice(),
+                        product.getCategory().getId()
+                ));
+        return ResponseEntity.ok(productsDto);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) throws ProductNotFoundException {
         Product product = productService.getProductById(id);
 
-        ProductDto productDto = new ProductDto();
-        productDto.convertFromProduct(product);
-
+        ProductDto productDto = new ProductDto(
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getCategory().getId()
+        );
         return ResponseEntity.ok(productDto);
     }
 
     @PostMapping
-    public ResponseEntity<Product> createProduct(@Valid @RequestBody ProductDto productDto) throws CategoryNotFoundException {
-        Product createdProduct = productService.create(productDto);
-        return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+    public ResponseEntity<ProductDto> createProduct(@Valid @RequestBody ProductDto productDto) throws CategoryNotFoundException {
+        productService.create(productDto);
+        return new ResponseEntity<>(productDto, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) throws ProductNotFoundException, CategoryNotFoundException {
-        Product updatedProduct = productService.updateProduct(id, productDto);
-        return ResponseEntity.ok(updatedProduct);
+    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) throws ProductNotFoundException, CategoryNotFoundException {
+        productService.updateProduct(id, productDto);
+        return ResponseEntity.ok(productDto);
     }
 
     @DeleteMapping("/{id}")

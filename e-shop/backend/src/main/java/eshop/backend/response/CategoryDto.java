@@ -1,6 +1,5 @@
 package eshop.backend.response;
 
-import eshop.backend.model.Category;
 import eshop.backend.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,8 +14,8 @@ public class CategoryDto {
     private Long parent;
     private Set<Product> products;
 
-    public void convertFromCategory(Category category) {
-        this.name = category.getName();
-        this.parent = category.getParent().getId();
+    public CategoryDto(String name, Long parent) {
+        this.name = name;
+        this.parent = parent;
     }
 }

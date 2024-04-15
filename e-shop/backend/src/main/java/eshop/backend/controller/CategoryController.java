@@ -2,14 +2,13 @@ package eshop.backend.controller;
 
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.model.Category;
-import eshop.backend.model.Product;
 import eshop.backend.response.CategoryDto;
-import eshop.backend.response.ProductDto;
 import eshop.backend.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -22,18 +21,26 @@ public class CategoryController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Category>> getAllCategories() {
+    public ResponseEntity<List<CategoryDto>> getAllCategories() {
         List<Category> categories = categoryService.getAll();
-        return ResponseEntity.ok(categories);
+        List<CategoryDto> categoriesDto = new ArrayList<>();
+
+        categories.forEach(category -> categoriesDto.add(
+                new CategoryDto(
+                        category.getName(),
+                        category.getParent().getId()
+                )));
+        return ResponseEntity.ok(categoriesDto);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
         Category category = categoryService.getById(id);
 
-        CategoryDto categoryDto = new CategoryDto();
-        categoryDto.convertFromCategory(category);
-
+        CategoryDto categoryDto = new CategoryDto(
+                category.getName(),
+                category.getParent().getId()
+        );
         return ResponseEntity.ok(categoryDto);
     }
 
@@ -44,9 +51,9 @@ public class CategoryController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody CategoryDto categoryDto) throws CategoryNotFoundException {
-        Category updatedCategory = categoryService.update(id, categoryDto);
-        return ResponseEntity.ok(updatedCategory);
+    public ResponseEntity<CategoryDto> updateCategory(@PathVariable Long id, @RequestBody CategoryDto categoryDto) throws CategoryNotFoundException {
+        categoryService.update(id, categoryDto);
+        return ResponseEntity.ok(categoryDto);
     }
 
     @DeleteMapping("/{id}")
