@@ -26,14 +26,7 @@ public class ProductController {
             @RequestParam(defaultValue = "10") Integer pageSize) {
         Page<Product> products = productService.getAllProducts(pageNumber, pageSize);
 
-        Page<ProductDto> productsDto = products.map(product ->
-                new ProductDto(
-                        product.getId(),
-                        product.getName(),
-                        product.getDescription(),
-                        product.getPrice(),
-                        product.getCategory().getId()
-                ));
+        Page<ProductDto> productsDto = products.map(this::convertToDto);
         return ResponseEntity.ok(productsDto);
     }
 
@@ -41,13 +34,7 @@ public class ProductController {
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) throws ProductNotFoundException {
         Product product = productService.getProductById(id);
 
-        ProductDto productDto = new ProductDto(
-                product.getId(),
-                product.getName(),
-                product.getDescription(),
-                product.getPrice(),
-                product.getCategory().getId()
-        );
+        ProductDto productDto = convertToDto(product);
         return ResponseEntity.ok(productDto);
     }
 
@@ -67,5 +54,15 @@ public class ProductController {
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) throws ProductNotFoundException {
         productService.deleteProduct(id);
         return ResponseEntity.ok().build();
+    }
+
+    private ProductDto convertToDto(Product product) {
+        return new ProductDto(
+                product.getId(),
+                product.getName(),
+                product.getDescription(),
+                product.getPrice(),
+                product.getCategory().getId()
+        );
     }
 }
