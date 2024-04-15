@@ -9,9 +9,11 @@ import java.util.Set;
 
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor
+@Table(name = "cart")
 public class Cart {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @OneToOne
@@ -19,10 +21,10 @@ public class Cart {
     private User user;
 
     @OneToMany(mappedBy = "cart")
-    private Set<CartHasProduct> cartHasProducts;
+    private Set<CartHasProduct> productsInCart;
 
     public Integer calculateTotalPrice() {
-        return cartHasProducts.stream()
+        return productsInCart.stream()
                 .mapToInt(e -> (int) e.getProduct().getPrice())
                 .sum();
     }

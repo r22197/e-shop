@@ -25,7 +25,7 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Address> addresses = new ArrayList<>();
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
     private Cart cart;
 
     private LocalDateTime dateOfRegistration;

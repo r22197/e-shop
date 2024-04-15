@@ -57,7 +57,7 @@ public class CategoryServiceImpl implements CategoryService {
         } else {
             category.setParent(null);
         }
-        category.setProducts(categoryDto.getProducts());
+        //category.setProducts(categoryDto.getProducts());
 
         return categoryRepository.save(category);
     }
@@ -66,7 +66,8 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(Long id) throws CategoryNotFoundException {
         Category category = getById(id);
 
-        categoryRepository.delete(category);
+        category.getChildCategories().forEach(childCategory -> childCategory.setParent(null));
 
+        categoryRepository.delete(category);
     }
 }

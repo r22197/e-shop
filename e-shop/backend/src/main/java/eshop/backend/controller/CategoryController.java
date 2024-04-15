@@ -26,7 +26,7 @@ public class CategoryController {
         List<CategoryDto> categoriesDto = new ArrayList<>();
 
         categories.forEach(category -> categoriesDto.add(
-                convertFromDto(category)));
+                convertToDto(category)));
         return ResponseEntity.ok(categoriesDto);
     }
 
@@ -34,7 +34,7 @@ public class CategoryController {
     public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
         Category category = categoryService.getById(id);
 
-        CategoryDto categoryDto = convertFromDto(category);
+        CategoryDto categoryDto = convertToDto(category);
         return ResponseEntity.ok(categoryDto);
     }
 
@@ -56,7 +56,7 @@ public class CategoryController {
         return ResponseEntity.ok().build();
     }
 
-    private CategoryDto convertFromDto(Category category) {
+    private CategoryDto convertToDto(Category category) {
         return new CategoryDto(
                 category.getId(),
                 category.getName(),
