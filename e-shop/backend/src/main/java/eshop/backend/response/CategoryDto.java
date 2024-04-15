@@ -14,7 +14,8 @@ public class CategoryDto {
     private Long parent;
     private Set<Product> products;
 
-    public CategoryDto(String name, Long parent) {
+    public CategoryDto(Long id, String name, Long parent) {
+        this.id = id;
         this.name = name;
         this.parent = parent;
     }

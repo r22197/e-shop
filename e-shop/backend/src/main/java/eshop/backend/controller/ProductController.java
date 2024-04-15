@@ -28,6 +28,7 @@ public class ProductController {
 
         Page<ProductDto> productsDto = products.map(product ->
                 new ProductDto(
+                        product.getId(),
                         product.getName(),
                         product.getDescription(),
                         product.getPrice(),
@@ -41,6 +42,7 @@ public class ProductController {
         Product product = productService.getProductById(id);
 
         ProductDto productDto = new ProductDto(
+                product.getId(),
                 product.getName(),
                 product.getDescription(),
                 product.getPrice(),

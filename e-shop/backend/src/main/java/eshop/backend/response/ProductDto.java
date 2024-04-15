@@ -14,7 +14,8 @@ public class ProductDto {
     private Long category;
     private Set<CartHasProduct> productInCarts;
 
-    public ProductDto(String name, String description, double price, Long category) {
+    public ProductDto(Long id, String name, String description, double price, Long category) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
