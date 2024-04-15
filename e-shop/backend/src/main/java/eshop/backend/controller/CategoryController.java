@@ -2,7 +2,9 @@ package eshop.backend.controller;
 
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.model.Category;
+import eshop.backend.model.Product;
 import eshop.backend.response.CategoryDto;
+import eshop.backend.response.ProductDto;
 import eshop.backend.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,9 +28,13 @@ public class CategoryController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
+    public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
         Category category = categoryService.getById(id);
-        return ResponseEntity.ok(category);
+
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.convertFromCategory(category);
+
+        return ResponseEntity.ok(categoryDto);
     }
 
     @PostMapping

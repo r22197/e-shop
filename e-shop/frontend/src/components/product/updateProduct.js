@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getProductById, updateProduct } from "../utils/ProductApi";
-import { getAllCategories } from "../utils/CategoryApi";
+import { getAllCategories, getCategoryById } from "../utils/CategoryApi";
 import { Link, useParams } from "react-router-dom";
-
-
 
 const UpdateProduct = () => {
     const { id } = useParams();
@@ -15,6 +13,7 @@ const UpdateProduct = () => {
     });
 
     const [categories, setCategories] = useState([]);
+    const [loading, setLoading] = useState(true);
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
 
@@ -26,9 +25,10 @@ const UpdateProduct = () => {
     const fetchProduct = async () => {
         try {
             const fetchedProduct = await getProductById(id);
-            console.log(id)
-            console.log(fetchedProduct)
-            setProduct(fetchedProduct);
+            setProduct({
+                ...fetchedProduct,
+                categoryId: fetchedProduct.category.id
+            });
         } catch (error) {
             console.error("Error fetching product:", error);
         }
@@ -38,6 +38,7 @@ const UpdateProduct = () => {
         try {
             const data = await getAllCategories();
             setCategories(data);
+            setLoading(false);
         } catch (error) {
             console.error("Error fetching categories:", error);
         }
@@ -61,6 +62,10 @@ const UpdateProduct = () => {
         }
     };
 
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
     return (
         <div className="container">
             <h2>Edit Product</h2>
@@ -81,15 +86,12 @@ const UpdateProduct = () => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">Category</label>
-                    <select className="form-select"
-                            //id="category"
-                            name="category"
-                            value={product.category.id}
-                            onChange={handleInputChange}>
+                    <select className="form-select" name="category" value={product.category} onChange={handleInputChange}>
                         <option value="">Select Category</option>
                         {categories.map((category) => (
                             <option key={category.id} value={category.id}>
-                                {category.name}</option>
+                                {category.name}
+                            </option>
                         ))}
                     </select>
                 </div>

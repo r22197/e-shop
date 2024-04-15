@@ -30,9 +30,13 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) throws ProductNotFoundException {
+    public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) throws ProductNotFoundException {
         Product product = productService.getProductById(id);
-        return ResponseEntity.ok(product);
+
+        ProductDto productDto = new ProductDto();
+        productDto.convertFromProduct(product);
+
+        return ResponseEntity.ok(productDto);
     }
 
     @PostMapping

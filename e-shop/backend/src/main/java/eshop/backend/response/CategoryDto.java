@@ -15,4 +15,8 @@ public class CategoryDto {
     private Long parent;
     private Set<Product> products;
 
+    public void convertFromCategory(Category category) {
+        this.name = category.getName();
+        this.parent = category.getParent().getId();
+    }
 }
