@@ -1,52 +1,62 @@
 package eshop.backend.controller;
 
 import eshop.backend.exception.CategoryNotFoundException;
+import eshop.backend.mapper.CategoryMapper;
 import eshop.backend.model.Category;
-import eshop.backend.response.CategoryDto;
+import eshop.backend.dto.CategoryDto;
 import eshop.backend.service.CategoryService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/categories")
 public class CategoryController {
     private final CategoryService categoryService;
+    private final CategoryMapper categoryMapper;
 
-    public CategoryController(CategoryService categoryService) {
+    public CategoryController(CategoryService categoryService, CategoryMapper categoryMapper) {
         this.categoryService = categoryService;
+        this.categoryMapper = categoryMapper;
     }
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
-        List<Category> categories = categoryService.getAll();
-        List<CategoryDto> categoriesDto = new ArrayList<>();
+        List<CategoryDto> categoryDtoList = categoryService.getAll().stream()
+                .map(categoryMapper::convertToDto)
+                .collect(Collectors.toList());
 
-        categories.forEach(category -> categoriesDto.add(
-                convertToDto(category)));
-        return ResponseEntity.ok(categoriesDto);
+        return ResponseEntity.ok(categoryDtoList);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
         Category category = categoryService.getById(id);
+        CategoryDto categoryDto = categoryMapper.convertToDto(category);
 
-        CategoryDto categoryDto = convertToDto(category);
         return ResponseEntity.ok(categoryDto);
     }
 
     @PostMapping
-    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto) throws CategoryNotFoundException {
-        categoryService.create(categoryDto);
-        return new ResponseEntity<>(categoryDto, HttpStatus.CREATED);
+    public ResponseEntity<CategoryDto> createCategory(@RequestBody CategoryDto categoryDto) {
+        Category category = categoryMapper.convertToEntity(categoryDto);
+        categoryService.create(category);
+        CategoryDto createdCategoryDto = categoryMapper.convertToDto(category);
+
+        return new ResponseEntity<>(createdCategoryDto, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CategoryDto> updateCategory(@PathVariable Long id, @RequestBody CategoryDto categoryDto) throws CategoryNotFoundException {
-        categoryService.update(id, categoryDto);
+        if (!Objects.equals(id, categoryDto.getId())) {
+            throw new CategoryNotFoundException("ID of the category is not equal to the one being updated.");
+        }
+        Category category = categoryMapper.convertToEntity(categoryDto);
+        categoryService.update(category);
         return ResponseEntity.ok(categoryDto);
     }
 
@@ -54,13 +64,5 @@ public class CategoryController {
     public ResponseEntity<?> deleteCategory(@PathVariable Long id) throws CategoryNotFoundException {
         categoryService.delete(id);
         return ResponseEntity.ok().build();
-    }
-
-    private CategoryDto convertToDto(Category category) {
-        return new CategoryDto(
-                category.getId(),
-                category.getName(),
-                category.getParent() != null ? category.getParent().getId() : null
-        );
     }
 }

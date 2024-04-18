@@ -1,10 +1,10 @@
-package eshop.backend.response;
+package eshop.backend.dto;
 
-import eshop.backend.model.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Data @NoArgsConstructor @AllArgsConstructor
@@ -12,11 +12,5 @@ public class CategoryDto {
     private Long id;
     private String name;
     private Long parent;
-    private Set<Product> products;
-
-    public CategoryDto(Long id, String name, Long parent) {
-        this.id = id;
-        this.name = name;
-        this.parent = parent;
-    }
+    private Set<CategoryDto> childCategories = new HashSet<>();
 }
