@@ -11,6 +11,9 @@ public class CategoryMapper {
         CategoryDto categoryDto = new CategoryDto();
         categoryDto.setId(category.getId());
         categoryDto.setName(category.getName());
+
+        categoryDto.setParent(category.getParent() != null ? category.getParent().getId() : null);
+
         return categoryDto;
     }
 
@@ -18,6 +21,15 @@ public class CategoryMapper {
         Category category = new Category();
         category.setId(categoryDto.getId());
         category.setName(categoryDto.getName());
+
+        if (categoryDto.getParent() != null) {
+            Category parent = new Category();
+            parent.setId(categoryDto.getParent());
+            category.setParent(parent);
+        } else {
+            category.setParent(null);
+        }
+
         return category;
     }
 }

@@ -2,12 +2,14 @@ package eshop.backend.service.impl;
 
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.model.Category;
+import eshop.backend.model.Product;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.service.CategoryService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -23,6 +25,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public Set<Product> getProductsInCategory(Long id) throws CategoryNotFoundException {
+        Category category = getById(id);
+
+        return category.getProducts();
+    }
+
+    @Override
     public Category getById(Long id) throws CategoryNotFoundException {
         Optional<Category> category = categoryRepository.findById(id);
 
@@ -32,16 +41,19 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category create(Category category) {
-        return categoryRepository.save(category);
+        categoryRepository.save(category);
+
+        return category;
     }
 
     @Override
     public Category update(Category category) throws CategoryNotFoundException {
-        Category updatedCategory = getById(category.getId());
-        updatedCategory.setName(category.getName());
-        updatedCategory.setParent(category.getParent());
+        Category existingCategory = getById(category.getId());
+        existingCategory.setName(category.getName());
+        existingCategory.setParent(category.getParent());
+        categoryRepository.save(existingCategory);
 
-        return categoryRepository.save(updatedCategory);
+        return category;
     }
 
     @Override
