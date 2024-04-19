@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { createCategory, getAllCategories } from "../utils/CategoryApi";
+import { createCategory, getAllCategories } from "../data/CategoryApi";
 
 export const CreateCategory = () => {
     const [newCategory, setNewCategory] = useState({
