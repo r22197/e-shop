@@ -8,6 +8,10 @@ import AdminCategoryList from "./components/admin/AdminCategoryList";
 import CreateCategory from "./components/category/createCategory";
 import CreateProduct from "./components/product/createProduct";
 import Sidebar from "./components/layout/Sidebar";
+import UpdateCategory from "./components/category/updateCategory";
+import GetCart from "./components/cart/getCart";
+import GetAllCategories from "./components/category/getAllCategories";
+import Categories from "./components/layout/Categories";
 
 function App() {
     return (
@@ -16,15 +20,19 @@ function App() {
                 <div className="col-md-3">
                     <Sidebar/>
                 </div>
-                <div className="col-md-9">
+                <div className="col-md-8">
+                    <Categories/>
                     <Routes>
                         <Route path="/admin/categories/new" element={CreateCategory()}/>
                         <Route path="/admin/categories" element={AdminCategoryList()} />
                         <Route path="/admin/products/new" element={CreateProduct()} />
                         <Route path="/admin/products/update/:id" element={<UpdateProduct />} />
+                        <Route path="/admin/categories/update/:id" element={<UpdateCategory />} />
+
 
                         <Route path="/admin/products" element={AdminProductList()} />
                         <Route path="/" element={GetAllProducts()} />
+                        <Route path="/cart" element={GetCart()} />
                     </Routes>
                 </div>
             </div>
