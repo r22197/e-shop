@@ -12,5 +12,7 @@ public interface CartService {
     void removeProduct(Long ProductId);
     List<CartHasProduct> getCart();
 
-    CartHasProduct updateProductCartQuantity(Long id, Integer quantity);
+    void updateProductCartQuantity(Long id, Integer quantity);
+
+    double calculateTotalPrice();
 }

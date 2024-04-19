@@ -1,10 +1,12 @@
 package eshop.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,16 +18,6 @@ public class Cart {
     @Column(name = "id")
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
     @OneToMany(mappedBy = "cart")
-    private Set<CartHasProduct> productsInCart;
-
-    public Integer calculateTotalPrice() {
-        return productsInCart.stream()
-                .mapToInt(e -> (int) e.getProduct().getPrice())
-                .sum();
-    }
+    private Set<CartHasProduct> productsInCart = new HashSet<>();
 }

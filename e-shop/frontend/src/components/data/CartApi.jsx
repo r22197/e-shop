@@ -7,7 +7,7 @@ export const getCart = async () => {
         const response = await apiBaseUrl.get(`${BASE_URL}`);
         return response.data;
     } catch (error) {
-        throw new Error("Error fetching categories: " + error.message);
+        throw new Error("Error fetching cart has product: " + error.message);
     }
 };
 
@@ -16,16 +16,16 @@ export const addToShoppingCart = async (productId) => {
         const response = await apiBaseUrl.post(`${BASE_URL}/add/${productId}`, productId);
         return response.data;
     } catch (error) {
-        throw new Error("Error while creating category: " + error.message);
+        throw new Error("Error while creating cart has product: " + error.message);
     }
 };
 
-export const updatedProductCart = async (productId, newQuantity) => {
+export const updateProductCartQuantity = async (id, quantity) => {
     try {
-        const response = await apiBaseUrl.put(`${BASE_URL}/${productId}`, newQuantity);
+        const response = await apiBaseUrl.put(`${BASE_URL}/${id}`, { quantity });
         return response.data;
     } catch (error) {
-        throw new Error("Error updating category: " + error.message);
+        throw new Error("Error updating cart has product: " + error.message);
     }
 };
 
@@ -34,5 +34,14 @@ export const removeFromShoppingCart = async (productId) => {
         await apiBaseUrl.delete(`${BASE_URL}/${productId}`);
     } catch (error) {
         throw new Error("Error deleting product: " + error.message);
+    }
+};
+
+export const getTotalPrice = async () => {
+    try {
+        const response = await apiBaseUrl.get(`${BASE_URL}/total-price`);
+        return response.data;
+    } catch (error) {
+        throw new Error("Error fetching total price: " + error.message);
     }
 };
