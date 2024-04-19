@@ -15,7 +15,4 @@ public class Address {
     private String city;
     private int zipCode;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
 }

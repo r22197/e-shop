@@ -1,5 +1,6 @@
 package eshop.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -20,13 +21,6 @@ public class User {
     private String phoneNumber;
     private String password;
     private String role;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private List<Address> addresses = new ArrayList<>();
-
-    @OneToOne(mappedBy = "user", fetch = FetchType.LAZY)
-    private Cart cart;
 
     private LocalDateTime dateOfRegistration;
 
