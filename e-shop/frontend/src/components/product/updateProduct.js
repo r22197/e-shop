@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getProductById, updateProduct } from "../utils/ProductApi";
-import { getAllCategories, getCategoryById } from "../utils/CategoryApi";
+import { getProductById, updateProduct } from "../data/ProductApi";
+import { getAllCategories, getCategoryById } from "../data/CategoryApi";
 import { Link, useParams } from "react-router-dom";
 
 const UpdateProduct = () => {
@@ -27,7 +27,7 @@ const UpdateProduct = () => {
             const fetchedProduct = await getProductById(id);
             setProduct({
                 ...fetchedProduct,
-                categoryId: fetchedProduct.category.id
+                //categoryId: fetchedProduct.category.id
             });
         } catch (error) {
             console.error("Error fetching product:", error);
@@ -55,6 +55,7 @@ const UpdateProduct = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
+            console.log(product)
             await updateProduct(id, product);
             setSuccessMessage("Product has been updated successfully");
         } catch (error) {

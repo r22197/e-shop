@@ -1,12 +1,9 @@
 package eshop.backend.service.impl;
 
-import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.exception.ProductNotFoundException;
-import eshop.backend.model.Category;
 import eshop.backend.model.Product;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.repository.ProductRepository;
-import eshop.backend.response.ProductDto;
 import eshop.backend.service.ProductService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -32,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product getProductById(Long id) throws ProductNotFoundException {
+    public Product getById(Long id) throws ProductNotFoundException {
         Optional<Product> product = productRepository.findById(id);
 
         return product
@@ -40,36 +37,38 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product create(ProductDto productDto) throws CategoryNotFoundException {
-        Product product = new Product();
-        convertDtoToProduct(productDto, product);
-        return productRepository.save(product);
+    public Product create(Product product) {
+
+        if (categoryRepository.findById(product.getCategory().getId()).isPresent()) {
+            product.setCategory(categoryRepository.findById(product.getCategory().getId()).get());
+        }
+
+        productRepository.save(product);
+
+        return product;
     }
 
     @Override
-    public void deleteProduct(Long productId) throws ProductNotFoundException {
-        Product product = getProductById(productId);
+    public Product update(Long id, Product product) throws ProductNotFoundException {
+        Product existingProduct = getById(id);
+        existingProduct.setName(product.getName());
+        existingProduct.setDescription(product.getDescription());
+        existingProduct.setPrice(product.getPrice());
+
+        if (categoryRepository.findById(product.getCategory().getId()).isPresent()) {
+            existingProduct.setCategory(categoryRepository.findById(product.getCategory().getId()).get());
+        }
+
+
+        productRepository.save(existingProduct);
+
+        return product;
+    }
+
+    @Override
+    public void delete(Long productId) throws ProductNotFoundException {
+        Product product = getById(productId);
 
         productRepository.delete(product);
-    }
-
-    @Override
-    public Product updateProduct(Long productId, ProductDto productDto) throws ProductNotFoundException, CategoryNotFoundException {
-        Product product = getProductById(productId);
-
-        convertDtoToProduct(productDto, product);
-
-        return productRepository.save(product);
-    }
-
-    private void convertDtoToProduct(ProductDto productDto, Product product) throws CategoryNotFoundException {
-        product.setName(productDto.getName());
-        product.setDescription(productDto.getDescription());
-        product.setPrice(productDto.getPrice());
-
-        CategoryServiceImpl categoryService = new CategoryServiceImpl(categoryRepository);
-        Category category1 = categoryService.getById(productDto.getCategory());
-
-        product.setCategory(category1);
     }
 }

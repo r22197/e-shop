@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -34,4 +32,10 @@ public class Product {
     @OneToMany(mappedBy = "product")
     private Set<CartHasProduct> productsInCart;
 
+    public void setPrice(double price) {
+        if (price <= 0) {
+            throw new IllegalArgumentException("Number cannot be negative.");
+        }
+        this.price = price;
+    }
 }
