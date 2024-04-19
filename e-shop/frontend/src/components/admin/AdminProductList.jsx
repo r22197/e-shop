@@ -1,8 +1,7 @@
-// AdminProductList.jsx
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getAllProducts, deleteProduct } from "../utils/ProductApi";
-import UpdateProduct from "../product/updateProduct";
+import { getAllProducts, deleteProduct } from "../data/ProductApi";
+import { getCategoryById } from "../data/CategoryApi";
 
 const AdminProductList = () => {
     const [pageInfo, setPageInfo] = useState({
@@ -19,8 +18,12 @@ const AdminProductList = () => {
     const fetchProducts = async () => {
         try {
             const response = await getAllProducts(pageInfo.pageNumber, pageSize);
+            const products = await Promise.all(response.content.map(async (product) => {
+                const category = await getCategoryById(product.category);
+                return { ...product, categoryName: category.name };
+            }));
             setPageInfo({
-                products: response.content,
+                products: products,
                 totalPages: response.totalPages,
                 pageNumber: pageInfo.pageNumber
             });
@@ -71,8 +74,8 @@ const AdminProductList = () => {
                 <tbody>
                 {pageInfo.products.map((product) => (
                     <tr key={product.id}>
-                    <td>{product.name}</td>
-                        <td>{product.category.name}</td>
+                        <td>{product.name}</td>
+                        <td>{product.categoryName}</td>
                         <td>{product.description}</td>
                         <td>{product.price}</td>
                         <td>

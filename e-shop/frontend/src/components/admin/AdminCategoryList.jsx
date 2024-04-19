@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { getAllCategories, deleteCategory } from "../utils/CategoryApi";
+import { getAllCategories, deleteCategory, getCategoryById } from "../data/CategoryApi";
 
 const AdminCategoryList = () => {
     const [categories, setCategories] = useState([]);
@@ -13,7 +13,14 @@ const AdminCategoryList = () => {
     const fetchCategories = async () => {
         try {
             const data = await getAllCategories();
-            setCategories(data);
+            const categoriesWithParentNames = await Promise.all(data.map(async (category) => {
+                const parentCategory = category.parent ? await getCategoryById(category.parent) : null;
+                return {
+                    ...category,
+                    parentName: parentCategory ? parentCategory.name : "-"
+                };
+            }));
+            setCategories(categoriesWithParentNames);
         } catch (error) {
             setErrorMessage("Error fetching categories: " + error.message);
         }
@@ -35,7 +42,7 @@ const AdminCategoryList = () => {
             <table className="table text-center mt-4">
                 <thead>
                 <tr>
-                <th>Název</th>
+                    <th>Název</th>
                     <th>Nadřazená kategorie</th>
                     <th>Možnosti</th>
                 </tr>
@@ -44,9 +51,9 @@ const AdminCategoryList = () => {
                 {categories.map((category) => (
                     <tr key={category.id}>
                         <td>{category.name}</td>
-                        <td>{category.parent ? category.parent.name : "-"}</td>
+                        <td>{category.parentName}</td>
                         <td>
-                            <Link to={`/admin/categories/${category.id}`} className="btn btn-info me-2">Upravit</Link>
+                            <Link to={`/admin/categories/update/${category.id}`} className="btn btn-info me-2">Upravit</Link>
                             <button className="btn btn-danger" onClick={() => handleDelete(category.id)}>Smazat</button>
                         </td>
                     </tr>
@@ -54,7 +61,6 @@ const AdminCategoryList = () => {
                 </tbody>
             </table>
             <Link to="/admin/categories/new" className="btn btn-primary mb-3">Vytvořit novou kategorii</Link>
-
         </div>
     );
 };
