@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getAllProducts } from "../utils/ProductApi";
+import { getAllProducts } from "../data/ProductApi";
+import { addToShoppingCart, getCart } from "../data/CartApi";
 
 const GetAllProducts = () => {
     const [pageInfo, setPageInfo] = useState({
@@ -7,24 +8,13 @@ const GetAllProducts = () => {
         totalPages: 1,
         pageNumber: 0
     });
+    const [cartItems, setCartItems] = useState([]);
     const pageSize = 10;
 
     useEffect(() => {
         fetchProducts();
+        fetchCartItems();
     }, [pageInfo.pageNumber]);
-
-    const fetchProducts = async () => {
-        try {
-            const response = await getAllProducts(pageInfo.pageNumber, pageSize);
-            setPageInfo({
-                products: response.content,
-                totalPages: response.totalPages,
-                pageNumber: pageInfo.pageNumber
-            });
-        } catch (error) {
-            console.error("Error fetching products:", error);
-        }
-    };
 
     const goToPreviousPage = () => {
         if (pageInfo.pageNumber > 0) {
@@ -44,21 +34,56 @@ const GetAllProducts = () => {
         }
     };
 
-    const addToCart = (productId) => {
-        console.log(`Product with ID ${productId} added to cart`);
+
+    const fetchProducts = async () => {
+        try {
+            const response = await getAllProducts(pageInfo.pageNumber, pageSize);
+            setPageInfo({
+                products: response.content,
+                totalPages: response.totalPages,
+                pageNumber: pageInfo.pageNumber
+            });
+        } catch (error) {
+            console.error("Error fetching products:", error);
+        }
+    };
+
+    const fetchCartItems = async () => {
+        try {
+            const cartData = await getCart();
+            setCartItems(cartData);
+        } catch (error) {
+            console.error("Error fetching cart items:", error);
+        }
+    };
+
+    const isInCart = (productId) => {
+        return cartItems.some(item => item.product === productId);
+    };
+
+    const addToCart = async (productId) => {
+        try {
+            await addToShoppingCart(productId);
+            fetchCartItems(); // Refresh cart items after adding product
+        } catch (error) {
+            throw new Error("Error while adding product: " + error.message)
+        }
     };
 
     return (
         <div className="container">
             <h2>Product List</h2>
-            <div className="row row-cols-1 row-cols-md-3 g-4">
+            <div className="row row-cols-2 row-cols-md-3 g-2">
                 {pageInfo.products.map((product) => (
                     <div key={product.id} className="col">
                         <div className="card h-100">
                             <div className="card-body">
-                                <h5 className="card-title">{product.name}</h5>
+                                <img src="https://xphotography.ca/wp-content/uploads/2023/11/The_Impact_of_Lifestyle_Photography_in_Modern_Product.jpg" className="card-img" alt={product.name}/>
+                                <h5 className="card-title text-center">{product.name}</h5>
                                 <p className="card-text">{product.price} CZK</p>
-                                <button className="btn btn-primary" onClick={() => addToCart(product.id)}>Add to Cart</button>
+                                <button className={`btn ${isInCart(product.id) ? "btn-success" : "btn-primary"}`} onClick={() => addToCart(product.id)}>
+                                    {isInCart(product.id) ? "V košíku" : "Přidat do košíku"}
+                                </button>
                             </div>
                         </div>
                     </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { getAllCategories } from "../utils/CategoryApi";
-import {createProduct} from "../utils/ProductApi"
+import { getAllCategories } from "../data/CategoryApi";
+import {createProduct} from "../data/ProductApi"
 import {Link} from "react-router-dom";
 
 const CreateProduct = () => {
