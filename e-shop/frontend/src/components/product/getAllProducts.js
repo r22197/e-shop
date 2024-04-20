@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { getAllProducts } from "../data/ProductApi";
 import { addToShoppingCart, getCart } from "../data/CartApi";
+import { getProductsInCategory } from "../data/CategoryApi";
 
-const GetAllProducts = () => {
+const GetAllProducts = ({ categoryId }) => {
     const [pageInfo, setPageInfo] = useState({
         products: [],
         totalPages: 1,
@@ -11,33 +11,9 @@ const GetAllProducts = () => {
     const [cartItems, setCartItems] = useState([]);
     const pageSize = 10;
 
-    useEffect(() => {
-        fetchProducts();
-        fetchCartItems();
-    }, [pageInfo.pageNumber]);
-
-    const goToPreviousPage = () => {
-        if (pageInfo.pageNumber > 0) {
-            setPageInfo(prevPageInfo => ({
-                ...prevPageInfo,
-                pageNumber: prevPageInfo.pageNumber - 1
-            }));
-        }
-    };
-
-    const goToNextPage = () => {
-        if (pageInfo.pageNumber < pageInfo.totalPages - 1) {
-            setPageInfo(prevPageInfo => ({
-                ...prevPageInfo,
-                pageNumber: prevPageInfo.pageNumber + 1
-            }));
-        }
-    };
-
-
     const fetchProducts = async () => {
         try {
-            const response = await getAllProducts(pageInfo.pageNumber, pageSize);
+            const response = await getProductsInCategory(categoryId, pageInfo.pageNumber, pageSize);
             setPageInfo({
                 products: response.content,
                 totalPages: response.totalPages,
@@ -57,6 +33,29 @@ const GetAllProducts = () => {
         }
     };
 
+    useEffect(() => {
+        fetchProducts();
+        fetchCartItems();
+    }, [pageInfo.pageNumber, categoryId]);
+
+    const goToPreviousPage = () => {
+        if (pageInfo.pageNumber > 0) {
+            setPageInfo(prevPageInfo => ({
+                ...prevPageInfo,
+                pageNumber: prevPageInfo.pageNumber - 1
+            }));
+        }
+    };
+
+    const goToNextPage = () => {
+        if (pageInfo.pageNumber < pageInfo.totalPages - 1) {
+            setPageInfo(prevPageInfo => ({
+                ...prevPageInfo,
+                pageNumber: prevPageInfo.pageNumber + 1
+            }));
+        }
+    };
+
     const isInCart = (productId) => {
         return cartItems.some(item => item.product === productId);
     };
@@ -64,7 +63,7 @@ const GetAllProducts = () => {
     const addToCart = async (productId) => {
         try {
             await addToShoppingCart(productId);
-            fetchCartItems(); // Refresh cart items after adding product
+            fetchCartItems();
         } catch (error) {
             throw new Error("Error while adding product: " + error.message)
         }
@@ -78,7 +77,7 @@ const GetAllProducts = () => {
                     <div key={product.id} className="col">
                         <div className="card h-100">
                             <div className="card-body">
-                                <img src="https://xphotography.ca/wp-content/uploads/2023/11/The_Impact_of_Lifestyle_Photography_in_Modern_Product.jpg" className="card-img" alt={product.name}/>
+                                <img src="https://xphotography.ca/wp-content/uploads/2023/11/The_Impact_of_Lifestyle_Photography_in_Modern_Product.jpg" className="card-img"/>
                                 <h5 className="card-title text-center">{product.name}</h5>
                                 <p className="card-text">{product.price} CZK</p>
                                 <button className={`btn ${isInCart(product.id) ? "btn-success" : "btn-primary"}`} onClick={() => addToCart(product.id)}>
