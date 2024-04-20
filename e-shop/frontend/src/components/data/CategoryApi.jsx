@@ -11,15 +11,6 @@ export const getAllCategories = async () => {
     }
 };
 
-export const getProductsInCategory = async (categoryId, pageNumber, pageSize) => {
-    try {
-        const response = await apiBaseUrl.get(`${BASE_URL}/products/${categoryId}?pageNumber=${pageNumber}&pageSize=${pageSize}`);
-        return response.data;
-    } catch (error) {
-        throw new Error("Error fetching category by ID: " + error.message);
-    }
-};
-
 export const getCategoryById = async (categoryId) => {
     try {
         const response = await apiBaseUrl.get(`${BASE_URL}/${categoryId}`);

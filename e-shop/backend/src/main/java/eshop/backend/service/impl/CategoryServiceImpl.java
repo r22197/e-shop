@@ -4,7 +4,12 @@ import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.model.Category;
 import eshop.backend.model.Product;
 import eshop.backend.repository.CategoryRepository;
+import eshop.backend.repository.ProductRepository;
 import eshop.backend.service.CategoryService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,9 +19,11 @@ import java.util.Set;
 @Service
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
+    private final ProductRepository productRepository;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository, ProductRepository productRepository) {
         this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
@@ -25,10 +32,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Set<Product> getProductsInCategory(Long id) throws CategoryNotFoundException {
+    public Page<Product> getProductsInCategory(Long id, Integer pageNumber, Integer pageSize, String sortBy) throws CategoryNotFoundException {
         Category category = getById(id);
+        Sort sort = sortBy.equalsIgnoreCase("asc") ? Sort.by("price").ascending() : Sort.by("price").descending();
 
-        return category.getProducts();
+        return productRepository.findByCategory(category, PageRequest.of(pageNumber, pageSize, sort));
     }
 
     @Override

@@ -1,9 +1,7 @@
 package eshop.backend.controller;
 
-import eshop.backend.dto.ProductDto;
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.mapper.CategoryMapper;
-import eshop.backend.mapper.ProductMapper;
 import eshop.backend.model.Category;
 import eshop.backend.dto.CategoryDto;
 import eshop.backend.service.CategoryService;
@@ -13,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @RestController
@@ -21,12 +18,10 @@ import java.util.stream.Collectors;
 public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
-    private final ProductMapper productMapper;
 
-    public CategoryController(CategoryService categoryService, CategoryMapper categoryMapper, ProductMapper productMapper) {
+    public CategoryController(CategoryService categoryService, CategoryMapper categoryMapper) {
         this.categoryService = categoryService;
         this.categoryMapper = categoryMapper;
-        this.productMapper = productMapper;
     }
 
     @GetMapping
@@ -36,15 +31,6 @@ public class CategoryController {
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(categoryDtoList);
-    }
-
-    @GetMapping("/products/{id}")
-    public ResponseEntity<Set<ProductDto>> getProductsInCategory(@PathVariable Long id) throws CategoryNotFoundException {
-        Set<ProductDto> productsDtoSet = categoryService.getProductsInCategory(id).stream()
-                .map(productMapper::convertToDto)
-                        .collect(Collectors.toSet());
-
-        return ResponseEntity.ok(productsDtoSet);
     }
 
     @GetMapping("/{id}")

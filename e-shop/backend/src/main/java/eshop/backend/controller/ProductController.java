@@ -36,6 +36,21 @@ public class ProductController {
         return ResponseEntity.ok(productDtoPages);
     }
 
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Page<ProductDto>> getProductsInCategory(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "asc") String sortBy,
+            @RequestParam(required = false) Double lowPrice,
+            @RequestParam(required = false) Double maxPrice) throws CategoryNotFoundException {
+
+        Page<Product> productPage = productService.getProductsInCategory(id, pageNumber, pageSize, sortBy, lowPrice, maxPrice);
+        Page<ProductDto> productDtoPage = productPage.map(productMapper::convertToDto);
+        return ResponseEntity.ok(productDtoPage);
+    }
+
+
     @GetMapping("/{id}")
     public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) throws ProductNotFoundException {
         Product product = productService.getById(id);
