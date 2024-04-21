@@ -14,6 +14,8 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -32,6 +34,14 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll(PageRequest.of(pageNumber, pageSize));
     }
 
+    public List<Product> searchProducts(String query) {
+        if (query == null || query.isEmpty()) {
+            return Collections.emptyList();
+        }
+        String queryLowerCase = query.toLowerCase();
+        return productRepository.findByNameContainingIgnoreCase(queryLowerCase);
+    }
+
     @Override
     public Page<Product> getProductsInCategory(Long id, Integer pageNumber, Integer pageSize, String sortBy, Double lowPrice, Double maxPrice) throws CategoryNotFoundException {
         Category category = categoryRepository.findById(id)
@@ -46,7 +56,6 @@ public class ProductServiceImpl implements ProductService {
             return productRepository.findByCategory(category, pageable);
         }
     }
-
 
     @Override
     public Product getById(Long id) throws ProductNotFoundException {

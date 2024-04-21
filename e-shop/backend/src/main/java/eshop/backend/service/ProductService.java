@@ -1,9 +1,12 @@
 package eshop.backend.service;
 
+import com.jayway.jsonpath.JsonPath;
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.model.Product;
 import org.springframework.data.domain.Page;
+
+import java.util.List;
 
 public interface ProductService {
     Page<Product> getAllProducts(Integer pageNumber, Integer pageSize);
@@ -12,4 +15,6 @@ public interface ProductService {
     Product create(Product product);
     Product update(Long id, Product product) throws ProductNotFoundException;
     void delete(Long productId) throws ProductNotFoundException;
+
+    List<Product> searchProducts(String query);
 }

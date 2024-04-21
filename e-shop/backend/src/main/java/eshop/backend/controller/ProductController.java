@@ -12,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/products")
@@ -35,6 +37,19 @@ public class ProductController {
 
         return ResponseEntity.ok(productDtoPages);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<ProductDto>> searchProducts(@RequestParam String query) {
+        List<ProductDto> productDtoList = productService
+                .searchProducts(query)
+                .stream()
+                .map(productMapper::convertToDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(productDtoList);
+    }
+
+
 
     @GetMapping("/category/{id}")
     public ResponseEntity<Page<ProductDto>> getProductsInCategory(
@@ -65,6 +80,7 @@ public class ProductController {
         productService.create(product);
 
         return new ResponseEntity<>(productDto, HttpStatus.CREATED);
+
     }
 
     @PutMapping("/{id}")
