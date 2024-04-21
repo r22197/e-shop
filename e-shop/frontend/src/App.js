@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UpdateProduct from "./components/product/updateProduct";
@@ -9,7 +9,7 @@ import CreateProduct from "./components/product/createProduct";
 import Sidebar from "./components/layout/Sidebar";
 import UpdateCategory from "./components/category/updateCategory";
 import GetCart from "./components/cart/getCart";
-import Categories from "./components/layout/Categories";
+import Navigationbar from "./components/layout/Navigationbar";
 import ConditionalGetAllProducts from "./components/product/ConditionalGetAllProducts";
 
 function App() {
@@ -20,18 +20,18 @@ function App() {
                     <Sidebar/>
                 </div>
                 <div className="col-md-8">
-                    <Categories/>
+                    <Navigationbar/>
                     <Routes>
-                        <Route path="/admin/categories/new" element={CreateCategory()}/>
-                        <Route path="/admin/categories" element={AdminCategoryList()} />
-                        <Route path="/admin/products/new" element={CreateProduct()} />
+                        <Route path="/admin/categories/new" element={<CreateCategory />} />
+                        <Route path="/admin/categories" element={<AdminCategoryList />} />
+                        <Route path="/admin/products/new" element={<CreateProduct />} />
                         <Route path="/admin/products/update/:id" element={<UpdateProduct />} />
                         <Route path="/admin/categories/update/:id" element={<UpdateCategory />} />
 
                         <Route path="/category/:id" element={<ConditionalGetAllProducts />} />
 
-                        <Route path="/admin/products" element={AdminProductList()} />
-                        <Route path="/cart" element={GetCart()} />
+                        <Route path="/admin/products" element={<AdminProductList />} />
+                        <Route path="/cart" element={<GetCart />} />
                     </Routes>
                 </div>
             </div>
