@@ -11,6 +11,29 @@ export const getAllProducts = async (pageNumber, pageSize) => {
     }
 };
 
+export const getProductsByCategory = async (categoryId, pageNumber, pageSize, sortBy, lowPrice, maxPrice) => {
+    try {
+        let url = `${BASE_URL}/category/${categoryId}?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}`;
+        if (lowPrice && maxPrice) {
+            url += `&lowPrice=${lowPrice}&maxPrice=${maxPrice}`;
+        }
+        const response = await apiBaseUrl.get(url);
+        return response.data;
+    } catch (error) {
+        throw new Error("Error fetching category by ID: " + error.message);
+    }
+};
+
+export const getProductsContaining = async (query) => {
+    try {
+        let url = `${BASE_URL}/search?query=${query}`;
+        const response = await apiBaseUrl.get(url);
+        return response.data;
+    } catch (error) {
+        throw new Error("Error fetching category by ID: " + error.message);
+    }
+};
+
 export const getProductById = async (productId) => {
     try {
         const response = await apiBaseUrl.get(`${BASE_URL}/${productId}`);
