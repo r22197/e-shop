@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { getAllCategories } from "../data/CategoryApi";
 import { getProductsContaining } from "../data/ProductApi";
+import AuthComponent from "../home/AuthComponent";
 
 const Navigationbar = () => {
     const [categories, setCategories] = useState([]);
@@ -43,6 +44,7 @@ const Navigationbar = () => {
 
     return (
         <div className="p-3">
+                <AuthComponent/>
             <div className="d-flex">
                 <div>
                     <ul className="nav d-flex flex-wrap">

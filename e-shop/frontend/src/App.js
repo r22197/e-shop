@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import UpdateProduct from "./components/product/updateProduct";
@@ -11,10 +11,16 @@ import UpdateCategory from "./components/category/updateCategory";
 import GetCart from "./components/cart/getCart";
 import Navigationbar from "./components/layout/Navigationbar";
 import ConditionalGetAllProducts from "./components/product/ConditionalGetAllProducts";
+import Login from "./components/home/Login";
+import Register from "./components/home/Register";
 
 function App() {
+
     return (
-        <Router>
+
+        <div className="App">
+
+            <Router>
             <div className="row">
                 <div className="col-md-3">
                     <Sidebar/>
@@ -22,6 +28,9 @@ function App() {
                 <div className="col-md-8">
                     <Navigationbar/>
                     <Routes>
+                        <Route path="/login" element={<Login/>} />
+
+                        <Route path="/signup" element={ <Register/>} />
                         <Route path="/admin/categories/new" element={<CreateCategory />} />
                         <Route path="/admin/categories" element={<AdminCategoryList />} />
                         <Route path="/admin/products/new" element={<CreateProduct />} />
@@ -35,8 +44,13 @@ function App() {
                     </Routes>
                 </div>
             </div>
-        </Router>
+            </Router>
+
+        </div>
+
     );
 }
+
+
 
 export default App;

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { getCart, removeFromShoppingCart, updateProductCartQuantity } from "../data/CartApi";
 import { getProductById } from "../data/ProductApi";
 
 const GetCart = () => {
     const [updatedCartItems, setUpdatedCartItems] = useState([]);
     const [loading, setLoading] = useState(true);
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchCart();
@@ -12,6 +14,12 @@ const GetCart = () => {
 
     const fetchCart = async () => {
         try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                navigate('/login');
+
+                return;
+            }
             const cartData = await getCart();
             const updatedData = await Promise.all(cartData.map(async (item) => {
                 const productInfo = await getProductById(item.product);
@@ -64,7 +72,7 @@ const GetCart = () => {
 
     return (
         <div>
-            <h2>Shopping Cart</h2>
+            <h2>Nákupní košík</h2>
             <table className="table text-center mt-4">
                 <thead>
                 <tr>
