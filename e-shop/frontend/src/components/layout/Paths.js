@@ -7,6 +7,7 @@ import CreateProduct from "../product/createProduct";
 import UpdateProduct from "../product/updateProduct";
 import AdminProductList from "../admin/AdminProductList";
 import GetAllProducts from "../product/getAllProducts";
+import UpdateCategory from "../category/updateCategory";
 
 
 function Paths() {
@@ -19,7 +20,7 @@ function Paths() {
 
                 <Route path="/admin/categories/new" element={< CreateCategory />}/>
                 <Route path="admin/categories" element={<AdminCategoryList/>} />
-
+                <Route path="/admin/categories/:id" element={<UpdateCategory />} />
                 <Route path="/" element={<GetAllProducts />} />
             </Routes>
         </Router>

@@ -42,6 +42,7 @@
 <ownerDesignName>new</ownerDesignName>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
+<structuredType>47E390DE-0671-C4B1-8428-0F45CBEE18F8</structuredType>
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>

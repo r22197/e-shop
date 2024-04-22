@@ -5,13 +5,13 @@
 <generatorID>8EBF2611-643E-4C7B-9D53-464E08F264F4</generatorID>
 <ownerDesignName>new</ownerDesignName>
 <referredTableLongName>Nakupni_kosik</referredTableLongName>
-<deleteRule>NO ACTION</deleteRule>
+<deleteRule>CASCADE</deleteRule>
 <referredTableID>A0C3695C-7E8E-8A41-8069-4EC90BA97B4E</referredTableID>
 <keyObject>3EADDE33-1C8C-F28F-80D7-AC3E75F62BB0</keyObject>
 <referredKeyID>3EADDE33-1C8C-F28F-80D7-AC3E75F62BB0</referredKeyID>
 <mandatory>true</mandatory>
 <refColNames>id</refColNames>
-<transferable>true</transferable>
+<transferable>false</transferable>
 <rely>false</rely>
 <columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
 </FKIndexAssociation>

@@ -39,16 +39,6 @@
 <logicalDatatype>LOGDT011</logicalDatatype>
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 </Attribute>
-<Attribute name="kategorie" id="EACFDC6F-4278-9705-8161-06E2CB4B30F5">
-<createdBy>chrom</createdBy>
-<createdTime>2024-04-12 16:07:39 UTC</createdTime>
-<ownerDesignName>new</ownerDesignName>
-<engineerTo>
-<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
-</engineerTo>
-<use>0</use>
-<ownDataTypeParameters>,,</ownDataTypeParameters>
-</Attribute>
 <Attribute name="znacka" id="903A955F-3482-CC0B-22C1-A6D7B3B505E5">
 <createdBy>chrom</createdBy>
 <createdTime>2024-04-12 16:07:43 UTC</createdTime>
@@ -70,6 +60,20 @@
 </engineerTo>
 <nullsAllowed>true</nullsAllowed>
 <referedAttribute>E915AD55-5BDA-4453-2441-F9A9CA4E821A</referedAttribute>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT011</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+</Attribute>
+<Attribute name="id2" id="7EC3F139-FCBA-F2AC-7CAE-4CF003F8561C">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-21 14:54:49 UTC</createdTime>
+<generatorID>D016A367-8B6E-3925-93A1-538D660F59CC</generatorID>
+<ownerDesignName>new</ownerDesignName>
+<engineerTo>
+<item key="12286CAC-81A3-1189-E434-2C331EE49746" value="true"/>
+</engineerTo>
+<referedAttribute>D97D6142-6EF1-032A-9B73-5B8BF05D0AB1</referedAttribute>
 <useDomainConstraints>false</useDomainConstraints>
 <use>1</use>
 <logicalDatatype>LOGDT011</logicalDatatype>

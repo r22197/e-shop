@@ -5,13 +5,13 @@
 <generatorID>B2CBF3C5-A65A-F8B2-6F02-E6F55C2AC3AF</generatorID>
 <ownerDesignName>new</ownerDesignName>
 <referredTableLongName>Produkt</referredTableLongName>
-<deleteRule>NO ACTION</deleteRule>
+<deleteRule>CASCADE</deleteRule>
 <referredTableID>0EF24DC4-AC93-7427-F07F-4404D07878D0</referredTableID>
 <keyObject>9054A59D-8453-5127-3AC7-EDE08D4D5DD9</keyObject>
 <referredKeyID>9054A59D-8453-5127-3AC7-EDE08D4D5DD9</referredKeyID>
 <mandatory>true</mandatory>
 <refColNames>id</refColNames>
-<transferable>true</transferable>
+<transferable>false</transferable>
 <rely>false</rely>
 <columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
 </FKIndexAssociation>

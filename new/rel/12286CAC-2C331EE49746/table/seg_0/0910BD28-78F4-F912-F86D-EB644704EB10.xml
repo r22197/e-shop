@@ -66,6 +66,17 @@
 <ownDataTypeParameters>,,</ownDataTypeParameters>
 <autoIncrementCycle>false</autoIncrementCycle>
 </Column>
+<Column name="typ" id="6F02EA81-090B-F1FD-1526-075478DC8471">
+<createdBy>chrom</createdBy>
+<createdTime>2024-04-21 15:02:58 UTC</createdTime>
+<ownerDesignName>new</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>10</dataTypeSize>
+<ownDataTypeParameters>10,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
 </columns>
 <indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
 <ind_PK_UK id="C2681F32-8C9D-8568-1C13-3B34DD270B64" name="Osoba_PK">

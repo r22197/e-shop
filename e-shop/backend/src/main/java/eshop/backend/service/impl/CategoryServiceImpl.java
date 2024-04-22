@@ -4,12 +4,14 @@ import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.model.Category;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.service.CategoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+//@RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 

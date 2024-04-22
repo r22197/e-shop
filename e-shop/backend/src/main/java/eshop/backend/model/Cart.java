@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,6 +20,10 @@ public class Cart {
     @Column(name = "id")
     private Long id;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany(mappedBy = "cart")
-    private Set<CartHasProduct> productsInCart = new HashSet<>();
+    private List<CartHasProduct> productsInCart = new ArrayList<>();
 }

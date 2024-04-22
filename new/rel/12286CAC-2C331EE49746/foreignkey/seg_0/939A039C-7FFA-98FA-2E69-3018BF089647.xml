@@ -5,13 +5,13 @@
 <generatorID>3330D070-8396-9691-BED4-5FB52E107CEA</generatorID>
 <ownerDesignName>new</ownerDesignName>
 <referredTableLongName>Zakaznik</referredTableLongName>
-<deleteRule>NO ACTION</deleteRule>
+<deleteRule>CASCADE</deleteRule>
 <referredTableID>BFC3C34F-A947-F605-760F-762317D5FF28</referredTableID>
 <keyObject>DF41EE54-C548-CDDD-109D-14506303CF4F</keyObject>
 <referredKeyID>DF41EE54-C548-CDDD-109D-14506303CF4F</referredKeyID>
 <mandatory>true</mandatory>
 <refColNames>id</refColNames>
-<transferable>true</transferable>
+<transferable>false</transferable>
 <rely>false</rely>
 <columnDependencyConstraintGenerateInDDL>true</columnDependencyConstraintGenerateInDDL>
 </FKIndexAssociation>
