@@ -1,5 +1,6 @@
 package eshop.backend.repository;
 
+import eshop.backend.model.Cart;
 import eshop.backend.model.CartHasProduct;
 import eshop.backend.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,6 +10,6 @@ import java.util.Optional;
 
 @Repository
 public interface CartHasProductRepository extends JpaRepository<CartHasProduct, Long> {
-    Optional<CartHasProduct> findByProduct(Product product);
+    Optional<CartHasProduct> findByCartAndProduct(Cart cart, Product product);
 
 }

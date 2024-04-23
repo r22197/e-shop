@@ -1,10 +1,11 @@
-import apiBaseUrl from "./apiBaseUrl";
+import apiBaseUrl, {getHeader} from "./apiBaseUrl";
 
 const BASE_URL = "/api/shopping-cart";
 
 export const getCart = async () => {
     try {
-        const response = await apiBaseUrl.get(`${BASE_URL}`);
+        const response = await apiBaseUrl.get(`${BASE_URL}`,
+            { headers: getHeader() })
         return response.data;
     } catch (error) {
         throw new Error("Error fetching cart has product: " + error.message);
@@ -13,7 +14,9 @@ export const getCart = async () => {
 
 export const addToShoppingCart = async (productId) => {
     try {
-        const response = await apiBaseUrl.post(`${BASE_URL}/add/${productId}`, productId);
+        const response = await apiBaseUrl.post(`${BASE_URL}/add/${productId}`,
+            {},
+            { headers: getHeader() });
         return response.data;
     } catch (error) {
         throw new Error("Error while creating cart has product: " + error.message);

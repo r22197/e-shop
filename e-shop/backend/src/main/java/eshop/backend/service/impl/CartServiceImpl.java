@@ -22,18 +22,17 @@ public class CartServiceImpl implements CartService {
     private final CartRepository cartRepository;
 
     @Override
-    public List<CartHasProduct> getCart() {
-        return cartHasProductRepository.findAll();
+    public Cart getCartByUserEmail(String email) {
+
+        return cartRepository.findCartByUserEmail(email);
     }
 
     @Override
-    public void addProduct(Long productId) {
+    public void addProduct(Cart cart, Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Product not found"));
 
-        Cart cart = cartRepository.findById(1L).orElseThrow(() -> new NoSuchElementException("Cart not found"));
-
-        Optional<CartHasProduct> existingCartItem = cartHasProductRepository.findByProduct(product);
+        Optional<CartHasProduct> existingCartItem = cartHasProductRepository.findByCartAndProduct(cart, product);
 
         if (existingCartItem.isPresent()) {
             CartHasProduct cartItem = existingCartItem.get();

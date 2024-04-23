@@ -2,13 +2,20 @@ package eshop.backend.controller;
 
 import eshop.backend.dto.CartHasProductDto;
 import eshop.backend.dto.UpdateProductCartQuantityDto;
+import eshop.backend.model.Cart;
+import eshop.backend.model.User;
 import eshop.backend.service.CartService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/shopping-cart")
@@ -17,22 +24,32 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public ResponseEntity<List<CartHasProductDto>> getCart() {
-        List<CartHasProductDto> cartHasProductDtoList = cartService.getCart().stream()
-                .map(cartHasProduct -> new CartHasProductDto(
-                        cartHasProduct.getId(),
-                        cartHasProduct.getQuantity(),
-                        cartHasProduct.getCart().getId(),
-                        cartHasProduct.getProduct().getId()
-                ))
-                .toList();
+    public ResponseEntity<List<CartHasProductDto>> getCart(@AuthenticationPrincipal UserDetails userDetails) {
+        String email = userDetails.getUsername();
+        Cart cart = cartService.getCartByUserEmail(email);
 
-        return ResponseEntity.ok(cartHasProductDtoList);
+        if (cart != null && cart.getProductsInCart() != null && !cart.getProductsInCart().isEmpty()) {
+            List<CartHasProductDto> cartHasProductDtoList = cart.getProductsInCart().stream()
+                    .map(cartHasProduct -> new CartHasProductDto(
+                            cartHasProduct.getId(),
+                            cartHasProduct.getQuantity(),
+                            cartHasProduct.getCart().getId(),
+                            cartHasProduct.getProduct().getId()
+                    ))
+                    .toList();
+            return ResponseEntity.ok(cartHasProductDtoList);
+        } else {
+            return ResponseEntity.ok(Collections.emptyList());
+        }
     }
 
+
     @PostMapping("/add/{id}")
-    public ResponseEntity<String> addToShoppingCart(@PathVariable Long id) {
-        cartService.addProduct(id);
+    public ResponseEntity<String> addToShoppingCart(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id) {
+        String email = userDetails.getUsername();
+        Cart cart = cartService.getCartByUserEmail(email);
+
+        cartService.addProduct(cart, id);
         return ResponseEntity.ok("Item added to the shopping cart.");
     }
 
