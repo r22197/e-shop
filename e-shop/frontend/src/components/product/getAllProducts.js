@@ -97,7 +97,7 @@ const GetAllProducts = ({ categoryId }) => {
                     <p>{priceRange[0]} - {priceRange[1]} Kč</p>
                 </div>
                 <div className="d-flex">
-                <button
+                    <button
                         className={`btn btn-primary me-2 ${sortBy === "asc" ? "disabled" : ""}`}
                         onClick={() => handleSortChange("asc")}
                         disabled={sortBy === "asc"}

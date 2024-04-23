@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor
@@ -26,4 +23,9 @@ public class Cart {
 
     @OneToMany(mappedBy = "cart")
     private List<CartHasProduct> productsInCart = new ArrayList<>();
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
