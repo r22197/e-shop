@@ -1,9 +1,7 @@
 package eshop.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -19,6 +17,7 @@ public class User {
 
     private String username;
     private String password;
+    private String email;
     private String role;
 
     private LocalDateTime dateOfRegistration;

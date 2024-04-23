@@ -4,102 +4,38 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e9990ad-9827-455e-89ac-ef73b28ec77c" name="Changes" comment="rozšíření o produkty podle kategorie">
-      <change afterPath="$PROJECT_DIR$/../../CZC G GK1000.lnk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../GitHub Desktop.lnk" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../datamodeler/datamodeler/types/defaultdomains.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/frontend.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" />
+    <list default="true" id="4e9990ad-9827-455e-89ac-ef73b28ec77c" name="Changes" comment="up to date, všechny zbylé složky">
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/CorsConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/WebSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/jwt/AuthTokenFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/jwt/JwtAuthEntryPoint.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/jwt/JwtUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/user/ShopUserDetails.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/user/ShopUserDetailsService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/controller/JwtResponse.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/controller/LoginRequest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/exception/UserAlreadyExistsException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/home/AuthProvider.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/home/Profile.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/Cart.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/Cart.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/CategoryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/CategoryServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/WebConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/controller/AuthController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/UserDetailService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/Paths.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Paths.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/product/getAllProducts.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/utils/ApiFunctions.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new.dmd" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/businessinfo/Business Information.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/datatypes/DataTypes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/datatypes/structuredtype/seg_0/47E390DE-0671-C4B1-8428-0F45CBEE18F8.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/datatypes/structuredtype/seg_0/F72C39E0-D1CA-8821-2AD7-A1E95A37D3D1.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/datatypes/subviews/34B830C7-A07E-2791-F25C-F5CEFB91228E.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/Logical.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/entity/seg_0/3038A805-3CAC-C9A3-48E0-5BAE6439B139.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/logical/entity/seg_0/31727F3B-9308-27FB-8D97-DA83A53ED0C8.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/entity/seg_0/3A12F07F-EB99-4FA8-001D-648BB9EBD516.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/entity/seg_0/4C9B4EC5-4C19-5A96-6BB7-BFA9D8D37642.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/entity/seg_0/70DAC6AA-A0B0-FF89-D825-4EE008BC42D0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/logical/entity/seg_0/70DAC6AA-A0B0-FF89-D825-4EE008BC42D0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/entity/seg_0/7FBE4F78-2624-E2AE-4BF4-D37141C38715.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/logical/entity/seg_0/7FBE4F78-2624-E2AE-4BF4-D37141C38715.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/entity/seg_0/AD71655F-7C73-17D3-6B96-82D45CF8D488.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/entity/seg_0/ADC7C040-C13D-DEF1-1417-8BAA42D438D0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/entity/seg_0/AF5EA699-04AB-FA9F-67BB-91C5E8BCC645.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/entity/seg_0/B0C5784D-1579-28B2-9520-B636D9A2BB2B.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/inheritance/seg_0/1B3416FC-BCE9-FF6C-947D-AF177E4A7026.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/inheritance/seg_0/2F636731-872E-A9B9-43C0-D70F4285ECBE.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/relation/seg_0/216529D0-1AC9-9C59-998A-E18FB292625D.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/logical/relation/seg_0/BAD352C7-E7EC-83AD-214B-3D3F2DD91DE3.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/relation/seg_0/3330D070-8396-9691-BED4-5FB52E107CEA.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/relation/seg_0/3A3D89B9-A22A-0EC7-4DDB-CDA803C1421F.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/relation/seg_0/608931D9-9DBF-12DE-60C8-015FBBA8D9D3.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/logical/relation/seg_0/D016A367-8B6E-3925-93A1-538D660F59CC.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/relation/seg_0/6BBE715F-8BE2-0F05-B250-15E617ED3AE4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/relation/seg_0/8469B99B-D8D1-C2F9-457C-D120F5923E8A.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/relation/seg_0/8EBF2611-643E-4C7B-9D53-464E08F264F4.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/relation/seg_0/9EC461B6-8202-E84B-B8B9-871AA5442767.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/relation/seg_0/A4DE8975-EB92-4F3F-6FB3-7084C74C851D.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/relation/seg_0/B2CBF3C5-A65A-F8B2-6F02-E6F55C2AC3AF.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/relation/seg_0/FF20290B-9187-1988-894E-A7A35A1D063C.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/logical/subviews/D08D3579-C5AE-4087-30D1-9845678057A0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/logical/subviews/D08D3579-C5AE-4087-30D1-9845678057A0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/mapping/DeletedMap_RM12286CAC-81A3-1189-E434-2C331EE49746.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/mapping/DeletedMap_RM12286CAC-81A3-1189-E434-2C331EE49746.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/mapping/ExtendedMap.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/mapping/ExtendedMap_RM12286CAC-81A3-1189-E434-2C331EE49746.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/mapping/ExtendedMap_RM12286CAC-81A3-1189-E434-2C331EE49746.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/pm/Process Model.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rdbms/new_RDBMSSites.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/arc/seg_0/A9CD217E-9443-1E0A-A2E1-41BBDEFC5096.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/arc/seg_0/A9CD217E-9443-1E0A-A2E1-41BBDEFC5096.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/06AD28E4-6910-778B-E1B5-DCC693E9C251.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/06AD28E4-6910-778B-E1B5-DCC693E9C251.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/0BCA6349-96E8-DFF0-F471-7AF0D0ED134B.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/2049B9A6-C3C4-FCDB-68D4-E851FE8098EF.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/2049B9A6-C3C4-FCDB-68D4-E851FE8098EF.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/343FC894-AE5A-FB5F-423F-88662AB499EE.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/343FC894-AE5A-FB5F-423F-88662AB499EE.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/3668E1B0-AA63-2558-051A-48AE2241D1F6.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/49FE304B-E1BA-5CE9-CC9D-98897A72778D.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/49FE304B-E1BA-5CE9-CC9D-98897A72778D.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/5E939BB0-E155-60AF-820B-2BF70ED59880.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/5E939BB0-E155-60AF-820B-2BF70ED59880.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/92761A7F-659B-3298-56EE-C96C8C5D8721.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/939A039C-7FFA-98FA-2E69-3018BF089647.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/939A039C-7FFA-98FA-2E69-3018BF089647.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/A165F55B-870A-9F24-4F87-4ADA4E7B3F9D.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/ADB691B2-4342-85B6-C3C1-1111550C4AA0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/B9BFB3AB-FAE4-C605-0A92-ED1DE64BD60D.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/BA6EDE3F-74F1-2BE5-5CE5-63852E867894.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/BA6EDE3F-74F1-2BE5-5CE5-63852E867894.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/BC66327F-BCEE-968D-97A7-329841134D66.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/BC66327F-BCEE-968D-97A7-329841134D66.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/C6F0997A-E0C9-64FD-77C2-8DBBA1DEE531.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/E06E61EE-9E55-40D8-759B-5C7932A9650E.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/F65BB1E0-9B38-1931-EB69-C0F08AF2A79C.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/F65BB1E0-9B38-1931-EB69-C0F08AF2A79C.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/F79E0F9A-000D-7795-45F6-81A1EE9B935F.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/F79E0F9A-000D-7795-45F6-81A1EE9B935F.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/F9587BF2-75B4-46A4-0E77-FFD2DCC75301.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/F9587BF2-75B4-46A4-0E77-FFD2DCC75301.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/FB2A0CEB-0E7D-0535-70A7-EFFDDEA04442.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/FB2A0CEB-0E7D-0535-70A7-EFFDDEA04442.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/FB576B00-7FB4-417C-85B5-D141EE6E1A77.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/FD125ADA-ABEB-F1DD-73C6-0FBD02619CA2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/foreignkey/seg_0/FD125ADA-ABEB-F1DD-73C6-0FBD02619CA2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/subviews/D8462A48-C4C2-8B9F-F511-FA8700CE66D5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/subviews/D8462A48-C4C2-8B9F-F511-FA8700CE66D5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/012863BA-2D3B-FF9E-E5AA-26A1A9D8EC72.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/04A35EBD-56E7-2FDF-C326-91AE10C180DA.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/04A35EBD-56E7-2FDF-C326-91AE10C180DA.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/0910BD28-78F4-F912-F86D-EB644704EB10.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/0910BD28-78F4-F912-F86D-EB644704EB10.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/0EF24DC4-AC93-7427-F07F-4404D07878D0.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/164085A8-F61B-A762-C498-1159D77FF085.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/2E62FB98-2352-DD21-FC91-0AB0F122FF63.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/3E6D5CD2-0CF6-A43A-3F5F-C9F06B494D27.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/4FAD7386-D294-F8B8-5840-BC5AFAB828EC.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/4FD87D3A-CAF8-FC7F-B944-64580FD5920F.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/4FD87D3A-CAF8-FC7F-B944-64580FD5920F.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/662F93E5-C543-408F-8562-31A25022077F.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/662F93E5-C543-408F-8562-31A25022077F.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/7735BA2D-ED9B-9108-ABC3-D2D82E527F74.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/976CD79D-33D4-F04E-DA26-092D09765B84.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/976CD79D-33D4-F04E-DA26-092D09765B84.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/9B48B83F-6DA5-3CB3-B328-3F94C4059AEC.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/9B48B83F-6DA5-3CB3-B328-3F94C4059AEC.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/A0C3695C-7E8E-8A41-8069-4EC90BA97B4E.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/A0C3695C-7E8E-8A41-8069-4EC90BA97B4E.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/B968B1DE-45C1-BDA6-2395-A6B17DD47336.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/B968B1DE-45C1-BDA6-2395-A6B17DD47336.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/BFC3C34F-A947-F605-760F-762317D5FF28.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/BFC3C34F-A947-F605-760F-762317D5FF28.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/D58F0CBF-9212-8DC1-71C2-2697C95F5315.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../new/rel/12286CAC-2C331EE49746/table/seg_0/D58F0CBF-9212-8DC1-71C2-2697C95F5315.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/UserApi.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/UserApi.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/apiBaseUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/apiBaseUrl.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/AuthComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/AuthComponent.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/Register.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,8 +45,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JavaScript File" />
         <option value="JSX File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -295,7 +231,7 @@
       <option name="presentableId" value="Default" />
       <updated>1713650051395</updated>
       <workItem from="1713650055616" duration="61000" />
-      <workItem from="1713650127612" duration="28009000" />
+      <workItem from="1713650127612" duration="39773000" />
     </task>
     <task id="LOCAL-00012" summary="přidání login, register">
       <option name="closed" value="true" />
@@ -313,7 +249,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713815473052</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="up to date, všechny zbylé složky">
+      <option name="closed" value="true" />
+      <created>1713815531251</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1713815531251</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -334,7 +278,8 @@
     <MESSAGE value="product list nyní podle kategorií" />
     <MESSAGE value="přidání login, register" />
     <MESSAGE value="rozšíření o produkty podle kategorie" />
-    <option name="LAST_COMMIT_MESSAGE" value="rozšíření o produkty podle kategorie" />
+    <MESSAGE value="up to date, všechny zbylé složky" />
+    <option name="LAST_COMMIT_MESSAGE" value="up to date, všechny zbylé složky" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

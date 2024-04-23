@@ -1,44 +1,77 @@
-// SignupComponent.jsx
-import React, { useState } from 'react';
-import { register } from "../data/UserApi";
-import { useNavigate } from 'react-router-dom';
-import { MDBContainer, MDBInput } from 'mdb-react-ui-kit';
+import React, { useState } from "react"
+import { Link } from "react-router-dom"
+import {registerUser} from "../data/UserApi";
 
 const Register = () => {
-    const [registerData, setRegisterData] = useState({ username: '', password: '', email: '' });
-    const [error, setError] = useState('');
-    const history = useNavigate();
+    const [registration, setRegistration] = useState({
+        email: "",
+        password: ""
+    })
 
-    const handleSignup = async () => {
+    const [errorMessage, setErrorMessage] = useState("")
+    const [successMessage, setSuccessMessage] = useState("")
+
+    const handleInputChange = (e) => {
+        setRegistration({ ...registration, [e.target.name]: e.target.value })
+    }
+
+    const handleRegistration = async (e) => {
+        e.preventDefault()
         try {
-            const user = await register(registerData);
-            console.log('Registered user:', user);
-            localStorage.setItem('token', user.token);
-            history('/');
+            const result = await registerUser(registration)
+            setSuccessMessage(result)
+            setErrorMessage("")
+            setRegistration({ email: "", password: "" })
         } catch (error) {
-            console.error('Registration failed:', error.message);
-            setError(error.response ? error.response.data : error.message);
+            setSuccessMessage("")
+            setErrorMessage(`Registration error : ${error.message}`)
         }
-    };
+    }
 
     return (
-        <div className="p-3">
-            <h2 className="mb-4 text-center">Vytvořit účet</h2>
-            {error && <p className="text-danger">{error}</p>}
-            <MDBInput wrapperClass='mb-4' placeholder="Jméno" id='username' value={registerData.username} type='text'
-                      onChange={(e) => setRegisterData({...registerData, username: e.target.value})}/>
-            <MDBInput wrapperClass='mb-4' placeholder='Heslo' id='password' type='password'
-                      value={registerData.password}
-                      onChange={(e) => setRegisterData({...registerData, password: e.target.value})}/>
-            <button className="mb-4 d-block btn-primary" style={{height: '50px', width: '100%'}}
-                    onClick={handleSignup}>Zaregistrovat
-            </button>
+        <section className="container col-6">
+            {errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
+            {successMessage && <p className="alert alert-success">{successMessage}</p>}
+            <h2 className="text-center">Vytvořit účet</h2>
+            <form onSubmit={handleRegistration}>
+                <div className="row mb-3">
+                    <div>
+                        <input
+                            placeholder="Email"
+                            id="email"
+                            name="email"
+                            type="email"
+                            className="form-control"
+                            value={registration.email}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
 
-            <div className="text-center">
-                <p>Už máš účet? <a href="/login">Přihlásit se</a></p>
-            </div>
-        </div>
-    );
-};
+                <div className="row mb-3">
+                    <div>
+                        <input
+                            placeholder="Heslo"
+                            type="password"
+                            className="form-control"
+                            id="password"
+                            name="password"
+                            value={registration.password}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
+                <div className="mb-3">
+                    <button className="mb-4 d-block btn btn-primary" type="submit"
+                            style={{height: '50px', width: '100%'}}>Zaregistrovat
+                    </button>
+                    <div className="text-center">
+                        <p>Už máš účet? <Link to={"/login"}>Přihlásit se</Link></p>
+                    </div>
+                </div>
+            </form>
+        </section>
+    )
+}
 
-export default Register;
+export default Register

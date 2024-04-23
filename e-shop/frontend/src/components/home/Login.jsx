@@ -1,38 +1,78 @@
-// LoginComponent.jsx
-import React, { useState } from 'react';
-import { login } from "../data/UserApi";
-import { useNavigate } from 'react-router-dom';
-import { MDBContainer, MDBInput } from 'mdb-react-ui-kit';
+import React, { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import {useAuth} from "./AuthProvider";
+import {loginUser} from "../data/UserApi";
 
 const Login = () => {
-    const [loginData, setLoginData] = useState({ username: '', password: '' });
-    const [error, setError] = useState('');
-    const history = useNavigate();
+    const [errorMessage, setErrorMessage] = useState("")
+    const [login, setLogin] = useState({
+        email: "",
+        password: ""
+    })
 
-    const handleLogin = async () => {
-        try {
-            const user = await login(loginData);
-            console.log('Logged in user:', user);
-            localStorage.setItem('token', user.token);
-            history('/');
-        } catch (error) {
-            console.error('Login failed:', error.message);
-            setError('Invalid username or password.');
+    const navigate = useNavigate()
+    const auth = useAuth()
+
+    const handleInputChange = (e) => {
+        setLogin({ ...login, [e.target.name]: e.target.value })
+    }
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const success = await loginUser(login)
+        if (success) {
+            const token = success.token
+            auth.handleLogin(token)
+            navigate(`/`)
+        } else {
+            setErrorMessage("Invalid username or password. Please try again.")
         }
-    };
+    }
 
     return (
-        <MDBContainer className="p-3">
-            <h2 className="mb-4 text-center">Přihlásit se</h2>
-            {error && <p className="text-danger">{error}</p>}
-            <MDBInput wrapperClass='mb-4' placeholder='Jméno' id='username' value={loginData.username} type='username' onChange={(e) => setLoginData({ ...loginData, username: e.target.value })} />
-            <MDBInput wrapperClass='mb-4' placeholder='Heslo' id='password' type='password' value={loginData.password} onChange={(e) => setLoginData({ ...loginData, password: e.target.value })} />
-            <button className="mb-4 d-block btn-primary" style={{ height:'50px',width: '100%' }} onClick={handleLogin}>Přihlásit</button>
-            <div className="text-center">
-                <p>Nemáš účet? <a href="/signup">Zaregistrovat se</a></p>
-            </div>
-        </MDBContainer>
-    );
-};
+        <section className="container col-6">
+            {errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
+            <h2 className="text-center">Přihlásit se</h2>
+            <form onSubmit={handleSubmit}>
+            <div className="row mb-3">
+                    <div>
+                        <input
+                            placeholder="Email"
+                            id="email"
+                            name="email"
+                            type="email"
+                            className="form-control"
+                            value={login.email}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
 
-export default Login;
+                <div className="row mb-3">
+                    <div>
+                        <input
+                            placeholder="Heslo"
+                            id="password"
+                            name="password"
+                            type="password"
+                            className="form-control"
+                            value={login.password}
+                            onChange={handleInputChange}
+                        />
+                    </div>
+                </div>
+
+                <div className="mb-3">
+                    <button className="mb-4 d-block btn btn-primary" type="submit"
+                            style={{height: '50px', width: '100%'}}>Přihlásit
+                    </button>
+                    <div className="text-center">
+                        <p>Nemáš účet? <Link to={"/register"}>Zaregistrovat se</Link></p>
+                    </div>
+                </div>
+            </form>
+        </section>
+    )
+}
+
+export default Login

@@ -1,38 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import { useAuth } from "./AuthProvider";
+import { Link } from 'react-router-dom';
 
 const AuthComponent = () => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [username, setUsername] = useState('');
-
-    useEffect(() => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            setIsLoggedIn(true);
-            setUsername('User');
-        }
-    }, []);
-
-    const handleLogout = () => {
-        localStorage.removeItem('token');
-        setIsLoggedIn(false);
-        setUsername('');
-    };
-
-    const handleLogoutClick = () => {
-        handleLogout();
-    };
+    const { user, handleLogout } = useAuth();
 
     return (
         <div>
-            {!isLoggedIn ? (
-                <>
-                    <a href="/login">Přihlásit se</a>
-                </>
+            {user ? (
+                <div className="d-flex align-items-center justify-content-end mb-2">
+                    <small className="fw-bolder me-2">{user.sub}</small>
+                    <div className="btn btn-danger" onClick={handleLogout}>Odhlásit se</div>
+                </div>
             ) : (
-                <>
-                    <p>Welcome, {username}!</p>
-                    <button onClick={handleLogoutClick}>Odhlásit se</button>
-                </>
+                <div className="d-flex align-items-center justify-content-end mb-2">
+                    <Link to="/login" className="btn btn-success">Přihlásit se</Link>
+                </div>
             )}
         </div>
     );
