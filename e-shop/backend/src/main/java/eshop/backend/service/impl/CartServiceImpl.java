@@ -7,25 +7,19 @@ import eshop.backend.repository.CartHasProductRepository;
 import eshop.backend.repository.CartRepository;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.service.CartService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
     private final ProductRepository productRepository;
     private final CartHasProductRepository cartHasProductRepository;
     private final CartRepository cartRepository;
-
-    public CartServiceImpl(ProductRepository productRepository, CartHasProductRepository cartHasProductRepository, CartRepository cartRepository) {
-        this.productRepository = productRepository;
-        this.cartHasProductRepository = cartHasProductRepository;
-        this.cartRepository = cartRepository;
-    }
 
     @Override
     public List<CartHasProduct> getCart() {

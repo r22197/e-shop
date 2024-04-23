@@ -1,6 +1,5 @@
 package eshop.backend.service;
 
-import com.jayway.jsonpath.JsonPath;
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.model.Product;

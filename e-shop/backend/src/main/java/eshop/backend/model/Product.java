@@ -1,6 +1,7 @@
 package eshop.backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,6 +23,7 @@ public class Product {
     private String description;
 
     @NotNull
+    @Min(1)
     private double price;
 
     @ManyToOne
@@ -31,11 +33,4 @@ public class Product {
 
     @OneToMany(mappedBy = "product")
     private Set<CartHasProduct> productsInCart;
-
-    public void setPrice(double price) {
-        if (price <= 0) {
-            throw new IllegalArgumentException("Number cannot be negative.");
-        }
-        this.price = price;
-    }
 }

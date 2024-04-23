@@ -1,9 +1,6 @@
 package eshop.backend.dto;
 
-import eshop.backend.model.CartHasProduct;
 import lombok.*;
-
-import java.util.Set;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class ProductDto {

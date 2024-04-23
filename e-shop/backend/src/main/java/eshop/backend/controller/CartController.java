@@ -3,6 +3,7 @@ package eshop.backend.controller;
 import eshop.backend.dto.CartHasProductDto;
 import eshop.backend.dto.UpdateProductCartQuantityDto;
 import eshop.backend.service.CartService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,12 +12,9 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/api/shopping-cart")
+@RequiredArgsConstructor
 public class CartController {
     private final CartService cartService;
-
-    public CartController(CartService cartService) {
-        this.cartService = cartService;
-    }
 
     @GetMapping
     public ResponseEntity<List<CartHasProductDto>> getCart() {

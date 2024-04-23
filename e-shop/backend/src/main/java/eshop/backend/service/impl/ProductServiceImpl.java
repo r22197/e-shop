@@ -7,6 +7,7 @@ import eshop.backend.model.Product;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.service.ProductService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -19,15 +20,10 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Transactional
+@RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
-
-    public ProductServiceImpl(ProductRepository productRepository, CategoryRepository categoryRepository) {
-        this.productRepository = productRepository;
-        this.categoryRepository = categoryRepository;
-    }
 
     @Override
     public Page<Product> getAllProducts(Integer pageNumber, Integer pageSize) {

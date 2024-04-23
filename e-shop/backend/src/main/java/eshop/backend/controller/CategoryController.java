@@ -5,6 +5,7 @@ import eshop.backend.mapper.CategoryMapper;
 import eshop.backend.model.Category;
 import eshop.backend.dto.CategoryDto;
 import eshop.backend.service.CategoryService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,14 +16,10 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/categories")
+@RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
     private final CategoryMapper categoryMapper;
-
-    public CategoryController(CategoryService categoryService, CategoryMapper categoryMapper) {
-        this.categoryService = categoryService;
-        this.categoryMapper = categoryMapper;
-    }
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
