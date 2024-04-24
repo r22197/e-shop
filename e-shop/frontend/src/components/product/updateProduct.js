@@ -9,7 +9,8 @@ const UpdateProduct = () => {
         name: "",
         description: "",
         price: "",
-        category: ""
+        category: "",
+        imagePath: ""
     });
 
     const [categories, setCategories] = useState([]);
@@ -75,19 +76,23 @@ const UpdateProduct = () => {
             <form onSubmit={handleSubmit}>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
-                    <input type="text" className="form-control" id="name" name="name" value={product.name} onChange={handleInputChange} required/>
+                    <input type="text" className="form-control" id="name" name="name" value={product.name}
+                           onChange={handleInputChange} required/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="description" className="form-label">Description</label>
-                    <textarea className="form-control" id="description" name="description" value={product.description} onChange={handleInputChange} />
+                    <textarea className="form-control" id="description" name="description" value={product.description}
+                              onChange={handleInputChange}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="price" className="form-label">Price</label>
-                    <input type="number" className="form-control" id="price" name="price" value={product.price} onChange={handleInputChange} />
+                    <input type="number" className="form-control" id="price" name="price" value={product.price}
+                           onChange={handleInputChange}/>
                 </div>
                 <div className="mb-3">
                     <label htmlFor="category" className="form-label">Category</label>
-                    <select className="form-select" name="category" value={product.category} onChange={handleInputChange}>
+                    <select className="form-select" name="category" value={product.category}
+                            onChange={handleInputChange}>
                         <option value="">Select Category</option>
                         {categories.map((category) => (
                             <option key={category.id} value={category.id}>
@@ -95,6 +100,11 @@ const UpdateProduct = () => {
                             </option>
                         ))}
                     </select>
+                </div>
+                <div className="mb-3">
+                    <label htmlFor="name" className="form-label">Image Path, příklad: https://xphotography.ca/wp-content/uploads/2023/11/The_Impact_of_Lifestyle_Photography_in_Modern_Product.jpg</label>
+                    <input type="text" className="form-control" id="imagePath" name="imagePath" value={product.imagePath}
+                           onChange={handleInputChange} required/>
                 </div>
                 <div className="mb-3">
                     <button type="submit" className="btn btn-primary">Update Product</button>

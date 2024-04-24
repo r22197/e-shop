@@ -124,7 +124,7 @@ const GetAllProducts = ({ categoryId }) => {
                         <div className="card h-100">
                             <div className="card-body">
                                 <img
-                                    src="https://xphotography.ca/wp-content/uploads/2023/11/The_Impact_of_Lifestyle_Photography_in_Modern_Product.jpg"
+                                    src={product.imagePath}
                                     className="card-img" alt="Product"
                                 />
                                 <h5 className="card-title text-center">{product.name}</h5>

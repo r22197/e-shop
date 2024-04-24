@@ -22,6 +22,8 @@ public class Product {
     private String name;
     private String description;
 
+    private String imagePath;
+
     @NotNull
     @Min(1)
     private double price;

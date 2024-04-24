@@ -15,10 +15,6 @@ const Sidebar = () => {
                     <li className="nav-item mb-3 btn bg-secondary-subtle">
                         <Link to="/admin/products" className="nav-link text-black fw-bold">Produkty</Link>
                     </li>
-                    <li className="nav-item mt-5 btn bg-warning-subtle">
-                        <Link to="/" className="nav-link text-black fw-bold">Zpět na e-shop</Link>
-                    </li>
-
                 </ul>
             </div>
         </div>

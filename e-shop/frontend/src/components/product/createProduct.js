@@ -8,7 +8,8 @@ const CreateProduct = () => {
         name: "",
         description: "",
         price: "",
-        category: ""
+        category: "",
+        imagePath: ""
     });
     const [categories, setCategories] = useState([]);
     const [successMessage, setSuccessMessage] = useState("");
@@ -42,7 +43,7 @@ const CreateProduct = () => {
             const response = await createProduct(newProduct);
             if (response) {
                 setSuccessMessage("Product has been created successfully");
-                setNewProduct({ name: "", description: "", price: "", category: "" });
+                setNewProduct({ name: "", description: "", price: "", category: "", imagePath: "" });
             } else {
                 setErrorMessage("Error while creating product");
             }
@@ -94,6 +95,7 @@ const CreateProduct = () => {
                         name="category"
                         value={newProduct.category.id}
                         onChange={handleInputChange}
+                        //required
                     >
                         <option value="">Select Category</option>
                         {categories.map((category) => (
@@ -103,12 +105,23 @@ const CreateProduct = () => {
                         ))}
                     </select>
                 </div>
+                <div className="mb-3">
+                    <label className="form-label">Image Path:</label>
+                    <input
+                        className="form-control"
+                        name="imagePath"
+                        value={newProduct.imagePath}
+                        onChange={handleInputChange}
+                    />
+                </div>
                 <div>
                     <button type="submit" className="btn btn-primary">Create Product</button>
                 </div>
             </form>
             <Link to={`/admin/products`} className="mt-3 btn btn-info me-2">Vrátit se</Link>
-            <div className="mt-3 alert alert-info"><strong>Pozor!</strong> Pola označena <span className="text-danger">*</span> jsou povinná.</div>
+            <div className="mt-3 alert alert-info"><strong>Pozor!</strong> Pola označena <span
+                className="text-danger">*</span> jsou povinná.
+            </div>
             {successMessage && <div className="mt-3 alert alert-success">{successMessage}</div>}
             {errorMessage && <div className="mt-3 alert alert-danger">{errorMessage}</div>}
         </div>
