@@ -23,7 +23,7 @@ function App() {
         if (token) {
             auth.handleLogin(token);
         }
-    }, []);
+    }, [auth]);
 
     return (
         <div className="App">

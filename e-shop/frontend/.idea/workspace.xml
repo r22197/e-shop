@@ -4,38 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e9990ad-9827-455e-89ac-ef73b28ec77c" name="Changes" comment="up to date, všechny zbylé složky">
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/CorsConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/WebSecurityConfig.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/jwt/AuthTokenFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/jwt/JwtAuthEntryPoint.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/jwt/JwtUtils.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/user/ShopUserDetails.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/user/ShopUserDetailsService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/controller/JwtResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/controller/LoginRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/exception/UserAlreadyExistsException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/AuthProvider.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/home/Profile.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/WebConfig.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/controller/AuthController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/controller/AuthController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/mapper/UserMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/User.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/repository/UserRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/UserDetailService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/UserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/resources/application.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+    <list default="true" id="4e9990ad-9827-455e-89ac-ef73b28ec77c" name="Changes" comment="auth remake, přidání jwt, bearer">
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/data/UserApi.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/UserApi.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/data/apiBaseUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/apiBaseUrl.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/home/AuthComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/AuthComponent.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Sidebar.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -231,7 +203,7 @@
       <option name="presentableId" value="Default" />
       <updated>1713650051395</updated>
       <workItem from="1713650055616" duration="61000" />
-      <workItem from="1713650127612" duration="39773000" />
+      <workItem from="1713650127612" duration="61384000" />
     </task>
     <task id="LOCAL-00012" summary="přidání login, register">
       <option name="closed" value="true" />
@@ -257,7 +229,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713815531251</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="auth remake, přidání jwt, bearer">
+      <option name="closed" value="true" />
+      <created>1713883705310</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1713883705310</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -279,7 +259,8 @@
     <MESSAGE value="přidání login, register" />
     <MESSAGE value="rozšíření o produkty podle kategorie" />
     <MESSAGE value="up to date, všechny zbylé složky" />
-    <option name="LAST_COMMIT_MESSAGE" value="up to date, všechny zbylé složky" />
+    <MESSAGE value="auth remake, přidání jwt, bearer" />
+    <option name="LAST_COMMIT_MESSAGE" value="auth remake, přidání jwt, bearer" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
