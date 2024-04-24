@@ -14,6 +14,7 @@ const GetAllProducts = ({ categoryId }) => {
     const [priceRange, setPriceRange] = useState([0, 1600]);
     const pageSize = 10;
 
+
     const fetchProducts = async () => {
         try {
             const response = await getProductsByCategory(categoryId, pageInfo.pageNumber, pageSize, sortBy, priceRange[0], priceRange[1]);
@@ -31,6 +32,7 @@ const GetAllProducts = ({ categoryId }) => {
         try {
             const cartData = await getCart();
             setCartItems(cartData);
+            console.log(cartData)
         } catch (error) {
             console.error("Error fetching cart items:", error);
         }
@@ -69,9 +71,12 @@ const GetAllProducts = ({ categoryId }) => {
     };
 
     const isInCart = (productId) => {
-        return cartItems.some(item => item.product === productId);
-    };
+        if (cartItems.length === 0) {
+            return false;
+        }
 
+        return cartItems.productsInCart.some(item => item.productId === productId);
+    };
     const addToCart = async (productId) => {
         try {
             await addToShoppingCart(productId);

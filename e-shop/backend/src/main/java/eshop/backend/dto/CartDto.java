@@ -4,10 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @Data @NoArgsConstructor @AllArgsConstructor
 public class CartDto {
     private Long id;
-    private Set<CartHasProductDto> productsInCart;
+    private double price;
+    private List<CartHasProductDto> productsInCart;
 }

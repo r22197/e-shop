@@ -17,14 +17,14 @@ const GetCart = () => {
             const token = localStorage.getItem('token');
             if (!token) {
                 navigate('/login');
-
                 return;
             }
             const cartData = await getCart();
-            const updatedData = await Promise.all(cartData.map(async (item) => {
-                const productInfo = await getProductById(item.product);
+            const updatedData = await Promise.all(cartData.productsInCart.map(async (item) => {
+                const productInfo = await getProductById(item.productId);
                 return { ...item, name: productInfo.name, price: productInfo.price };
             }));
+
             setUpdatedCartItems(updatedData);
             setLoading(false);
         } catch (error) {

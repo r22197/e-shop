@@ -9,5 +9,5 @@ public class CartHasProductDto {
     private Long id;
     private Integer quantity;
     private Long cart;
-    private Long product;
+    private Long productId;
 }

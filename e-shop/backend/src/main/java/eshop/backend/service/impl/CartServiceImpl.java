@@ -48,25 +48,33 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public void updateProductCartQuantity(Long id, Integer quantity) {
-        Optional<CartHasProduct> optionalCartItem = cartHasProductRepository.findById(id);
-        CartHasProduct cartItem = optionalCartItem.orElseThrow(() -> new NoSuchElementException("Product not found in cart"));
-
-        cartItem.setQuantity(cartItem.getQuantity() + quantity);
-        cartHasProductRepository.save(cartItem);
-    }
-
-    @Override
-    public void removeProduct(Long productId) {
-        CartHasProduct cartHasProduct = cartHasProductRepository.findById(productId)
+    public void updateProductCartQuantity(Cart cart, Long id, Integer quantity) throws IllegalAccessException {
+        CartHasProduct existingCartItem = cartHasProductRepository.findById(id)
                 .orElseThrow();
 
-        cartHasProductRepository.delete(cartHasProduct);
+        if (existingCartItem.getCart() != cart) {
+            throw new IllegalAccessException("The quantity can be only changed by cart's owner.");
+        }
+
+        existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);
+        cartHasProductRepository.save(existingCartItem);
     }
 
     @Override
-    public double calculateTotalPrice() {
-        List<CartHasProduct> cartItems = cartHasProductRepository.findAll();
+    public void removeProduct(Cart cart, Long id) throws IllegalAccessException {
+        CartHasProduct existingCartItem = cartHasProductRepository.findById(id)
+                .orElseThrow();
+
+        if (existingCartItem.getCart() != cart) {
+            throw new IllegalAccessException("The product can be only deleted by cart's owner.");
+        }
+
+        cartHasProductRepository.delete(existingCartItem);
+    }
+
+    @Override
+    public double calculateTotalPrice(Cart cart) {
+        List<CartHasProduct> cartItems = cartHasProductRepository.findByCart(cart);
         double totalPrice = 0.0;
         for (CartHasProduct cartItem : cartItems) {
             totalPrice += cartItem.getProduct().getPrice() * cartItem.getQuantity();

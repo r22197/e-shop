@@ -10,10 +10,9 @@ import java.util.Map;
 @Service
 public interface CartService {
     void addProduct(Cart cart, Long productId);
-    void removeProduct(Long ProductId);
+    void removeProduct(Cart cart, Long ProductId) throws IllegalAccessException;
     Cart getCartByUserEmail(String email);
+    void updateProductCartQuantity(Cart cart, Long id, Integer quantity) throws IllegalAccessException;
 
-    void updateProductCartQuantity(Long id, Integer quantity);
-
-    double calculateTotalPrice();
+    double calculateTotalPrice(Cart cart);
 }

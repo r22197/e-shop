@@ -1,27 +1,31 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { useAuth } from "./AuthProvider";
 import { Link } from 'react-router-dom';
-import {getCart} from "../data/CartApi";
+import { getCart } from "../data/CartApi";
 
 const AuthComponent = () => {
     const { user, handleLogout } = useAuth();
-    const [uniqueProductIds, setUniqueProductIds] = useState(new Set());
+    const [cartData, setCartData] = useState(
+        {
+            id: null,
+            price: null,
+            productsInCart: []
+        });
 
     useEffect(() => {
-        const updateUniqueProductIds = async () => {
+        const updateCartData = async () => {
             try {
-                const cartData = await getCart();
-                const productIds = new Set(cartData.map(item => item.product));
-                setUniqueProductIds(productIds);
+                const data = await getCart();
+                setCartData(data);
             } catch (error) {
                 console.error("Error fetching cart data:", error);
             }
         };
 
-        updateUniqueProductIds();
+        updateCartData();
     }, []);
 
-    const cartItemCount = uniqueProductIds.size;
+    const cartItemCount = cartData.productsInCart.length;
 
     return (
         <div className="d-flex justify-content-end">
