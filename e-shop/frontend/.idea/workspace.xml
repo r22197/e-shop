@@ -4,10 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4e9990ad-9827-455e-89ac-ef73b28ec77c" name="Changes" comment="auth remake, přidání jwt, bearer">
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/AuthComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/AuthComponent.jsx" afterDir="false" />
+    <list default="true" id="4e9990ad-9827-455e-89ac-ef73b28ec77c" name="Changes" comment="předělání košíku do navigace">
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/dto/ProductDto.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/mapper/ProductMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/mapper/ProductMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/Product.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/ProductServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/layout/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Sidebar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/product/createProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/createProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/product/getAllProducts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/getAllProducts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/product/updateProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/updateProduct.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -203,7 +208,7 @@
       <option name="presentableId" value="Default" />
       <updated>1713650051395</updated>
       <workItem from="1713650055616" duration="61000" />
-      <workItem from="1713650127612" duration="61384000" />
+      <workItem from="1713650127612" duration="69892000" />
     </task>
     <task id="LOCAL-00012" summary="přidání login, register">
       <option name="closed" value="true" />
@@ -237,7 +242,15 @@
       <option name="project" value="LOCAL" />
       <updated>1713883705310</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="předělání košíku do navigace">
+      <option name="closed" value="true" />
+      <created>1713964615342</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1713964615342</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -260,7 +273,8 @@
     <MESSAGE value="rozšíření o produkty podle kategorie" />
     <MESSAGE value="up to date, všechny zbylé složky" />
     <MESSAGE value="auth remake, přidání jwt, bearer" />
-    <option name="LAST_COMMIT_MESSAGE" value="auth remake, přidání jwt, bearer" />
+    <MESSAGE value="předělání košíku do navigace" />
+    <option name="LAST_COMMIT_MESSAGE" value="předělání košíku do navigace" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

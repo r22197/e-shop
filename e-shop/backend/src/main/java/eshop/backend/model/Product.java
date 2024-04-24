@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,6 +34,6 @@ public class Product {
     // source https://stackoverflow.com/questions/24994440/no-serializer-found-for-class-org-hibernate-proxy-pojo-javassist-javassist
     private Category category;
 
-    @OneToMany(mappedBy = "product")
-    private Set<CartHasProduct> productsInCart;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private List<CartHasProduct> productsInCart;
 }
