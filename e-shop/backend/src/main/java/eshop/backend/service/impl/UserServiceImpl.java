@@ -1,6 +1,8 @@
 package eshop.backend.service.impl;
 
+import eshop.backend.model.Cart;
 import eshop.backend.model.User;
+import eshop.backend.repository.CartRepository;
 import eshop.backend.repository.UserRepository;
 import eshop.backend.service.UserService;
 import jakarta.transaction.Transactional;
@@ -16,6 +18,7 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final CartRepository cartRepository;
 
     @Override
     public User registerUser(User user) {
@@ -23,9 +26,17 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException(user.getEmail() + " already exists");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        System.out.println(user.getPassword());
-        user.setRole("ROLE_USER");
-        return userRepository.save(user);
+        user.setRole("ROLE_CUSTOMER");
+
+        userRepository.save(user);
+        User existingUser = userRepository.findByEmail(user.getEmail())
+                .orElseThrow();
+
+        Cart cart = new Cart();
+        cart.setUser(existingUser);
+        cartRepository.save(cart);
+
+        return user;
     }
 
     @Override
