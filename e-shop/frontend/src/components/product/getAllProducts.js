@@ -11,7 +11,7 @@ const GetAllProducts = ({ categoryId }) => {
     });
     const [cartItems, setCartItems] = useState([]);
     const [sortBy, setSortBy] = useState("asc");
-    const [priceRange, setPriceRange] = useState([0, 1600]);
+    const [priceRange, setPriceRange] = useState([0, 2600]);
     const pageSize = 10;
 
 
@@ -96,7 +96,7 @@ const GetAllProducts = ({ categoryId }) => {
                         onChange={handleChange}
                         valueLabelDisplay="auto"
                         min={0}
-                        max={1600}
+                        max={2600}
                         step={50}
                     />
                     <p>{priceRange[0]} - {priceRange[1]} Kč</p>

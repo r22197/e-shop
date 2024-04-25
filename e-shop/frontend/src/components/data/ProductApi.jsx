@@ -14,7 +14,7 @@ export const getAllProducts = async (pageNumber, pageSize) => {
 export const getProductsByCategory = async (categoryId, pageNumber, pageSize, sortBy, lowPrice, maxPrice) => {
     try {
         let url = `${BASE_URL}/category/${categoryId}?pageNumber=${pageNumber}&pageSize=${pageSize}&sortBy=${sortBy}`;
-        if (lowPrice && maxPrice) {
+        if (lowPrice || maxPrice) {
             url += `&lowPrice=${lowPrice}&maxPrice=${maxPrice}`;
         }
         const response = await apiBaseUrl.get(url);

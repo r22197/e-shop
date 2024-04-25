@@ -46,11 +46,7 @@ public class ProductServiceImpl implements ProductService {
         Sort sort = sortBy.equalsIgnoreCase("asc") ? Sort.by("price").ascending() : Sort.by("price").descending();
         Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
 
-        if (lowPrice != null && maxPrice != null) {
-            return productRepository.findByCategoryAndPriceBetween(category, lowPrice, maxPrice, pageable);
-        } else {
-            return productRepository.findByCategory(category, pageable);
-        }
+        return productRepository.findByCategoryAndPriceBetween(category, lowPrice, maxPrice, pageable);
     }
 
     @Override
