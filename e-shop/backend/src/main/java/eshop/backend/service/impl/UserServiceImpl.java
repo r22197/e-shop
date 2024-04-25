@@ -26,7 +26,6 @@ public class UserServiceImpl implements UserService {
             throw new IllegalArgumentException(user.getEmail() + " already exists");
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("ROLE_CUSTOMER");
 
         userRepository.save(user);
         User existingUser = userRepository.findByEmail(user.getEmail())

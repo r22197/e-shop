@@ -5,7 +5,8 @@ import {registerUser} from "../data/UserApi";
 const Register = () => {
     const [registration, setRegistration] = useState({
         email: "",
-        password: ""
+        password: "",
+        role: "ROLE_CUSTOMER"
     })
 
     const [errorMessage, setErrorMessage] = useState("")
@@ -21,7 +22,7 @@ const Register = () => {
             const result = await registerUser(registration)
             setSuccessMessage(result)
             setErrorMessage("")
-            setRegistration({ email: "", password: "" })
+            setRegistration({ email: "", password: "", role: "ROLE_CUSTOMER" })
         } catch (error) {
             setSuccessMessage("")
             setErrorMessage(`Registration error : ${error.message}`)
@@ -61,6 +62,21 @@ const Register = () => {
                         />
                     </div>
                 </div>
+                <div className="row mb-3">
+                    <div className="col">
+                        <select
+                            id="role"
+                            name="role"
+                            className="form-control text-center text-bg-light fw-bolder"
+                            value={registration.role}
+                            onChange={handleInputChange}
+                        >
+                            <option value="ROLE_CUSTOMER">Zákazník</option>
+                            <option value="ROLE_ADMIN">Administrátor</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div className="mb-3">
                     <button className="mb-4 d-block btn btn-primary" type="submit"
                             style={{height: '50px', width: '100%'}}>Zaregistrovat

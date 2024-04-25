@@ -23,8 +23,7 @@ public class ShopUserDetails implements UserDetails {
 
     public static ShopUserDetails buildUserDetails(User user){
         List<GrantedAuthority> listOfAuthorities = new ArrayList<>();
-        listOfAuthorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-        listOfAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        listOfAuthorities.add(new SimpleGrantedAuthority(user.getRole()));
 
         return new ShopUserDetails(
                 user.getId(),
