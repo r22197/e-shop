@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from "./AuthProvider";
+import { useAuth } from "../home/AuthProvider";
 import { Link } from 'react-router-dom';
 import { getCart } from "../data/CartApi";
 
-const AuthComponent = () => {
+const UserDetailsNav = () => {
     const { user, handleLogout } = useAuth();
     const [cartData, setCartData] = useState(
         {
@@ -21,7 +21,6 @@ const AuthComponent = () => {
                 console.error("Error fetching cart data:", error);
             }
         };
-
         updateCartData();
     }, []);
 
@@ -46,4 +45,4 @@ const AuthComponent = () => {
     );
 };
 
-export default AuthComponent;
+export default UserDetailsNav;

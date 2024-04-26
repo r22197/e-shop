@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import {Link, useLocation} from "react-router-dom";
 import { getAllProducts, deleteProduct } from "../data/ProductApi";
 import { getCategoryById } from "../data/CategoryApi";
 
@@ -10,10 +10,11 @@ const AdminProductList = () => {
         pageNumber: 0
     });
     const pageSize = 10;
+    const location = useLocation();
 
     useEffect(() => {
         fetchProducts();
-    }, [pageInfo.pageNumber]);
+    }, [pageInfo.pageNumber, location.pathname]);
 
     const fetchProducts = async () => {
         try {

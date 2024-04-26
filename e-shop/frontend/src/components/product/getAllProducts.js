@@ -77,6 +77,7 @@ const GetAllProducts = ({ categoryId }) => {
 
         return cartItems.productsInCart.some(item => item.productId === productId);
     };
+
     const addToCart = async (productId) => {
         try {
             await addToShoppingCart(productId);

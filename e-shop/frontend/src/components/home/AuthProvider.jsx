@@ -1,6 +1,7 @@
+// AuthProvider.js
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { jwtDecode } from "jwt-decode";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext({
     user: null,
@@ -23,15 +24,15 @@ export const AuthProvider = ({ children }) => {
         const decodedUser = jwtDecode(token);
         localStorage.setItem("token", token);
         localStorage.setItem("sub", decodedUser.sub);
-        console.log(decodedUser)
-        console.log(token)
+        localStorage.setItem("userRole", decodedUser.roles[0]);
         setUser(decodedUser);
     };
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleLogout = () => {
         localStorage.removeItem("token");
-        navigate(`/`)
+        localStorage.clear()
+        navigate(`/`);
         setUser(null);
     };
 

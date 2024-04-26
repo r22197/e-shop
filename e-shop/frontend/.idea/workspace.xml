@@ -5,14 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e9990ad-9827-455e-89ac-ef73b28ec77c" name="Changes" comment="předělání košíku do navigace">
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/dto/ProductDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/dto/ProductDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/mapper/ProductMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/mapper/ProductMapper.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../backend/src/test/java/eshop/backend/ProductServiceImplTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/Product.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/ProductServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/product/createProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/createProduct.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminCategoryList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/category/AdminCategoryList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminProductList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/AdminProductList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/AuthComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/UserDetailsNav.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/AuthProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/AuthProvider.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/Navigationbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/MainNav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/Paths.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Paths.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/product/getAllProducts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/getAllProducts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/product/updateProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/updateProduct.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,6 +73,15 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components\layout" />
+      <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components\user" />
+      <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components\category" />
+      <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components\product" />
+      <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components\cart" />
+    </key>
+  </component>
   <component name="RunManager" selected="npm.start">
     <configuration name="renders learn react link" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
@@ -82,7 +95,7 @@
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="AdminProductList.jsx" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/components/admin/AdminProductList.jsx" working-dir="$PROJECT_DIR$/src/components/admin">
+    <configuration name="AdminProductList.jsx" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/components/product/AdminProductList.jsx" working-dir="$PROJECT_DIR$/src/components/admin">
       <method v="2" />
     </configuration>
     <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
@@ -209,6 +222,7 @@
       <updated>1713650051395</updated>
       <workItem from="1713650055616" duration="61000" />
       <workItem from="1713650127612" duration="69892000" />
+      <workItem from="1714052552716" duration="7760000" />
     </task>
     <task id="LOCAL-00012" summary="přidání login, register">
       <option name="closed" value="true" />

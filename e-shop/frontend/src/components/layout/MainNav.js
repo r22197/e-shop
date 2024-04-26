@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { getAllCategories } from "../data/CategoryApi";
 import { getProductsContaining } from "../data/ProductApi";
-import AuthComponent from "../home/AuthComponent";
+import UserDetailsNav from "./UserDetailsNav";
 
-const Navigationbar = () => {
+const MainNav = () => {
     const [categories, setCategories] = useState([]);
-    const [query, setQuery] = useState("");
+    const [searchValue, setSearchValue] = useState("");
     const [searchResults, setSearchResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const searchInputRef = useRef(null);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -29,7 +30,7 @@ const Navigationbar = () => {
     const handleSearch = async () => {
         setLoading(true);
         try {
-            const results = await getProductsContaining(query);
+            const results = await getProductsContaining(searchValue);
             setSearchResults(results);
             setLoading(false);
         } catch (error) {
@@ -40,11 +41,25 @@ const Navigationbar = () => {
 
     useEffect(() => {
         handleSearch();
-    }, [query]);
+    }, [searchValue]);
+
+
+    const handleWindowClick = (e) => {
+        if (searchInputRef.current && !searchInputRef.current.contains(e.target)) {
+            setSearchResults([]);
+        }
+    };
+
+    useEffect(() => {
+        window.addEventListener("click", handleWindowClick);
+        return () => {
+            window.removeEventListener("click", handleWindowClick);
+        };
+    }, []);
 
     return (
         <div className="p-3">
-                <AuthComponent/>
+            <UserDetailsNav/>
             <div className="d-flex">
                 <div>
                     <ul className="nav d-flex flex-wrap">
@@ -63,11 +78,12 @@ const Navigationbar = () => {
                             Hledat
                         </button>
                         <input
+                            ref={searchInputRef}
                             type="text"
                             className="form-control ms-2"
                             placeholder="Hledat..."
-                            value={query}
-                            onChange={(e) => setQuery(e.target.value)}
+                            value={searchValue}
+                            onChange={(e) => setSearchValue(e.target.value)}
                             style={{width: "250px"}}
                         />
                     </div>
@@ -76,21 +92,21 @@ const Navigationbar = () => {
             <hr className="my-0"/>
             <div className="mb-3 d-flex justify-content-end">
                 <div className="search-results" style={{ position: "fixed", width: "250px", background: "#fff", zIndex: "999", boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)" }}>
-                {searchResults.length > 0 && (
-                    <ul className="nav d-flex flex-column">
-                        {searchResults.map((result) => (
-                            <li key={result.id} className="category-square mb-2">
-                                <Link to={`/product/${result.id}`} className="nav-link text-black fw-bold">
-                                    {result.name}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </div>
+                    {searchResults.length > 0 && (
+                        <ul className="nav d-flex flex-column">
+                            {searchResults.map((result) => (
+                                <li key={result.id} className="category-square mb-2">
+                                    <Link to={`/product/${result.id}`} className="nav-link text-black fw-bold">
+                                        {result.name}
+                                    </Link>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
             </div>
         </div>
     );
 };
 
-export default Navigationbar;
+export default MainNav;
