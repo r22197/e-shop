@@ -54,8 +54,11 @@ public class WebSecurityConfig {
                 .exceptionHandling(exception -> exception.authenticationEntryPoint(jwtAuthEntryPoint))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/**", "/rooms/**","/bookings/**").permitAll()
-                        .requestMatchers("/roles/**").hasRole("ADMIN")
+                        .requestMatchers("/auth/**").permitAll()
+
+                        // nastavení rolí
+                        //.requestMatchers("/api/products/**").hasRole("ROLE_ADMIN")
+                        //.anyRequest().authenticated()
                         .anyRequest().permitAll());
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
