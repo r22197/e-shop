@@ -28,7 +28,6 @@ const UpdateProduct = () => {
             const fetchedProduct = await getProductById(id);
             setProduct({
                 ...fetchedProduct,
-                //categoryId: fetchedProduct.category.id
             });
         } catch (error) {
             console.error("Error fetching product:", error);

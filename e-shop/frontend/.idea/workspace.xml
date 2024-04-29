@@ -5,20 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e9990ad-9827-455e-89ac-ef73b28ec77c" name="Changes" comment="předělání košíku do navigace">
-      <change afterPath="$PROJECT_DIR$/../../Letní semestr/OPR2/Kompletní projekt/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../../Letní semestr/OPR2/Kompletní projekt/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/WebSecurityConfig.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/components/__tests__/createCategoryTest.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/cart/getCart.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cart/getCart.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/AuthProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/AuthProvider.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/Login.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/Register.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/MainNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/CategoriesNavigation.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/Paths.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Paths.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/UserDetailsNav.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/UserNavigation.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/product/AdminProductList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/AdminProductList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/product/ConditionalGetAllProducts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/ProductsProvider.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/product/getAllProducts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/getAllProducts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/category/createCategory.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/category/createCategory.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/data/apiBaseUrl.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/data/apiBaseUrl.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/CategoriesNavigation.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/CategoriesNavigation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/Paths.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Paths.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/Sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Sidebar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/product/ProductsProvider.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/ProductsProvider.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/product/createProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/createProduct.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/product/getAllProducts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/getAllProducts.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/product/updateProduct.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/updateProduct.jsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +25,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="JSX File" />
         <option value="JavaScript File" />
+        <option value="JSX File" />
       </list>
     </option>
   </component>
@@ -67,51 +64,96 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Jest.renders learn react link.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.AdminProductList.jsx.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.App.js.executor&quot;: &quot;Run&quot;,
-    &quot;Node.js.getAllCategories.jsx.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/chrom/Desktop/e-shop/backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs.jest.jest_package&quot;: &quot;C:/Users/chrom/Desktop/e-shop/frontend/node_modules/react-scripts&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;npm.start.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Jest.CreateCategory Component.executor": "Run",
+    "Jest.CreateProduct Component (1).executor": "Run",
+    "Jest.CreateProduct Component.executor": "Run",
+    "Jest.CreateProduct Component.renders form fields correctly.executor": "Run",
+    "Jest.CreateProduct Component.successfully submits form.executor": "Run",
+    "Jest.createCategoryTest.jsx.executor": "Run",
+    "Jest.createProductTest.jsx (1).executor": "Run",
+    "Jest.createProductTest.jsx.executor": "Run",
+    "Jest.renders learn react link.executor": "Run",
+    "Node.js.AdminProductList.jsx.executor": "Run",
+    "Node.js.App.js.executor": "Run",
+    "Node.js.getAllCategories.jsx.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/chrom/Desktop/e-shop/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs.jest.jest_package": "C:/Users/chrom/Desktop/e-shop/frontend/node_modules/react-scripts",
+    "nodejs_package_manager_path": "npm",
+    "npm.start.executor": "Run",
+    "npm.test.executor": "Run",
+    "settings.editor.selected.configurable": "reference.settings.ide.settings.uml",
+    "ts.external.directory.path": "C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components" />
+      <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components\product" />
       <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components\layout" />
       <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components\user" />
       <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components\category" />
-      <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components\product" />
-      <recent name="C:\Users\chrom\Desktop\e-shop\frontend\src\components\cart" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.start">
-    <configuration name="renders learn react link" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Jest.createCategoryTest.jsx">
+    <configuration name="CreateCategory Component" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/src/App.test.js" />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/components/__tests__/createCategoryTest.jsx" />
       <test-names>
-        <test-name value="renders learn react link" />
+        <test-name value="CreateCategory Component" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="AdminProductList.jsx" type="NodeJSConfigurationType" temporary="true" nameIsGenerated="true" path-to-js-file="$PROJECT_DIR$/src/components/product/AdminProductList.jsx" working-dir="$PROJECT_DIR$/src/components/admin">
+    <configuration name="CreateProduct Component (1)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="SUITE" />
+      <test-file value="$PROJECT_DIR$/src/components/product/__tests__/createProductTest.jsx" />
+      <test-names>
+        <test-name value="CreateProduct Component" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="createCategoryTest.jsx" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/src/components/__tests__/createCategoryTest.jsx" />
+      <method v="2" />
+    </configuration>
+    <configuration name="createProductTest.jsx (1)" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/src/components/product/__tests__/createProductTest.jsx" />
+      <method v="2" />
+    </configuration>
+    <configuration name="createProductTest.jsx" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST_FILE" />
+      <test-file value="$PROJECT_DIR$/src/__tests__/createProductTest.jsx" />
       <method v="2" />
     </configuration>
     <configuration name="start" type="js.build_tools.npm" nameIsGenerated="true">
@@ -122,14 +164,20 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Jest.renders learn react link" />
-      <item itemvalue="Node.js.AdminProductList.jsx" />
+      <item itemvalue="Jest.CreateCategory Component" />
+      <item itemvalue="Jest.CreateProduct Component (1)" />
+      <item itemvalue="Jest.createCategoryTest.jsx" />
+      <item itemvalue="Jest.createProductTest.jsx" />
+      <item itemvalue="Jest.createProductTest.jsx (1)" />
       <item itemvalue="npm.start" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Jest.renders learn react link" />
-        <item itemvalue="Node.js.AdminProductList.jsx" />
+        <item itemvalue="Jest.createCategoryTest.jsx" />
+        <item itemvalue="Jest.CreateCategory Component" />
+        <item itemvalue="Jest.createProductTest.jsx (1)" />
+        <item itemvalue="Jest.CreateProduct Component (1)" />
+        <item itemvalue="Jest.createProductTest.jsx" />
       </list>
     </recent_temporary>
   </component>
@@ -241,7 +289,7 @@
       <workItem from="1714052552716" duration="7760000" />
       <workItem from="1714310701381" duration="8949000" />
       <workItem from="1714325224545" duration="4956000" />
-      <workItem from="1714352690045" duration="1835000" />
+      <workItem from="1714352690045" duration="5249000" />
     </task>
     <task id="LOCAL-00012" summary="přidání login, register">
       <option name="closed" value="true" />
