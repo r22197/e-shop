@@ -7,6 +7,7 @@
     <list default="true" id="4e9990ad-9827-455e-89ac-ef73b28ec77c" name="Changes" comment="předělání košíku do navigace">
       <change afterPath="$PROJECT_DIR$/../../Letní semestr/OPR2/Kompletní projekt/.idea/.gitignore" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/../../Letní semestr/OPR2/Kompletní projekt/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/config/WebSecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/cart/getCart.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cart/getCart.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/home/AuthProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/AuthProvider.jsx" afterDir="false" />
@@ -240,7 +241,7 @@
       <workItem from="1714052552716" duration="7760000" />
       <workItem from="1714310701381" duration="8949000" />
       <workItem from="1714325224545" duration="4956000" />
-      <workItem from="1714352690045" duration="1259000" />
+      <workItem from="1714352690045" duration="1835000" />
     </task>
     <task id="LOCAL-00012" summary="přidání login, register">
       <option name="closed" value="true" />
