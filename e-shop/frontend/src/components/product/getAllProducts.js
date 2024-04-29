@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { addToShoppingCart, getCart } from "../data/CartApi";
 import { getProductsByCategory } from "../data/ProductApi";
 import Slider from '@mui/material/Slider';
+import { useNavigate } from 'react-router-dom';
 
 const GetAllProducts = ({ categoryId }) => {
     const [pageInfo, setPageInfo] = useState({
@@ -14,6 +15,7 @@ const GetAllProducts = ({ categoryId }) => {
     const [priceRange, setPriceRange] = useState([0, 2600]);
     const pageSize = 10;
 
+    const navigate = useNavigate();
 
     const fetchProducts = async () => {
         try {
@@ -32,7 +34,6 @@ const GetAllProducts = ({ categoryId }) => {
         try {
             const cartData = await getCart();
             setCartItems(cartData);
-            console.log(cartData)
         } catch (error) {
             console.error("Error fetching cart items:", error);
         }
@@ -80,12 +81,19 @@ const GetAllProducts = ({ categoryId }) => {
 
     const addToCart = async (productId) => {
         try {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                navigate('/login');
+                return
+            }
+
             await addToShoppingCart(productId);
             fetchCartItems();
         } catch (error) {
             throw new Error("Error while adding product: " + error.message)
         }
     };
+
 
     return (
         <div className="container">

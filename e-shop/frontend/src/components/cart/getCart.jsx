@@ -50,9 +50,7 @@ const GetCart = () => {
     const handleDeleteItem = async (itemId) => {
         try {
             await removeFromShoppingCart(itemId);
-            console.log("Deleting item with ID:", itemId);
-            const updatedData = updatedCartItems.filter(item => item.id !== itemId);
-            setUpdatedCartItems(updatedData);
+            await fetchCart();
         } catch (error) {
             console.error("Error deleting item from cart:", error);
         }

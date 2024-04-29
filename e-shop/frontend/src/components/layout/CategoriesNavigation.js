@@ -2,9 +2,9 @@ import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { getAllCategories } from "../data/CategoryApi";
 import { getProductsContaining } from "../data/ProductApi";
-import UserDetailsNav from "./UserDetailsNav";
+import UserNavigation from "./UserNavigation";
 
-const MainNav = () => {
+const CategoriesNavigation = () => {
     const [categories, setCategories] = useState([]);
     const [searchValue, setSearchValue] = useState("");
     const [searchResults, setSearchResults] = useState([]);
@@ -59,7 +59,7 @@ const MainNav = () => {
 
     return (
         <div className="p-3">
-            <UserDetailsNav/>
+            <UserNavigation/>
             <div className="d-flex">
                 <div>
                     <ul className="nav d-flex flex-wrap">
@@ -109,4 +109,4 @@ const MainNav = () => {
     );
 };
 
-export default MainNav;
+export default CategoriesNavigation;

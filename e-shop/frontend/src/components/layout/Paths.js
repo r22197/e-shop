@@ -7,12 +7,12 @@ import CreateProduct from "../product/createProduct";
 import UpdateProduct from "../product/updateProduct";
 import AdminProductList from "../product/AdminProductList";
 import UpdateCategory from "../category/updateCategory";
-import {AuthProvider} from "../home/AuthProvider";
+import {AuthProvider} from "../user/AuthProvider";
 import Sidebar from "./Sidebar";
-import MainNav from "./MainNav";
-import Login from "../home/Login";
-import Register from "../home/Register";
-import ConditionalGetAllProducts from "../product/ConditionalGetAllProducts";
+import CategoriesNavigation from "./CategoriesNavigation";
+import Login from "../user/Login";
+import Register from "../user/Register";
+import ProductsProvider from "../product/ProductsProvider";
 import GetCart from "../cart/getCart";
 
 
@@ -27,7 +27,7 @@ function Paths() {
                         }
                     </div>
                     <div className="col-md-8">
-                        <MainNav/>
+                        <CategoriesNavigation/>
                         <Routes>
                             <Route path="/login" element={<Login/>}/>
                             <Route path="/register" element={<Register/>}/>
@@ -36,7 +36,7 @@ function Paths() {
                             <Route path="/admin/products/new" element={<CreateProduct/>}/>
                             <Route path="/admin/products/update/:id" element={<UpdateProduct/>}/>
                             <Route path="/admin/categories/update/:id" element={<UpdateCategory/>}/>
-                            <Route path="/category/:id" element={<ConditionalGetAllProducts/>}/>
+                            <Route path="/category/:id" element={<ProductsProvider/>}/>
                             <Route path="/admin/products" element={<AdminProductList/>}/>
                             <Route path="/cart" element={<GetCart/>}/>
                         </Routes>

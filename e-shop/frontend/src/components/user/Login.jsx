@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import {useAuth} from "./AuthProvider";
-import {loginUser} from "../data/UserApi";
+import { useAuth } from "./AuthProvider";
+import { loginUser } from "../data/UserApi";
 
 const Login = () => {
     const [errorMessage, setErrorMessage] = useState("")
@@ -24,6 +24,7 @@ const Login = () => {
             const token = success.token
             auth.handleLogin(token)
             navigate(`/`)
+
         } else {
             setErrorMessage("Invalid username or password. Please try again.")
         }
@@ -34,7 +35,7 @@ const Login = () => {
             {errorMessage && <p className="alert alert-danger">{errorMessage}</p>}
             <h2 className="text-center">Přihlásit se</h2>
             <form onSubmit={handleSubmit}>
-            <div className="row mb-3">
+                <div className="row mb-3">
                     <div>
                         <input
                             placeholder="Email"

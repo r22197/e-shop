@@ -5,17 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4e9990ad-9827-455e-89ac-ef73b28ec77c" name="Changes" comment="předělání košíku do navigace">
-      <change afterPath="$PROJECT_DIR$/../backend/src/test/java/eshop/backend/ProductServiceImplTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/model/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/ProductServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/../backend/src/main/java/eshop/backend/service/impl/ProductServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Letní semestr/OPR2/Kompletní projekt/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../Letní semestr/OPR2/Kompletní projekt/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminCategoryList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/category/AdminCategoryList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/admin/AdminProductList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/AdminProductList.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/AuthComponent.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/UserDetailsNav.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/home/AuthProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/home/AuthProvider.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/layout/Navigationbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/MainNav.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/cart/getCart.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/cart/getCart.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/AuthProvider.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/AuthProvider.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/home/Register.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/user/Register.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/MainNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/CategoriesNavigation.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/layout/Paths.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/Paths.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/layout/UserDetailsNav.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/layout/UserNavigation.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/product/AdminProductList.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/AdminProductList.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/product/ConditionalGetAllProducts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/ProductsProvider.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/product/getAllProducts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/product/getAllProducts.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -33,6 +34,20 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;r22197&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="eb2ef819-c6ec-4386-8145-2e5e93327601" />
+        <option name="url" value="https://github.com/r22197/e-shop.git" />
+      </UrlAndAccount>
+    </option>
   </component>
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
@@ -68,7 +83,7 @@
     &quot;nodejs.jest.jest_package&quot;: &quot;C:/Users/chrom/Desktop/e-shop/frontend/node_modules/react-scripts&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
     &quot;npm.start.executor&quot;: &quot;Run&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settings.ide.settings.uml&quot;,
     &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\IntelliJ IDEA 2023.3.4\\plugins\\javascript-impl\\jsLanguageServicesImpl\\external&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
@@ -223,6 +238,9 @@
       <workItem from="1713650055616" duration="61000" />
       <workItem from="1713650127612" duration="69892000" />
       <workItem from="1714052552716" duration="7760000" />
+      <workItem from="1714310701381" duration="8949000" />
+      <workItem from="1714325224545" duration="4956000" />
+      <workItem from="1714352690045" duration="1259000" />
     </task>
     <task id="LOCAL-00012" summary="přidání login, register">
       <option name="closed" value="true" />

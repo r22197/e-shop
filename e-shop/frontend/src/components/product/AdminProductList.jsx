@@ -54,7 +54,7 @@ const AdminProductList = () => {
     const handleDelete = async (productId) => {
         try {
             await deleteProduct(productId);
-            fetchProducts();
+            await fetchProducts();
         } catch (error) {
             console.error("Error deleting product:", error);
         }
