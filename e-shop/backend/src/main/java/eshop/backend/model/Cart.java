@@ -1,6 +1,5 @@
 package eshop.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,7 +21,7 @@ public class Cart {
     private User user;
 
     @OneToMany(mappedBy = "cart")
-    private List<CartHasProduct> productsInCart = new ArrayList<>();
+    private Set<CartItem> cartItems;
 
     @Override
     public int hashCode() {

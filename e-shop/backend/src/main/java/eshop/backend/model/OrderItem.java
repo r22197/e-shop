@@ -1,19 +1,17 @@
 package eshop.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.repository.query.ParameterOutOfBoundsException;
 
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cart_has_product")
-public class CartHasProduct {
+@NoArgsConstructor
+@Table(name = "order_item")
+public class OrderItem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -21,11 +19,13 @@ public class CartHasProduct {
     @Min(1)
     private Integer quantity;
 
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    private double price;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
+    @JoinColumn(name = "order_id")
+    private Order order;
+
+    @ManyToOne
+    @JoinColumn(name = "variant_id")
+    private Variant variant;
 }

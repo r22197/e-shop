@@ -1,9 +1,9 @@
 package eshop.backend.service.impl;
 
 import eshop.backend.model.Cart;
-import eshop.backend.model.CartHasProduct;
+import eshop.backend.model.CartItem;
 import eshop.backend.model.Product;
-import eshop.backend.repository.CartHasProductRepository;
+import eshop.backend.repository.CartItemRepository;
 import eshop.backend.repository.CartRepository;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.service.CartService;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
     private final ProductRepository productRepository;
-    private final CartHasProductRepository cartHasProductRepository;
+    private final CartItemRepository cartItemRepository;
     private final CartRepository cartRepository;
 
     @Override
@@ -32,24 +32,24 @@ public class CartServiceImpl implements CartService {
         Product product = productRepository.findById(productId)
                 .orElseThrow(() -> new NoSuchElementException("Product not found"));
 
-        Optional<CartHasProduct> existingCartItem = cartHasProductRepository.findByCartAndProduct(cart, product);
+        Optional<CartItem> existingCartItem = cartItemRepository.findByCartAndVariantProduct(cart, product);
 
         if (existingCartItem.isPresent()) {
-            CartHasProduct cartItem = existingCartItem.get();
+            CartItem cartItem = existingCartItem.get();
             cartItem.setQuantity(cartItem.getQuantity() + 1);
-            cartHasProductRepository.save(cartItem);
+            cartItemRepository.save(cartItem);
         } else {
-            CartHasProduct newCartItem = new CartHasProduct();
-            newCartItem.setProduct(product);
+            CartItem newCartItem = new CartItem();
+            newCartItem.getVariant().setProduct(product);
             newCartItem.setQuantity(1);
             newCartItem.setCart(cart);
-            cartHasProductRepository.save(newCartItem);
+            cartItemRepository.save(newCartItem);
         }
     }
 
     @Override
     public void updateProductCartQuantity(Cart cart, Long id, Integer quantity) throws IllegalAccessException {
-        CartHasProduct existingCartItem = cartHasProductRepository.findById(id)
+        CartItem existingCartItem = cartItemRepository.findById(id)
                 .orElseThrow();
 
         if (existingCartItem.getCart() != cart) {
@@ -57,27 +57,27 @@ public class CartServiceImpl implements CartService {
         }
 
         existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);
-        cartHasProductRepository.save(existingCartItem);
+        cartItemRepository.save(existingCartItem);
     }
 
     @Override
     public void removeProduct(Cart cart, Long id) throws IllegalAccessException {
-        CartHasProduct existingCartItem = cartHasProductRepository.findById(id)
+        CartItem existingCartItem = cartItemRepository.findById(id)
                 .orElseThrow();
 
         if (existingCartItem.getCart() != cart) {
             throw new IllegalAccessException("The product can be only deleted by cart's owner.");
         }
 
-        cartHasProductRepository.delete(existingCartItem);
+        cartItemRepository.delete(existingCartItem);
     }
 
     @Override
     public double calculateTotalPrice(Cart cart) {
-        List<CartHasProduct> cartItems = cartHasProductRepository.findByCart(cart);
+        List<CartItem> cartItems = cartItemRepository.findByCart(cart);
         double totalPrice = 0.0;
-        for (CartHasProduct cartItem : cartItems) {
-            totalPrice += cartItem.getProduct().getPrice() * cartItem.getQuantity();
+        for (CartItem cartItem : cartItems) {
+            totalPrice += cartItem.getVariant().getProduct().getPrice() * cartItem.getQuantity();
         }
         return totalPrice;
     }

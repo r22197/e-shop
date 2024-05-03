@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data @NoArgsConstructor @AllArgsConstructor
@@ -28,11 +29,24 @@ public class Product {
     @Min(1)
     private double price;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    // source https://stackoverflow.com/questions/24994440/no-serializer-found-for-class-org-hibernate-proxy-pojo-javassist-javassist
-    private Category category;
+    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    private List<Variant> variants;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
-    private List<CartHasProduct> productsInCart;
+    private Set<Review> reviews;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @ManyToMany
+    @JoinTable(
+            name = "product_attributes",
+            joinColumns = @JoinColumn(name = "product_id"),
+            inverseJoinColumns = @JoinColumn(name = "attribute_id")
+    )
+    private Set<Attribute> attributes;
+
+    // source https://stackoverflow.com/questions/24994440/no-serializer-found-for-class-org-hibernate-proxy-pojo-javassist-javassist
+
 }
