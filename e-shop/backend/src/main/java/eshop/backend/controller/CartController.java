@@ -1,7 +1,7 @@
 package eshop.backend.controller;
 
-import eshop.backend.dto.CartDto;
-import eshop.backend.dto.UpdateProductCartQuantityDto;
+import eshop.backend.request.CartRequest;
+import eshop.backend.request.UpdateProductCartQuantityDto;
 import eshop.backend.mapper.CartMapper;
 import eshop.backend.model.Cart;
 import eshop.backend.service.CartService;
@@ -19,13 +19,13 @@ public class CartController {
     private  final CartMapper cartMapper;
 
     @GetMapping
-    public ResponseEntity<CartDto> getCart(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<CartRequest> getCart(@AuthenticationPrincipal UserDetails userDetails) {
         String email = userDetails.getUsername();
         Cart cart = cartService.getCartByUserEmail(email);
 
-        CartDto cartDto = cartMapper.convertCartToDto(cart, cartService.calculateTotalPrice(cart));
+        CartRequest cartRequest = cartMapper.convertCartToDto(cart, cartService.calculateTotalPrice(cart));
 
-        return ResponseEntity.ok(cartDto);
+        return ResponseEntity.ok(cartRequest);
     }
 
 

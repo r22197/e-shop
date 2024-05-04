@@ -44,7 +44,7 @@ class ProductServiceImplTest {
         Page<Product> expectedPage = new PageImpl<>(Collections.emptyList());
         when(productRepository.findAll(PageRequest.of(pageNumber, pageSize))).thenReturn(expectedPage);
 
-        Page<Product> resultPage = productService.getAllProducts(pageNumber, pageSize);
+        Page<Product> resultPage = productService.list(pageNumber, pageSize);
 
         assertEquals(expectedPage, resultPage);
         verify(productRepository).findAll(PageRequest.of(pageNumber, pageSize));
@@ -56,7 +56,7 @@ class ProductServiceImplTest {
         List<Product> expectedProducts = Collections.emptyList();
         when(productRepository.findByNameContainingIgnoreCase(query.toLowerCase())).thenReturn(expectedProducts);
 
-        List<Product> resultProducts = productService.searchProducts(query);
+        List<Product> resultProducts = productService.search(query);
 
         assertEquals(expectedProducts, resultProducts);
         verify(productRepository).findByNameContainingIgnoreCase(query.toLowerCase());
@@ -75,7 +75,7 @@ class ProductServiceImplTest {
         when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
         when(productRepository.findByCategoryAndPriceBetween(category, lowPrice, maxPrice, PageRequest.of(pageNumber, pageSize, Sort.by("price").ascending()))).thenReturn(expectedPage);
 
-        Page<Product> resultPage = productService.getProductsInCategory(categoryId, pageNumber, pageSize, sortBy, lowPrice, maxPrice);
+        Page<Product> resultPage = productService.listByCategory(categoryId, pageNumber, pageSize, sortBy, lowPrice, maxPrice);
 
         assertEquals(expectedPage, resultPage);
         verify(categoryRepository).findById(categoryId);
@@ -88,7 +88,7 @@ class ProductServiceImplTest {
         Product expectedProduct = new Product();
         when(productRepository.findById(productId)).thenReturn(Optional.of(expectedProduct));
 
-        Product resultProduct = productService.getById(productId);
+        Product resultProduct = productService.read(productId);
 
         assertEquals(expectedProduct, resultProduct);
         verify(productRepository).findById(productId);
@@ -99,12 +99,12 @@ class ProductServiceImplTest {
         long productId = 1;
         when(productRepository.findById(productId)).thenReturn(Optional.empty());
 
-        assertThrows(ProductNotFoundException.class, () -> productService.getById(productId));
+        assertThrows(ProductNotFoundException.class, () -> productService.read(productId));
         verify(productRepository).findById(productId);
     }
 
     @Test
-    void testCreate() {
+    void testCreate() throws CategoryNotFoundException {
         Product product = new Product();
         Category category = new Category();
         category.setId(1L);
@@ -119,7 +119,7 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testUpdate() throws ProductNotFoundException {
+    void testUpdate() throws ProductNotFoundException, CategoryNotFoundException {
         long productId = 1L;
         Product existingProduct = new Product();
         existingProduct.setId(productId);
@@ -134,7 +134,7 @@ class ProductServiceImplTest {
         when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
         when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
 
-        Product resultProduct = productService.update(productId, updatedProduct);
+        Product resultProduct = productService.update(updatedProduct);
 
         assertNotNull(resultProduct);
         assertEquals(updatedProduct.getName(), resultProduct.getName());
@@ -151,7 +151,7 @@ class ProductServiceImplTest {
         Product updatedProduct = new Product();
         updatedProduct.setId(productId);
 
-        assertThrows(ProductNotFoundException.class, () -> productService.update(productId, updatedProduct));
+        assertThrows(ProductNotFoundException.class, () -> productService.update(updatedProduct));
         verify(productRepository).findById(productId);
     }
 

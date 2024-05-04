@@ -1,6 +1,7 @@
 package eshop.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import eshop.backend.request.AttributeValueRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -34,4 +35,9 @@ public class AttributeValue {
             inverseJoinColumns = @JoinColumn(name = "variant_id")
     )
     private Set<Variant> variants;
+
+    public AttributeValue(AttributeValueRequest request) {
+        this.id = request.getId();
+        this.value = request.getValue();
+    }
 }

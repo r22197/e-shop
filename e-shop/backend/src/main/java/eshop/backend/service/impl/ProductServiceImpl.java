@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -25,72 +24,63 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Page<Product> getAllProducts(Integer pageNumber, Integer pageSize) {
+    public Product create(Product product) throws CategoryNotFoundException {
+        categoryRepository.findById(product.getCategory().getId())
+                .orElseThrow(() -> new CategoryNotFoundException(product.getCategory().getId()));
+
+        return productRepository.save(product);
+    }
+
+    @Override
+    public Product read(Long productId) throws ProductNotFoundException {
+        return productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
+    }
+
+    @Override
+    public Product update(Product product) throws ProductNotFoundException, CategoryNotFoundException {
+        categoryRepository.findById(product.getCategory().getId())
+                .orElseThrow(() -> new CategoryNotFoundException(product.getCategory().getId()));
+
+        Product persistedProduct = read(product.getId());
+
+        persistedProduct.setName(product.getName());
+        persistedProduct.setDescription(product.getDescription());
+        persistedProduct.setPrice(product.getPrice());
+        persistedProduct.setImagePath(product.getImagePath());
+
+        return productRepository.save(persistedProduct);
+    }
+
+    @Override
+    public void delete(Long productId) throws ProductNotFoundException {
+        productRepository.deleteById(
+                read(productId).getId()
+        );
+    }
+
+    @Override
+    public Page<Product> list(Integer pageNumber, Integer pageSize) {
         return productRepository.findAll(PageRequest.of(pageNumber, pageSize));
     }
 
-    public List<Product> searchProducts(String query) {
+    @Override
+    public Page<Product> listByCategory(Long categoryId, Integer pageNumber, Integer pageSize, String sortBy, Double lowPrice, Double maxPrice) throws CategoryNotFoundException {
+        Category category = categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new CategoryNotFoundException(categoryId));
+
+        Sort.Direction direction = sortBy.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, direction);
+
+        return productRepository.findByCategoryAndPriceBetween(category, lowPrice, maxPrice, pageable);
+    }
+
+    public List<Product> search(String query) {
         if (query == null || query.isEmpty()) {
             return Collections.emptyList();
         }
         String queryLowerCase = query.toLowerCase();
         return productRepository.findByNameContainingIgnoreCase(queryLowerCase);
-    }
-
-    @Override
-    public Page<Product> getProductsInCategory(Long id, Integer pageNumber, Integer pageSize, String sortBy, Double lowPrice, Double maxPrice) throws CategoryNotFoundException {
-        Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException(id));
-
-        Sort sort = sortBy.equalsIgnoreCase("asc") ? Sort.by("price").ascending() : Sort.by("price").descending();
-        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
-
-        return productRepository.findByCategoryAndPriceBetween(category, lowPrice, maxPrice, pageable);
-    }
-
-    @Override
-    public Product getById(Long id) throws ProductNotFoundException {
-        Optional<Product> product = productRepository.findById(id);
-
-        return product
-                .orElseThrow(() -> new ProductNotFoundException(id));
-    }
-
-    @Override
-    public Product create(Product product) {
-
-        if (categoryRepository.findById(product.getCategory().getId()).isPresent()) {
-            product.setCategory(categoryRepository.findById(product.getCategory().getId()).get());
-        }
-
-        productRepository.save(product);
-
-        return product;
-    }
-
-    @Override
-    public Product update(Long id, Product product) throws ProductNotFoundException {
-        Product existingProduct = getById(id);
-        existingProduct.setName(product.getName());
-        existingProduct.setDescription(product.getDescription());
-        existingProduct.setPrice(product.getPrice());
-        existingProduct.setImagePath(product.getImagePath());
-
-        if (categoryRepository.findById(product.getCategory().getId()).isPresent()) {
-            existingProduct.setCategory(categoryRepository.findById(product.getCategory().getId()).get());
-        }
-
-
-        productRepository.save(existingProduct);
-
-        return product;
-    }
-
-    @Override
-    public void delete(Long productId) throws ProductNotFoundException {
-        Product product = getById(productId);
-
-        productRepository.delete(product);
     }
 }
 

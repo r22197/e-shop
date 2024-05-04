@@ -1,4 +1,4 @@
-package eshop.backend.dto;
+package eshop.backend.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

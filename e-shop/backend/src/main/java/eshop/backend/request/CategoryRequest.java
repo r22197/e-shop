@@ -1,4 +1,4 @@
-package eshop.backend.dto;
+package eshop.backend.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Data @NoArgsConstructor @AllArgsConstructor
-public class CategoryDto {
+public class CategoryRequest {
     private Long id;
     private String name;
     private Long parent;
-    private Set<CategoryDto> childCategories = new HashSet<>();
+    private Set<CategoryRequest> childCategories = new HashSet<>();
 }

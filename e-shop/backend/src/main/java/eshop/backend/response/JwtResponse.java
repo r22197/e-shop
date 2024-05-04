@@ -1,4 +1,4 @@
-package eshop.backend.dto;
+package eshop.backend.response;
 
 
 import lombok.Data;

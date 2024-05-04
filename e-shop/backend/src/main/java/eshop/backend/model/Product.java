@@ -27,7 +27,7 @@ public class Product {
     private String imagePath;
 
     @NotNull
-    @Min(1)
+    @Min(0)
     private double price;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)

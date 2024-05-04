@@ -8,12 +8,11 @@ import org.springframework.data.domain.Page;
 import java.util.List;
 
 public interface ProductService {
-    Page<Product> getAllProducts(Integer pageNumber, Integer pageSize);
-    Page<Product> getProductsInCategory(Long id, Integer pageNumber, Integer pageSize, String sortBy, Double lowPrice, Double maxPrice) throws CategoryNotFoundException;
-    Product getById(Long Id) throws ProductNotFoundException;
-    Product create(Product product);
-    Product update(Long id, Product product) throws ProductNotFoundException;
+    Product create(Product product) throws CategoryNotFoundException;
+    Product read(Long productId) throws ProductNotFoundException;
+    Product update(Product product) throws ProductNotFoundException, CategoryNotFoundException;
     void delete(Long productId) throws ProductNotFoundException;
-
-    List<Product> searchProducts(String query);
+    Page<Product> list(Integer pageNumber, Integer pageSize);
+    Page<Product> listByCategory(Long categoryId, Integer pageNumber, Integer pageSize, String sortBy, Double lowPrice, Double maxPrice) throws CategoryNotFoundException;
+    List<Product> search(String query);
 }

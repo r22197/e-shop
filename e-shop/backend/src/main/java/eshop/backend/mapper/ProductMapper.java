@@ -1,37 +1,37 @@
 package eshop.backend.mapper;
 
-import eshop.backend.dto.ProductDto;
+import eshop.backend.request.ProductRequest;
 import eshop.backend.model.Category;
 import eshop.backend.model.Product;
 import org.springframework.stereotype.Component;
 
 @Component
 public class ProductMapper {
-    public ProductDto convertToDto(Product product) {
-        ProductDto productDto = new ProductDto();
+    public ProductRequest convertToDto(Product product) {
+        ProductRequest productRequest = new ProductRequest();
 
-        productDto.setId(product.getId());
-        productDto.setName(product.getName());
-        productDto.setDescription(product.getDescription());
-        productDto.setPrice(product.getPrice());
-        productDto.setImagePath(product.getImagePath());
+        productRequest.setId(product.getId());
+        productRequest.setName(product.getName());
+        productRequest.setDescription(product.getDescription());
+        productRequest.setPrice(product.getPrice());
+        productRequest.setImagePath(product.getImagePath());
 
-        productDto.setCategory(product.getCategory() != null ? product.getCategory().getId() : null);
+        productRequest.setCategory(product.getCategory() != null ? product.getCategory().getId() : null);
 
-        return productDto;
+        return productRequest;
     }
 
-    public Product convertToEntity(ProductDto productDto) {
+    public Product convertToEntity(ProductRequest productRequest) {
         Product product = new Product();
 
-        product.setName(productDto.getName());
-        product.setDescription(productDto.getDescription());
-        product.setPrice(productDto.getPrice());
-        product.setImagePath(productDto.getImagePath());
+        product.setName(productRequest.getName());
+        product.setDescription(productRequest.getDescription());
+        product.setPrice(productRequest.getPrice());
+        product.setImagePath(productRequest.getImagePath());
 
-        if (productDto.getCategory() != null) {
+        if (productRequest.getCategory() != null) {
             Category category = new Category();
-            category.setId(productDto.getCategory());
+            category.setId(productRequest.getCategory());
             product.setCategory(category);
         } else {
             product.setCategory(null);

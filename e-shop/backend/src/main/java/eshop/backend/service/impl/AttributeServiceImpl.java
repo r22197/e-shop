@@ -3,6 +3,7 @@ package eshop.backend.service.impl;
 import eshop.backend.exception.AttributeNotFoundException;
 import eshop.backend.model.Attribute;
 import eshop.backend.repository.AttributeRepository;
+import eshop.backend.request.AttributeRequest;
 import eshop.backend.service.AttributeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,9 @@ public class AttributeServiceImpl implements AttributeService {
     private final AttributeRepository attributeRepository;
 
     @Override
-    public Attribute create(Attribute attribute) {
+    public Attribute create(AttributeRequest request) {
+        var attribute = new Attribute(request);
+
         return attributeRepository.save(attribute);
     }
 
@@ -26,10 +29,10 @@ public class AttributeServiceImpl implements AttributeService {
     }
 
     @Override
-    public Attribute update(Attribute attribute) throws AttributeNotFoundException {
-        var persistedAttribute = read(attribute.getId());
+    public Attribute update(AttributeRequest request) throws AttributeNotFoundException {
+        var persistedAttribute = read(request.getId());
 
-        persistedAttribute.setName(attribute.getName());
+        persistedAttribute.setName(request.getName());
 
         return attributeRepository.save(persistedAttribute);
     }

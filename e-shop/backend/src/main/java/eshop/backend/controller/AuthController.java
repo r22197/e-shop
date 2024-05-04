@@ -3,8 +3,8 @@ package eshop.backend.controller;
 
 import eshop.backend.config.jwt.JwtUtils;
 import eshop.backend.config.user.ShopUserDetails;
-import eshop.backend.dto.JwtResponse;
-import eshop.backend.dto.LoginRequest;
+import eshop.backend.response.JwtResponse;
+import eshop.backend.request.LoginRequest;
 import eshop.backend.model.User;
 import eshop.backend.service.UserService;
 import jakarta.validation.Valid;

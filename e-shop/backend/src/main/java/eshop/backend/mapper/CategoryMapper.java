@@ -1,30 +1,30 @@
 package eshop.backend.mapper;
 
-import eshop.backend.dto.CategoryDto;
+import eshop.backend.request.CategoryRequest;
 import eshop.backend.model.Category;
 import org.springframework.stereotype.Component;
 
 @Component
 public class CategoryMapper {
 
-    public CategoryDto convertToDto(Category category) {
-        CategoryDto categoryDto = new CategoryDto();
-        categoryDto.setId(category.getId());
-        categoryDto.setName(category.getName());
+    public CategoryRequest convertToDto(Category category) {
+        CategoryRequest categoryRequest = new CategoryRequest();
+        categoryRequest.setId(category.getId());
+        categoryRequest.setName(category.getName());
 
-        categoryDto.setParent(category.getParent() != null ? category.getParent().getId() : null);
+        categoryRequest.setParent(category.getParent() != null ? category.getParent().getId() : null);
 
-        return categoryDto;
+        return categoryRequest;
     }
 
-    public Category convertToEntity(CategoryDto categoryDto) {
+    public Category convertToEntity(CategoryRequest categoryRequest) {
         Category category = new Category();
-        category.setId(categoryDto.getId());
-        category.setName(categoryDto.getName());
+        category.setId(categoryRequest.getId());
+        category.setName(categoryRequest.getName());
 
-        if (categoryDto.getParent() != null) {
+        if (categoryRequest.getParent() != null) {
             Category parent = new Category();
-            parent.setId(categoryDto.getParent());
+            parent.setId(categoryRequest.getParent());
             category.setParent(parent);
         } else {
             category.setParent(null);

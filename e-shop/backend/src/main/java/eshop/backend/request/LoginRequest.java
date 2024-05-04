@@ -1,4 +1,4 @@
-package eshop.backend.dto;
+package eshop.backend.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;

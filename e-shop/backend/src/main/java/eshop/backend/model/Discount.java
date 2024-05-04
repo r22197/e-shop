@@ -27,6 +27,8 @@ public class Discount {
 
     @Min(0)
     private double amount;
+
+    @Enumerated(EnumType.STRING)
     private DiscountType type;
 
     private LocalDateTime startDate;

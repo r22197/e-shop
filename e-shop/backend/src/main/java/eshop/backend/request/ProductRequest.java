@@ -1,9 +1,9 @@
-package eshop.backend.dto;
+package eshop.backend.request;
 
 import lombok.*;
 
 @Data @NoArgsConstructor @AllArgsConstructor
-public class ProductDto {
+public class ProductRequest {
     private Long id;
     private String name;
     private String description;

@@ -2,13 +2,13 @@ package eshop.backend.service.impl;
 
 import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.exception.ReviewNotFoundException;
+import eshop.backend.exception.UserNotFoundException;
 import eshop.backend.model.Review;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.repository.ReviewRepository;
 import eshop.backend.repository.UserRepository;
 import eshop.backend.service.ReviewService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -38,8 +38,8 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review update(Long reviewId, Review review) throws ReviewNotFoundException {
-        var persistedReview = read(reviewId);
+    public Review update(Review review) throws ReviewNotFoundException {
+        var persistedReview = read(review.getId());
 
         persistedReview.setRating(review.getRating());
         persistedReview.setText(review.getText());
@@ -71,10 +71,10 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Set<Review> listByUserEmail(String email) {
-        if (!userRepository.existsByEmail(email))
-            throw new UsernameNotFoundException(email);
+    public Set<Review> listByUserId(Long userId) throws UserNotFoundException {
+        if (!userRepository.existsById(userId))
+            throw new UserNotFoundException(userId);
 
-        return reviewRepository.findByUserEmail(email);
+        return reviewRepository.findByUserId(userId);
     }
 }

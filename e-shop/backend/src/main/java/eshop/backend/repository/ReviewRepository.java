@@ -8,8 +8,9 @@ import java.util.Set;
 
 @Repository
 public interface ReviewRepository extends JpaRepository<Review, Long> {
-    Set<Review> findByUserEmail(String email);
     Set<Review> findByProductId(Long productId);
+    Set<Review> findByUserId(Long userId);
+
 
     //todo: @Transactional
     //cascade remove, else void deleteReviewByProductId

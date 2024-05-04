@@ -1,6 +1,7 @@
 package eshop.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import eshop.backend.request.AttributeRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -33,4 +34,9 @@ public class Attribute {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private Set<Product> products;
+
+    public Attribute(AttributeRequest request) {
+        this.id = request.getId();
+        this.name = request.getName();
+    }
 }
