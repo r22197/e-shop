@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -30,10 +30,10 @@ public class User {
     private Wishlist wishlist;
 
     @OneToMany(mappedBy = "user")
-    private List<Order> orders;
+    private Set<Order> orders;
 
     @OneToMany(mappedBy = "user")
-    private List<Review> reviews;
+    private Set<Review> reviews;
 
     public User() {
         this.dateOfRegistration = LocalDateTime.now();

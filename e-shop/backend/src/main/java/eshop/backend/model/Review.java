@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Set;
 
 @Entity
 @Data
@@ -28,10 +28,10 @@ public class Review {
     private LocalDateTime dateOfCreation;
 
     @ElementCollection
-    private List<String> pros;
+    private Set<String> pros;
 
     @ElementCollection
-    private List<String> cons;
+    private Set<String> cons;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

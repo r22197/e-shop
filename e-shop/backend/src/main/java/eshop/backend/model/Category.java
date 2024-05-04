@@ -29,6 +29,10 @@ public class Category {
     @JoinColumn(name = "parent_id")
     private Category parent;
 
+    @ManyToOne
+    @JoinColumn(name = "discount_id")
+    private Discount discount;
+
     @Override
     public int hashCode() {
         final int prime = 31;

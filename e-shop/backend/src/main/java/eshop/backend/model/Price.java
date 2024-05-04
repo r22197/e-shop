@@ -6,25 +6,23 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Entity
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "cart_item")
-public class CartItem {
+@NoArgsConstructor
+@Table(name = "price")
+public class Price {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Min(1)
-    private Integer quantity;
-
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
+    @Min(0)
+    private double price;
+    private LocalDateTime dateOfChange;
 
     @ManyToOne
     @JoinColumn(name = "variant_id")
     private Variant variant;
-
 }

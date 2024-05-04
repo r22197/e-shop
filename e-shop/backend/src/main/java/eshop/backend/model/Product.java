@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,7 +29,7 @@ public class Product {
     private double price;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
-    private List<Variant> variants;
+    private Set<Variant> variants;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private Set<Review> reviews;

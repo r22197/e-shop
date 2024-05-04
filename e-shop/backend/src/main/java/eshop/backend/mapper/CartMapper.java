@@ -25,7 +25,7 @@ public class CartMapper {
                 cartItem.getId(),
                 cartItem.getQuantity(),
                 cartItem.getCart().getId(),
-                cartItem.getPrice(),
+                0,
                 cartItem.getVariant().getProduct().getId()
         );
     }

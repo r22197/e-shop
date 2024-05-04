@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -19,7 +20,9 @@ public class Variant {
     private Long id;
 
     private Integer quantity;
-    private double price;
+
+    @OneToMany(mappedBy = "variant")
+    private List<Price> price;
 
     @OneToMany(mappedBy = "variant")
     private Set<CartItem> cartItems;
