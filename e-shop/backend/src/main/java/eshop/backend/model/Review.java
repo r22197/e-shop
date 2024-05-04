@@ -1,5 +1,6 @@
 package eshop.backend.model;
 
+import eshop.backend.request.ReviewRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -44,6 +45,15 @@ public class Review {
     private Product product;
 
     public Review() {
+        this.dateOfCreation = LocalDateTime.now();
+    }
+
+    public Review(ReviewRequest request) {
+        this.id = request.getId();
+        this.rating = request.getRating();
+        this.text = request.getText();
+        this.pros = request.getPros();
+        this.cons = request.getCons();
         this.dateOfCreation = LocalDateTime.now();
     }
 }

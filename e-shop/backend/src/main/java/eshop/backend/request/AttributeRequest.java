@@ -8,5 +8,5 @@ import java.util.Set;
 public class AttributeRequest {
     private Long id;
     private String name;
-    private Set<Long> valueIds;
+    private Set<Long> valueIds; //todo
 }

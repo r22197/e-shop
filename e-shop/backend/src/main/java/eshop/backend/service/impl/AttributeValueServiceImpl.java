@@ -58,4 +58,5 @@ public class AttributeValueServiceImpl implements AttributeValueService {
 
         return valueRepository.findByAttributeId(attributeId);
     }
+    //todo: check jestli je nutné
 }

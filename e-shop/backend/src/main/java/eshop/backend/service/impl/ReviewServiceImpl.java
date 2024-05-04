@@ -7,6 +7,7 @@ import eshop.backend.model.Review;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.repository.ReviewRepository;
 import eshop.backend.repository.UserRepository;
+import eshop.backend.request.ReviewRequest;
 import eshop.backend.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,11 +24,17 @@ public class ReviewServiceImpl implements ReviewService {
     private final UserRepository userRepository;
 
     @Override
-    public Review create(Long productId, Review review) throws ProductNotFoundException {
-        var product = productRepository.findById(productId)
-                        .orElseThrow(() -> new ProductNotFoundException(productId));
+    public Review create(ReviewRequest request) throws ProductNotFoundException {
+        var product = productRepository.findById(request.getProductId())
+                        .orElseThrow(() -> new ProductNotFoundException(request.getProductId()));
 
+        var user = userRepository.findById(request.getUserId())
+                .orElseThrow(() -> new ProductNotFoundException(request.getUserId()));
+
+        var review = new Review(request);
         review.setProduct(product);
+        review.setUser(user);
+
         return reviewRepository.save(review);
     }
 
@@ -38,13 +45,13 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public Review update(Review review) throws ReviewNotFoundException {
-        var persistedReview = read(review.getId());
+    public Review update(ReviewRequest request) throws ReviewNotFoundException {
+        var persistedReview = read(request.getId());
 
-        persistedReview.setRating(review.getRating());
-        persistedReview.setText(review.getText());
-        persistedReview.setPros(review.getCons());
-        persistedReview.setCons(review.getCons());
+        persistedReview.setRating(request.getRating());
+        persistedReview.setText(request.getText());
+        persistedReview.setPros(request.getCons());
+        persistedReview.setCons(request.getCons());
         persistedReview.setDateOfUpdate(LocalDateTime.now());
 
         return reviewRepository.save(persistedReview);

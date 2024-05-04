@@ -2,7 +2,6 @@ package eshop.backend.controller;
 
 import eshop.backend.request.CartRequest;
 import eshop.backend.request.UpdateProductCartQuantityDto;
-import eshop.backend.mapper.CartMapper;
 import eshop.backend.model.Cart;
 import eshop.backend.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -16,16 +15,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CartController {
     private final CartService cartService;
-    private  final CartMapper cartMapper;
 
     @GetMapping
     public ResponseEntity<CartRequest> getCart(@AuthenticationPrincipal UserDetails userDetails) {
         String email = userDetails.getUsername();
         Cart cart = cartService.getCartByUserEmail(email);
 
-        CartRequest cartRequest = cartMapper.convertCartToDto(cart, cartService.calculateTotalPrice(cart));
-
-        return ResponseEntity.ok(cartRequest);
+        return ResponseEntity.ok(new CartRequest());
     }
 
 
