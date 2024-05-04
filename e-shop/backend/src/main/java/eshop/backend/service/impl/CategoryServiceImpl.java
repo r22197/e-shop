@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -16,40 +15,38 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public List<Category> getAll() {
-        return categoryRepository.findAll();
-    }
-
-    @Override
-    public Category getById(Long id) throws CategoryNotFoundException {
-        Optional<Category> category = categoryRepository.findById(id);
-
-        return category
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found with ID: " + id));
-    }
-
-    @Override
     public Category create(Category category) {
-        categoryRepository.save(category);
-
         return categoryRepository.save(category);
     }
 
     @Override
-    public Category update(Category category) throws CategoryNotFoundException {
-        Category existingCategory = getById(category.getId());
-        existingCategory.setName(category.getName());
-        existingCategory.setParent(category.getParent());
-        categoryRepository.save(existingCategory);
-
-        return category;
+    public Category read(Long categoryId) throws CategoryNotFoundException {
+        return categoryRepository.findById(categoryId)
+                .orElseThrow(() -> new CategoryNotFoundException(categoryId));
     }
 
     @Override
-    public void delete(Long id) throws CategoryNotFoundException {
-        Category category = getById(id);
-        category.getChildCategories().forEach(childCategory -> childCategory.setParent(null));
+    public Category update(Category category) throws CategoryNotFoundException {
+        var persistedCategory = read(category.getId());
+
+        persistedCategory.setName(category.getName());
+        persistedCategory.setParent(category.getParent());
+
+        return categoryRepository.save(persistedCategory);
+    }
+
+    @Override
+    public void delete(Long categoryId) throws CategoryNotFoundException {
+        Category category = read(categoryId);
+
+        category.getChildCategories()
+                .forEach(childCategory -> childCategory.setParent(null));
 
         categoryRepository.delete(category);
+    }
+
+    @Override
+    public List<Category> list() {
+        return categoryRepository.findAll();
     }
 }

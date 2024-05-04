@@ -40,7 +40,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Page<Product> getProductsInCategory(Long id, Integer pageNumber, Integer pageSize, String sortBy, Double lowPrice, Double maxPrice) throws CategoryNotFoundException {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new CategoryNotFoundException("Category not found with the ID " + id));
+                .orElseThrow(() -> new CategoryNotFoundException(id));
 
         Sort sort = sortBy.equalsIgnoreCase("asc") ? Sort.by("price").ascending() : Sort.by("price").descending();
         Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);

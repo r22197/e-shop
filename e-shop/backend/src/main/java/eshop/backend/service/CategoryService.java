@@ -6,11 +6,10 @@ import eshop.backend.model.Category;
 import java.util.List;
 
 public interface CategoryService {
-    List<Category> getAll();
-    Category getById(Long id) throws CategoryNotFoundException;
     Category create(Category category);
-
+    Category read(Long categoryId) throws CategoryNotFoundException;
     Category update(Category category) throws CategoryNotFoundException;
+    void delete(Long categoryId) throws CategoryNotFoundException;
+    List<Category> list();
 
-    void delete(Long id) throws CategoryNotFoundException;
 }

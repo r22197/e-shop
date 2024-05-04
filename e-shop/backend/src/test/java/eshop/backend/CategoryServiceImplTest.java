@@ -43,7 +43,7 @@ class CategoryServiceImplTest {
         categories.add(secondCategory);
         when(categoryRepository.findAll()).thenReturn(categories);
 
-        List<Category> result = categoryService.getAll();
+        List<Category> result = categoryService.list();
 
         assertEquals(categories.size(), result.size());
         assertEquals(categories.get(0).getName(), result.get(0).getName());
@@ -58,7 +58,7 @@ class CategoryServiceImplTest {
 
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
 
-        Category result = categoryService.getById(1L);
+        Category result = categoryService.read(1L);
 
         assertEquals(category.getId(), result.getId());
         assertEquals(category.getName(), result.getName());
@@ -68,7 +68,7 @@ class CategoryServiceImplTest {
     void testGetById_CategoryNotFound() {
         when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
 
-        assertThrows(CategoryNotFoundException.class, () -> categoryService.getById(1L));
+        assertThrows(CategoryNotFoundException.class, () -> categoryService.read(1L));
     }
 
     @Test

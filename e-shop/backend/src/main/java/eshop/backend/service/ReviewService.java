@@ -4,7 +4,6 @@ import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.exception.ReviewNotFoundException;
 import eshop.backend.model.Review;
 
-import java.util.List;
 import java.util.Set;
 
 public interface ReviewService {

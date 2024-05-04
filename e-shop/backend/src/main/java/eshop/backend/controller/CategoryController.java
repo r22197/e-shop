@@ -23,7 +23,7 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<CategoryDto>> getAllCategories() {
-        List<CategoryDto> categoryDtoList = categoryService.getAll().stream()
+        List<CategoryDto> categoryDtoList = categoryService.list().stream()
                 .map(categoryMapper::convertToDto)
                 .collect(Collectors.toList());
 
@@ -32,7 +32,7 @@ public class CategoryController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CategoryDto> getCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
-        Category category = categoryService.getById(id);
+        Category category = categoryService.read(id);
         CategoryDto categoryDto = categoryMapper.convertToDto(category);
 
         return ResponseEntity.ok(categoryDto);
@@ -49,7 +49,7 @@ public class CategoryController {
     @PutMapping("/{id}")
     public ResponseEntity<CategoryDto> updateCategory(@PathVariable Long id, @RequestBody CategoryDto categoryDto) throws CategoryNotFoundException {
         if (!Objects.equals(id, categoryDto.getId())) {
-            throw new CategoryNotFoundException("ID of the category is not equal to the one being updated.");
+            throw new CategoryNotFoundException(id);
         }
         Category category = categoryMapper.convertToEntity(categoryDto);
         categoryService.update(category);
