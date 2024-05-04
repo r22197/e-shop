@@ -83,7 +83,7 @@ public class ProductController {
     @PutMapping("/{id}")
     public ResponseEntity<ProductDto> updateProduct(@PathVariable Long id, @RequestBody ProductDto productDto) throws ProductNotFoundException {
         if (!Objects.equals(id, productDto.getId())) {
-            throw new ProductNotFoundException("ID of the product is not equal to the one being updated.");
+            throw new ProductNotFoundException(id);
         }
         Product product = productMapper.convertToEntity(productDto);
         productService.update(id, product);

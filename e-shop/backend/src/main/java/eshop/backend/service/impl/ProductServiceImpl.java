@@ -53,7 +53,7 @@ public class ProductServiceImpl implements ProductService {
         Optional<Product> product = productRepository.findById(id);
 
         return product
-                .orElseThrow(() -> new ProductNotFoundException("Product not found with ID: " + id));
+                .orElseThrow(() -> new ProductNotFoundException(id));
     }
 
     @Override
