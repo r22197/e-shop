@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 import java.util.Set;
 
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "product")
 public class Product {
     @Id

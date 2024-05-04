@@ -6,10 +6,14 @@ import eshop.backend.model.Product;
 import eshop.backend.model.Review;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.repository.ReviewRepository;
+import eshop.backend.repository.UserRepository;
 import eshop.backend.service.ReviewService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -17,6 +21,7 @@ import java.util.Set;
 public class ReviewServiceImpl implements ReviewService {
     private final ReviewRepository reviewRepository;
     private final ProductRepository productRepository;
+    private final UserRepository userRepository;
 
     @Override
     public Review create(Long productId, Review review) throws ProductNotFoundException {
@@ -41,6 +46,7 @@ public class ReviewServiceImpl implements ReviewService {
         persistedReview.setText(review.getText());
         persistedReview.setPros(review.getCons());
         persistedReview.setCons(review.getCons());
+        persistedReview.setDateOfUpdate(LocalDateTime.now());
 
         return reviewRepository.save(persistedReview);
     }
@@ -53,11 +59,23 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
+    public List<Review> list() {
+        return reviewRepository.findAll();
+    }
+
+    @Override
     public Set<Review> listByProductId(Long productId) throws ProductNotFoundException {
-        if (!productRepository.existsById(productId)) {
+        if (!productRepository.existsById(productId))
             throw new ProductNotFoundException(productId);
-        }
 
         return reviewRepository.findByProductId(productId);
+    }
+
+    @Override
+    public Set<Review> listByUserEmail(String email) {
+        if (!userRepository.existsByEmail(email))
+            throw new UsernameNotFoundException(email);
+
+        return reviewRepository.findByUserEmail(email);
     }
 }

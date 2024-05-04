@@ -8,7 +8,9 @@ import lombok.NoArgsConstructor;
 import java.util.*;
 
 @Entity
-@Data @NoArgsConstructor @AllArgsConstructor
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "cart")
 public class Cart {
     @Id

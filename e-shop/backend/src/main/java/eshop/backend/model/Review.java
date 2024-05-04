@@ -21,11 +21,13 @@ public class Review {
 
     @Min(1)
     @Max(5)
-    @NotNull
+    @NotNull //todo: try
     private int rating;
 
     private String text;
+
     private LocalDateTime dateOfCreation;
+    private LocalDateTime dateOfUpdate;
 
     @ElementCollection
     private Set<String> pros;

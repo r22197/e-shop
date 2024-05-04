@@ -12,5 +12,5 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Set<Review> findByProductId(Long productId);
 
     //todo: @Transactional
-    //void deleteReviewByProductId
+    //cascade remove, else void deleteReviewByProductId
 }

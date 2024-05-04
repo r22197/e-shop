@@ -1,6 +1,7 @@
 package eshop.backend.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -9,17 +10,22 @@ import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "users")
 @AllArgsConstructor
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username;
+    private String username; //todo
+
+    @NotBlank
     private String email;
+
+    @NotBlank
     private String password;
-    private String role = "ROLE_CUSTOMER";
+
+    private String role = "ROLE_CUSTOMER"; //todo
 
     private LocalDateTime dateOfRegistration;
 
