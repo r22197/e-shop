@@ -2,7 +2,6 @@ package eshop.backend.service.impl;
 
 import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.exception.ReviewNotFoundException;
-import eshop.backend.model.Product;
 import eshop.backend.model.Review;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.repository.ReviewRepository;
@@ -25,7 +24,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review create(Long productId, Review review) throws ProductNotFoundException {
-        Product product = productRepository.findById(productId)
+        var product = productRepository.findById(productId)
                         .orElseThrow(() -> new ProductNotFoundException(productId));
 
         review.setProduct(product);

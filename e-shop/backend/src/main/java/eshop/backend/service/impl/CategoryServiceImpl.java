@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void delete(Long categoryId) throws CategoryNotFoundException {
-        Category category = read(categoryId);
+        var category = read(categoryId);
 
         category.getChildCategories()
                 .forEach(childCategory -> childCategory.setParent(null));

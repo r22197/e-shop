@@ -19,6 +19,7 @@ public class OrderItem {
     @Min(1)
     private Integer quantity;
 
+    @Min(0)
     private double price;
 
     @ManyToOne
