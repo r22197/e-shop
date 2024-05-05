@@ -1,13 +1,13 @@
 package eshop.backend.request;
 
-import lombok.*;
 
-@Data @NoArgsConstructor @AllArgsConstructor
+import lombok.Data;
+
+@Data
 public class ProductRequest {
     private Long id;
     private String name;
     private String description;
-    private double price;
-    private Long category;
     private String imagePath;
+    private Long categoryId;
 }

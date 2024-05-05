@@ -6,8 +6,10 @@ import eshop.backend.model.Category;
 import eshop.backend.model.Product;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.repository.ProductRepository;
+import eshop.backend.request.ProductRequest;
 import eshop.backend.service.ProductService;
 import lombok.RequiredArgsConstructor;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -24,9 +26,10 @@ public class ProductServiceImpl implements ProductService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Product create(Product product) throws CategoryNotFoundException {
-        categoryRepository.findById(product.getCategory().getId())
-                .orElseThrow(() -> new CategoryNotFoundException(product.getCategory().getId()));
+    public Product create(ProductRequest request) throws CategoryNotFoundException {
+        var product = new Product(request);
+
+        setProductCategory(request, product);
 
         return productRepository.save(product);
     }
@@ -38,16 +41,13 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product update(Product product) throws ProductNotFoundException, CategoryNotFoundException {
-        categoryRepository.findById(product.getCategory().getId())
-                .orElseThrow(() -> new CategoryNotFoundException(product.getCategory().getId()));
+    public Product update(ProductRequest request) throws ProductNotFoundException, CategoryNotFoundException {
+        var persistedProduct = read(request.getId());
 
-        Product persistedProduct = read(product.getId());
-
-        persistedProduct.setName(product.getName());
-        persistedProduct.setDescription(product.getDescription());
-        persistedProduct.setPrice(product.getPrice());
-        persistedProduct.setImagePath(product.getImagePath());
+        persistedProduct.setName(request.getName());
+        persistedProduct.setDescription(request.getDescription());
+        persistedProduct.setImagePath(request.getImagePath());
+        setProductCategory(request, persistedProduct);
 
         return productRepository.save(persistedProduct);
     }
@@ -75,12 +75,21 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByCategoryAndPriceBetween(category, lowPrice, maxPrice, pageable);
     }
 
+    @Override
     public List<Product> search(String query) {
         if (query == null || query.isEmpty()) {
             return Collections.emptyList();
         }
-        String queryLowerCase = query.toLowerCase();
-        return productRepository.findByNameContainingIgnoreCase(queryLowerCase);
+        return productRepository.findByNameContainingIgnoreCase(query.toLowerCase());
+    }
+
+    private void setProductCategory(ProductRequest request, Product product) throws CategoryNotFoundException {
+        if (request.getCategoryId() != null) {
+            Category category = categoryRepository.findById(request.getCategoryId())
+                    .orElseThrow(() -> new CategoryNotFoundException(request.getCategoryId()));
+
+            product.setCategory(category);
+        }
     }
 }
 

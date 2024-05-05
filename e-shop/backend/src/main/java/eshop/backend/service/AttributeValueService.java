@@ -2,9 +2,7 @@ package eshop.backend.service;
 
 import eshop.backend.exception.AttributeNotFoundException;
 import eshop.backend.exception.AttributeValueNotFoundException;
-import eshop.backend.model.Attribute;
 import eshop.backend.model.AttributeValue;
-import eshop.backend.request.AttributeRequest;
 import eshop.backend.request.AttributeValueRequest;
 
 import java.util.List;

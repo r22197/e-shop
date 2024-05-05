@@ -24,12 +24,12 @@ public class ReviewServiceImpl implements ReviewService {
     private final UserRepository userRepository;
 
     @Override
-    public Review create(ReviewRequest request) throws ProductNotFoundException {
+    public Review create(ReviewRequest request) throws ProductNotFoundException, UserNotFoundException {
         var product = productRepository.findById(request.getProductId())
-                        .orElseThrow(() -> new ProductNotFoundException(request.getProductId()));
+                .orElseThrow(() -> new ProductNotFoundException(request.getProductId()));
 
         var user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new ProductNotFoundException(request.getUserId()));
+                .orElseThrow(() -> new UserNotFoundException(request.getUserId()));
 
         var review = new Review(request);
         review.setProduct(product);

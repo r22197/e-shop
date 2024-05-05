@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 public interface ReviewService {
-    Review create(ReviewRequest request) throws ProductNotFoundException;
+    Review create(ReviewRequest request) throws ProductNotFoundException, UserNotFoundException;
     Review read(Long reviewId) throws ReviewNotFoundException;
     Review update(ReviewRequest request) throws ReviewNotFoundException;
     void delete(Long reviewId) throws ReviewNotFoundException;

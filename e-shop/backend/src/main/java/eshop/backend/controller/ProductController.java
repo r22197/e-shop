@@ -2,7 +2,6 @@ package eshop.backend.controller;
 
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.exception.ProductNotFoundException;
-import eshop.backend.mapper.ProductMapper;
 import eshop.backend.model.Product;
 import eshop.backend.request.ProductRequest;
 import eshop.backend.service.ProductService;
@@ -15,33 +14,25 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
-    private final ProductMapper productMapper;
 
     @GetMapping
-    public ResponseEntity<Page<ProductRequest>> getAllProducts(
+    public ResponseEntity<Page<Product>> getAllProducts(
             @RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize) {
-        Page<ProductRequest> productDtoPages = productService
-                .list(pageNumber, pageSize)
-                .map(productMapper::convertToDto);
+        Page<Product> productDtoPages = productService.list(pageNumber, pageSize);
 
         return ResponseEntity.ok(productDtoPages);
     }
 
     @GetMapping("/search")
-    public ResponseEntity<List<ProductRequest>> searchProducts(@RequestParam String query) {
-        List<ProductRequest> productRequestList = productService
-                .search(query)
-                .stream()
-                .map(productMapper::convertToDto)
-                .collect(Collectors.toList());
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String query) {
+        List<Product> productRequestList = productService.search(query);
 
         return ResponseEntity.ok(productRequestList);
     }
@@ -49,7 +40,7 @@ public class ProductController {
 
 
     @GetMapping("/category/{id}")
-    public ResponseEntity<Page<ProductRequest>> getProductsInCategory(
+    public ResponseEntity<Page<Product>> getProductsInCategory(
             @PathVariable Long id,
             @RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize,
@@ -58,23 +49,20 @@ public class ProductController {
             @RequestParam(required = false) Double maxPrice) throws CategoryNotFoundException {
 
         Page<Product> productPage = productService.listByCategory(id, pageNumber, pageSize, sortBy, lowPrice, maxPrice);
-        Page<ProductRequest> productDtoPage = productPage.map(productMapper::convertToDto);
-        return ResponseEntity.ok(productDtoPage);
+        return ResponseEntity.ok(productPage);
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductRequest> getProductById(@PathVariable Long id) throws ProductNotFoundException {
+    public ResponseEntity<Product> getProductById(@PathVariable Long id) throws ProductNotFoundException {
         Product product = productService.read(id);
-        ProductRequest productRequest = productMapper.convertToDto(product);
 
-        return ResponseEntity.ok(productRequest);
+        return ResponseEntity.ok(product);
     }
 
     @PostMapping
     public ResponseEntity<ProductRequest> createProduct(@Valid @RequestBody ProductRequest productRequest) throws CategoryNotFoundException {
-        Product product = productMapper.convertToEntity(productRequest);
-        productService.create(product);
+        productService.create(productRequest);
 
         return new ResponseEntity<>(productRequest, HttpStatus.CREATED);
 
@@ -85,8 +73,7 @@ public class ProductController {
         if (!Objects.equals(id, productRequest.getId())) {
             throw new ProductNotFoundException(id);
         }
-        Product product = productMapper.convertToEntity(productRequest);
-        productService.update(product);
+        productService.update(productRequest);
 
         return ResponseEntity.ok(productRequest);
     }

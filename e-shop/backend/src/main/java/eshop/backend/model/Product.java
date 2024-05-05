@@ -1,5 +1,6 @@
 package eshop.backend.model;
 
+import eshop.backend.request.ProductRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
@@ -30,15 +31,15 @@ public class Product {
     @Min(0)
     private double price;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private Set<Variant> variants;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private Set<Review> reviews;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
 
     @ManyToMany
     @JoinTable(
@@ -47,6 +48,12 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "attribute_id")
     )
     private Set<Attribute> attributes;
+
+    public Product(ProductRequest request) {
+        this.id = request.getId();
+        this.name = request.getName();
+        this.imagePath = request.getImagePath();
+    }
 
     // source https://stackoverflow.com/questions/24994440/no-serializer-found-for-class-org-hibernate-proxy-pojo-javassist-javassist
 

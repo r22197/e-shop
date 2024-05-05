@@ -1,7 +1,6 @@
 package eshop.backend.controller;
 
 import eshop.backend.exception.CategoryNotFoundException;
-import eshop.backend.mapper.CategoryMapper;
 import eshop.backend.model.Category;
 import eshop.backend.request.CategoryRequest;
 import eshop.backend.service.CategoryService;
@@ -19,31 +18,29 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class CategoryController {
     private final CategoryService categoryService;
-    private final CategoryMapper categoryMapper;
 
     @GetMapping
-    public ResponseEntity<List<CategoryRequest>> getAllCategories() {
-        List<CategoryRequest> categoryRequestList = categoryService.list().stream()
-                .map(categoryMapper::convertToDto)
-                .collect(Collectors.toList());
+    public ResponseEntity<List<Category>> getAllCategories() {
+        List<Category> categoryRequestList = categoryService.list();
 
         return ResponseEntity.ok(categoryRequestList);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CategoryRequest> getCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
+    public ResponseEntity<Category> getCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
         Category category = categoryService.read(id);
-        CategoryRequest categoryRequest = categoryMapper.convertToDto(category);
 
-        return ResponseEntity.ok(categoryRequest);
+        return ResponseEntity.ok(category);
     }
 
     @PostMapping
-    public ResponseEntity<CategoryRequest> createCategory(@RequestBody CategoryRequest categoryRequest) {
-        Category category = categoryMapper.convertToEntity(categoryRequest);
-        categoryService.create(category);
-
-        return new ResponseEntity<>(categoryRequest, HttpStatus.CREATED);
+    public ResponseEntity<Category> createCategory(@RequestBody CategoryRequest categoryRequest) {
+        try {
+            var category = categoryService.create(categoryRequest);
+            return ResponseEntity.ok(category);
+        } catch (CategoryNotFoundException e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PutMapping("/{id}")
@@ -51,8 +48,8 @@ public class CategoryController {
         if (!Objects.equals(id, categoryRequest.getId())) {
             throw new CategoryNotFoundException(id);
         }
-        Category category = categoryMapper.convertToEntity(categoryRequest);
-        categoryService.update(category);
+        System.out.println(categoryRequest);
+        categoryService.update(categoryRequest);
 
         return ResponseEntity.ok(categoryRequest);
     }

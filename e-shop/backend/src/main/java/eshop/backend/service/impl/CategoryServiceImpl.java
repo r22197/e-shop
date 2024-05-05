@@ -3,6 +3,7 @@ package eshop.backend.service.impl;
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.model.Category;
 import eshop.backend.repository.CategoryRepository;
+import eshop.backend.request.CategoryRequest;
 import eshop.backend.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -15,7 +16,11 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Category create(Category category) {
+    public Category create(CategoryRequest request) throws CategoryNotFoundException {
+        var category = new Category(request);
+
+        setParentCategory(request, category);
+
         return categoryRepository.save(category);
     }
 
@@ -26,11 +31,11 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(Category category) throws CategoryNotFoundException {
-        var persistedCategory = read(category.getId());
+    public Category update(CategoryRequest request) throws CategoryNotFoundException {
+        var persistedCategory = read(request.getId());
 
-        persistedCategory.setName(category.getName());
-        persistedCategory.setParent(category.getParent());
+        persistedCategory.setName(request.getName());
+        setParentCategory(request, persistedCategory);
 
         return categoryRepository.save(persistedCategory);
     }
@@ -39,14 +44,35 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(Long categoryId) throws CategoryNotFoundException {
         var category = read(categoryId);
 
-        category.getChildCategories()
-                .forEach(childCategory -> childCategory.setParent(null));
+        removeChildCategoriesParent(category);
 
-        categoryRepository.delete(category);
+        categoryRepository.deleteById(categoryId);
     }
 
     @Override
     public List<Category> list() {
         return categoryRepository.findAll();
+    }
+
+    private void setParentCategory(CategoryRequest request, Category category) throws CategoryNotFoundException {
+        if (request.getParentId() != null) {
+            Category parent = categoryRepository.findById(request.getParentId())
+                    .orElseThrow(() -> new CategoryNotFoundException(request.getParentId()));
+
+            category.setParent(parent);
+
+            //infiniteLoop
+            while (parent != null) {
+                if (parent.getId().equals(category.getId())) {
+                    throw new IllegalArgumentException("Infinite loop, wrong parentId.");
+                }
+                parent = parent.getParent();
+            }
+        }
+    }
+
+    private void removeChildCategoriesParent(Category category) {
+        category.getChildCategories()
+                .forEach(childCategory -> childCategory.setParent(null));
     }
 }

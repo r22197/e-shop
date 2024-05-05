@@ -10,6 +10,6 @@ import java.util.Set;
 public class CategoryRequest {
     private Long id;
     private String name;
-    private Long parent;
+    private Long parentId;
     private Set<CategoryRequest> childCategories;
 }

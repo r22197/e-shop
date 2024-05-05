@@ -3,6 +3,7 @@ package eshop.backend;
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.model.Category;
 import eshop.backend.repository.CategoryRepository;
+import eshop.backend.request.CategoryRequest;
 import eshop.backend.service.impl.CategoryServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -72,14 +73,14 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    void testCreate() {
+    void testCreate() throws CategoryNotFoundException {
         Category category = new Category();
         category.setId(1L);
         category.setName("Category 1");
 
         when(categoryRepository.save(category)).thenReturn(category);
 
-        Category result = categoryService.create(category);
+        Category result = categoryService.create(new CategoryRequest());
 
         assertEquals(category.getId(), result.getId());
         assertEquals(category.getName(), result.getName());
@@ -94,7 +95,7 @@ class CategoryServiceImplTest {
         when(categoryRepository.findById(1L)).thenReturn(Optional.of(category));
         when(categoryRepository.save(category)).thenReturn(category);
 
-        Category result = categoryService.update(category);
+        Category result = categoryService.update(new CategoryRequest());
 
         assertEquals(category.getId(), result.getId());
         assertEquals(category.getName(), result.getName());
@@ -108,7 +109,7 @@ class CategoryServiceImplTest {
 
         when(categoryRepository.findById(1L)).thenReturn(Optional.empty());
 
-        assertThrows(CategoryNotFoundException.class, () -> categoryService.update(category));
+        assertThrows(CategoryNotFoundException.class, () -> categoryService.update(new CategoryRequest()));
     }
 
     @Test

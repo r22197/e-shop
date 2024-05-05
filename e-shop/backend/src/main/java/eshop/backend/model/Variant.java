@@ -1,6 +1,7 @@
 package eshop.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import eshop.backend.request.VariantRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -23,18 +24,18 @@ public class Variant {
     @Min(0)
     private Integer quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "product_id")
+    private Product product;
+
     @OneToMany(mappedBy = "variant")
-    private List<Price> price;
+    private List<Price> prices;
 
     @OneToMany(mappedBy = "variant")
     private Set<CartItem> cartItems;
 
     @OneToMany(mappedBy = "variant")
     private Set<OrderItem> orderItems;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
-    private Product product;
 
     @ManyToMany
     @JoinTable(
@@ -52,4 +53,9 @@ public class Variant {
             inverseJoinColumns = @JoinColumn(name = "wishlist_id")
     )
     private Set<Wishlist> wishlists;
+
+    public Variant(VariantRequest request) {
+        this.id = request.getId();
+        this.quantity = request.getQuantity();
+    }
 }

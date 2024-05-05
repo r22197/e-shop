@@ -1,5 +1,6 @@
 package eshop.backend.model;
 
+import eshop.backend.request.PriceRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
@@ -25,4 +26,10 @@ public class Price {
     @ManyToOne
     @JoinColumn(name = "variant_id")
     private Variant variant;
+
+    public Price(PriceRequest request) {
+        this.id = request.getId();
+        this.price = request.getPrice();
+        this.dateOfChange = LocalDateTime.now();
+    }
 }

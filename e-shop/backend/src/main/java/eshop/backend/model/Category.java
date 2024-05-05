@@ -1,5 +1,6 @@
 package eshop.backend.model;
 
+import eshop.backend.request.CategoryRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,6 +33,11 @@ public class Category {
     @ManyToOne
     @JoinColumn(name = "discount_id")
     private Discount discount;
+
+    public Category(CategoryRequest request) {
+        this.id = request.getId();
+        this.name = request.getName();
+    }
 
     @Override
     public int hashCode() {
