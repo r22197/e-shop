@@ -5,6 +5,7 @@ import eshop.backend.model.Category;
 import eshop.backend.model.Product;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.repository.ProductRepository;
+import eshop.backend.request.ProductRequest;
 import eshop.backend.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -111,7 +112,7 @@ class ProductServiceImplTest {
         product.setCategory(category);
         when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
 
-        Product createdProduct = productService.create(product);
+        Product createdProduct = productService.create(new ProductRequest());
 
         assertNotNull(createdProduct);
         assertEquals(category, createdProduct.getCategory());
@@ -134,7 +135,7 @@ class ProductServiceImplTest {
         when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
         when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
 
-        Product resultProduct = productService.update(updatedProduct);
+        Product resultProduct = productService.update(new ProductRequest());
 
         assertNotNull(resultProduct);
         assertEquals(updatedProduct.getName(), resultProduct.getName());
@@ -151,7 +152,7 @@ class ProductServiceImplTest {
         Product updatedProduct = new Product();
         updatedProduct.setId(productId);
 
-        assertThrows(ProductNotFoundException.class, () -> productService.update(updatedProduct));
+        assertThrows(ProductNotFoundException.class, () -> productService.update(new ProductRequest()));
         verify(productRepository).findById(productId);
     }
 
