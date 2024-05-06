@@ -11,4 +11,5 @@ import java.util.List;
 public interface PriceRepository extends JpaRepository<Price, Long> {
     Price findTopByVariantOrderByDateOfChangeDesc(Variant variant);
     List<Price> findByVariantOrderByDateOfChangeAsc(Variant variant);
+    void deleteAllByVariant(Variant variant);
 }

@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,7 +28,7 @@ public class Variant {
     private Product product;
 
     @OneToMany(mappedBy = "variant")
-    private List<Price> prices;
+    private Set<Price> prices;
 
     @OneToMany(mappedBy = "variant")
     private Set<CartItem> cartItems;
