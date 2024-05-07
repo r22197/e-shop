@@ -6,6 +6,7 @@ import eshop.backend.model.Variant;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Set;
 
 @Data
@@ -15,8 +16,8 @@ public class VariantResponse {
     private Integer quantity;
     private Product product;
     private Set<AttributeValue> values;
-    private double standardPrice;
-    private double priceAfterDiscount;
+    private BigDecimal standardPrice;
+    private BigDecimal priceAfterDiscount;
 
     public VariantResponse(Variant variant) {
         this.id = variant.getId();

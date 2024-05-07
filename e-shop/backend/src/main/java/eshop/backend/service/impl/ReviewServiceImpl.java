@@ -59,9 +59,10 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void delete(Long reviewId) throws ReviewNotFoundException {
-        reviewRepository.deleteById(
-                read(reviewId).getId()
-        );
+        var review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new ReviewNotFoundException(reviewId));
+
+        reviewRepository.delete(review);
     }
 
     @Override
@@ -71,17 +72,17 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Set<Review> listByProductId(Long productId) throws ProductNotFoundException {
-        if (!productRepository.existsById(productId))
-            throw new ProductNotFoundException(productId);
+        var product = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductNotFoundException(productId));
 
-        return reviewRepository.findByProductId(productId);
+        return reviewRepository.findByProduct(product);
     }
 
     @Override
     public Set<Review> listByUserId(Long userId) throws UserNotFoundException {
-        if (!userRepository.existsById(userId))
-            throw new UserNotFoundException(userId);
+        var user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
 
-        return reviewRepository.findByUserId(userId);
+        return reviewRepository.findByUser(user);
     }
 }

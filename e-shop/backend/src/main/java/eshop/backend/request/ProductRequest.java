@@ -1,6 +1,5 @@
 package eshop.backend.request;
 
-
 import lombok.Data;
 
 @Data

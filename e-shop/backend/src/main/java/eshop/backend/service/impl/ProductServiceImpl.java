@@ -9,7 +9,6 @@ import eshop.backend.repository.ProductRepository;
 import eshop.backend.request.ProductRequest;
 import eshop.backend.service.ProductService;
 import lombok.RequiredArgsConstructor;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -29,7 +28,7 @@ public class ProductServiceImpl implements ProductService {
     public Product create(ProductRequest request) throws CategoryNotFoundException {
         var product = new Product(request);
 
-        setProductCategory(request, product);
+        setCategoryIfExists(request, product);
 
         return productRepository.save(product);
     }
@@ -47,7 +46,7 @@ public class ProductServiceImpl implements ProductService {
         persistedProduct.setName(request.getName());
         persistedProduct.setDescription(request.getDescription());
         persistedProduct.setImagePath(request.getImagePath());
-        setProductCategory(request, persistedProduct);
+        setCategoryIfExists(request, persistedProduct);
 
         return productRepository.save(persistedProduct);
     }
@@ -83,7 +82,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByNameContainingIgnoreCase(query.toLowerCase());
     }
 
-    private void setProductCategory(ProductRequest request, Product product) throws CategoryNotFoundException {
+    private void setCategoryIfExists(ProductRequest request, Product product) throws CategoryNotFoundException {
         if (request.getCategoryId() != null) {
             Category category = categoryRepository.findById(request.getCategoryId())
                     .orElseThrow(() -> new CategoryNotFoundException(request.getCategoryId()));

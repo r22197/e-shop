@@ -14,8 +14,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -42,7 +44,7 @@ public class VariantServiceImpl implements VariantService {
         var variant = variantRepository.findById(variantId)
                 .orElseThrow(() -> new VariantNotFoundException(variantId));
 
-        double priceValue = priceService.readLastPriceByVariantId(variantId).getPrice();
+        BigDecimal priceValue = priceService.readLastPriceByVariantId(variantId).getPrice();
 
         VariantResponse response = new VariantResponse(variant);
         response.setStandardPrice(priceValue);
@@ -78,11 +80,15 @@ public class VariantServiceImpl implements VariantService {
 
     private void setDiscountPriceIfExists(VariantResponse response) throws VariantNotFoundException {
         Discount discount = response.getProduct().getCategory().getDiscount();
-        double priceValue = priceService.readLastPriceByVariantId(response.getId()).getPrice();
+        BigDecimal priceValue = priceService.readLastPriceByVariantId(response.getId()).getPrice();
         boolean isCategoryDiscounted = discount != null;
 
-        if (isCategoryDiscounted)
-            response.setPriceAfterDiscount(priceValue * (1 - discount.getAmount()));
+        if (isCategoryDiscounted) {
+            BigDecimal discountAmount = BigDecimal.valueOf(discount.getAmount());
+            BigDecimal discountedPrice = priceValue.multiply(BigDecimal.ONE.subtract(discountAmount));
+
+            response.setPriceAfterDiscount(discountedPrice);
+        }
     }
 
     private void manageAttributeValuesIfExist(Variant variant, VariantRequest request) {
@@ -95,8 +101,8 @@ public class VariantServiceImpl implements VariantService {
     }
 
     private void findIfPriceChangedThenCreate(VariantRequest request, Variant persistedVariant) throws VariantNotFoundException {
-        double price = priceService.readLastPriceByVariantId(persistedVariant.getId()).getPrice();
-        boolean isNotIdenticalAsLastPrice = price != request.getPriceRequest().getPrice();
+        BigDecimal price = priceService.readLastPriceByVariantId(persistedVariant.getId()).getPrice();
+        boolean isNotIdenticalAsLastPrice = !Objects.equals(price, request.getPriceRequest().getPrice());
 
         if (isNotIdenticalAsLastPrice) {
             priceService.create(request.getPriceRequest());

@@ -44,7 +44,7 @@ public class CategoryServiceImpl implements CategoryService {
     public void delete(Long categoryId) throws CategoryNotFoundException {
         var category = read(categoryId);
 
-        removeChildCategoriesParent(category);
+        removeParentFromChildCategories(category);
 
         categoryRepository.deleteById(categoryId);
     }
@@ -61,18 +61,23 @@ public class CategoryServiceImpl implements CategoryService {
 
             category.setParent(parent);
 
-            //infiniteLoop
-            while (parent != null) {
-                if (parent.getId().equals(category.getId())) {
-                    throw new IllegalArgumentException("Infinite loop, wrong parentId.");
-                }
-                parent = parent.getParent();
-            }
+            if (isInfiniteLoop(category, parent))
+                throw new IllegalArgumentException("Infinite loop, wrong parentId.");
         }
     }
 
-    private void removeChildCategoriesParent(Category category) {
+    private void removeParentFromChildCategories(Category category) {
         category.getChildCategories()
                 .forEach(childCategory -> childCategory.setParent(null));
+    }
+
+    private boolean isInfiniteLoop(Category category, Category parent) {
+        while (parent != null) {
+            if (parent.getId().equals(category.getId())) {
+                return true;
+            }
+            parent = parent.getParent();
+        }
+        return false;
     }
 }

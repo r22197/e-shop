@@ -53,10 +53,10 @@ public class AttributeValueServiceImpl implements AttributeValueService {
 
     @Override
     public List<AttributeValue> listByAttributeId(Long attributeId) throws AttributeNotFoundException {
-        if (!attributeRepository.existsById(attributeId))
-            throw new AttributeNotFoundException(attributeId);
+        var attribute = attributeRepository.findById(attributeId)
+                .orElseThrow(() -> new AttributeNotFoundException(attributeId));
 
-        return valueRepository.findByAttributeId(attributeId);
+        return valueRepository.findByAttribute(attribute);
     }
     //todo: check jestli je nutné
 }
