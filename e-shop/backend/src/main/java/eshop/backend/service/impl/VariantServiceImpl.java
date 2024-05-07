@@ -5,13 +5,13 @@ import eshop.backend.exception.VariantNotFoundException;
 import eshop.backend.model.Discount;
 import eshop.backend.model.Variant;
 import eshop.backend.repository.AttributeValueRepository;
-import eshop.backend.repository.PriceRepository;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.repository.VariantRepository;
 import eshop.backend.request.VariantRequest;
 import eshop.backend.response.VariantResponse;
 import eshop.backend.service.VariantService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
@@ -23,7 +23,6 @@ public class VariantServiceImpl implements VariantService {
     private final VariantRepository variantRepository;
     private final ProductRepository productRepository;
     private final AttributeValueRepository attributeValueRepository;
-    private final PriceRepository priceRepository;
     private final PriceServiceImpl priceService;
 
     @Override
@@ -69,13 +68,12 @@ public class VariantServiceImpl implements VariantService {
         var variant = variantRepository.findById(variantId)
                 .orElseThrow(() -> new VariantNotFoundException(variantId));
 
-        priceRepository.deleteAllByVariant(variant);
         variantRepository.delete(variant);
     }
 
     @Override
-    public List<Variant> list() {
-        return variantRepository.findAll(); //todo
+    public List<Variant> list(Sort.Direction direction, String attribute) {
+        return variantRepository.findAll(Sort.by(direction, attribute));
     }
 
     private void setDiscountPriceIfExists(VariantResponse response) throws VariantNotFoundException {

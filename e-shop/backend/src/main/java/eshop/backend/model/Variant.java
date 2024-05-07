@@ -27,7 +27,7 @@ public class Variant {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @OneToMany(mappedBy = "variant")
+    @OneToMany(mappedBy = "variant", cascade = CascadeType.REMOVE)
     private Set<Price> prices;
 
     @OneToMany(mappedBy = "variant")
