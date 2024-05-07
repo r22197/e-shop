@@ -14,7 +14,8 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Set;
+
+import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
 
 @Service
 @RequiredArgsConstructor
@@ -25,13 +26,10 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review create(ReviewRequest request) throws ProductNotFoundException, UserNotFoundException {
-        var product = productRepository.findById(request.getProductId())
-                .orElseThrow(() -> new ProductNotFoundException(request.getProductId()));
-
-        var user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new UserNotFoundException(request.getUserId()));
-
+        var product = findByIdOrElseThrow(request.getProductId(), productRepository, ProductNotFoundException::new);
+        var user = findByIdOrElseThrow(request.getUserId(), userRepository, UserNotFoundException::new);
         var review = new Review(request);
+
         review.setProduct(product);
         review.setUser(user);
 
@@ -40,8 +38,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review read(Long reviewId) throws ReviewNotFoundException {
-        return reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new ReviewNotFoundException(reviewId));
+        return findByIdOrElseThrow(reviewId, reviewRepository, ReviewNotFoundException::new);
     }
 
     @Override
@@ -59,8 +56,7 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public void delete(Long reviewId) throws ReviewNotFoundException {
-        var review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new ReviewNotFoundException(reviewId));
+        var review = read(reviewId);
 
         reviewRepository.delete(review);
     }
@@ -68,21 +64,5 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public List<Review> list() {
         return reviewRepository.findAll();
-    }
-
-    @Override
-    public Set<Review> listByProductId(Long productId) throws ProductNotFoundException {
-        var product = productRepository.findById(productId)
-                .orElseThrow(() -> new ProductNotFoundException(productId));
-
-        return reviewRepository.findByProduct(product);
-    }
-
-    @Override
-    public Set<Review> listByUserId(Long userId) throws UserNotFoundException {
-        var user = userRepository.findById(userId)
-                .orElseThrow(() -> new UserNotFoundException(userId));
-
-        return reviewRepository.findByUser(user);
     }
 }

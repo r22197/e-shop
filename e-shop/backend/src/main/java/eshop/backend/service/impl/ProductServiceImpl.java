@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.List;
 
+import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
+
 @Service
 @RequiredArgsConstructor
 public class ProductServiceImpl implements ProductService {
@@ -35,8 +37,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product read(Long productId) throws ProductNotFoundException {
-        return productRepository.findById(productId)
-                .orElseThrow(() -> new ProductNotFoundException(productId));
+        return findByIdOrElseThrow(productId, productRepository, ProductNotFoundException::new);
     }
 
     @Override
@@ -53,9 +54,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public void delete(Long productId) throws ProductNotFoundException {
-        productRepository.deleteById(
-                read(productId).getId()
-        );
+        var product = read(productId);
+
+        productRepository.delete(product);
     }
 
     @Override
@@ -65,8 +66,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Page<Product> listByCategory(Long categoryId, Integer pageNumber, Integer pageSize, String sortBy, Double lowPrice, Double maxPrice) throws CategoryNotFoundException {
-        Category category = categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException(categoryId));
+        var category = findByIdOrElseThrow(categoryId, categoryRepository, CategoryNotFoundException::new);
 
         Sort.Direction direction = sortBy.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, direction);
@@ -84,11 +84,9 @@ public class ProductServiceImpl implements ProductService {
 
     private void setCategoryIfExists(ProductRequest request, Product product) throws CategoryNotFoundException {
         if (request.getCategoryId() != null) {
-            Category category = categoryRepository.findById(request.getCategoryId())
-                    .orElseThrow(() -> new CategoryNotFoundException(request.getCategoryId()));
+            var category = findByIdOrElseThrow(request.getCategoryId(), categoryRepository, CategoryNotFoundException::new);
 
             product.setCategory(category);
         }
     }
 }
-

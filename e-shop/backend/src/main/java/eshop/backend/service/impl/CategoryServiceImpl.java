@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
+
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
@@ -19,15 +21,14 @@ public class CategoryServiceImpl implements CategoryService {
     public Category create(CategoryRequest request) throws CategoryNotFoundException {
         var category = new Category(request);
 
-        setParentCategory(request, category);
+        setParentCategoryIfExists(request, category);
 
         return categoryRepository.save(category);
     }
 
     @Override
     public Category read(Long categoryId) throws CategoryNotFoundException {
-        return categoryRepository.findById(categoryId)
-                .orElseThrow(() -> new CategoryNotFoundException(categoryId));
+        return findByIdOrElseThrow(categoryId, categoryRepository, CategoryNotFoundException::new);
     }
 
     @Override
@@ -35,7 +36,7 @@ public class CategoryServiceImpl implements CategoryService {
         var persistedCategory = read(request.getId());
 
         persistedCategory.setName(request.getName());
-        setParentCategory(request, persistedCategory);
+        setParentCategoryIfExists(request, persistedCategory);
 
         return categoryRepository.save(persistedCategory);
     }
@@ -54,10 +55,9 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll();
     }
 
-    private void setParentCategory(CategoryRequest request, Category category) throws CategoryNotFoundException {
+    private void setParentCategoryIfExists(CategoryRequest request, Category category) throws CategoryNotFoundException {
         if (request.getParentId() != null) {
-            Category parent = categoryRepository.findById(request.getParentId())
-                    .orElseThrow(() -> new CategoryNotFoundException(request.getParentId()));
+            var parent = findByIdOrElseThrow(request.getParentId(), categoryRepository, CategoryNotFoundException::new);
 
             category.setParent(parent);
 

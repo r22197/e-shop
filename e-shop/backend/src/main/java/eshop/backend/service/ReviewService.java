@@ -15,6 +15,4 @@ public interface ReviewService {
     Review update(ReviewRequest request) throws ReviewNotFoundException;
     void delete(Long reviewId) throws ReviewNotFoundException;
     List<Review> list();
-    Set<Review> listByProductId(Long productId) throws ProductNotFoundException;
-    Set<Review> listByUserId(Long userId) throws UserNotFoundException;
 }

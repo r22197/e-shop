@@ -1,7 +1,7 @@
 package eshop.backend.exception;
 
-public class PriceNotFoundException extends RuntimeException {
-    public PriceNotFoundException(Long attributeId) {
+public class WishlistNotFoundException extends RuntimeException {
+    public WishlistNotFoundException(Long attributeId) {
         super(String.format("Attribute with ID %d was not found.", attributeId));
     }
 }

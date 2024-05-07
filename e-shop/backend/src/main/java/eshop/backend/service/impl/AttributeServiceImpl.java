@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
+
 @Service
 @RequiredArgsConstructor
 public class AttributeServiceImpl implements AttributeService {
@@ -24,8 +26,7 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public Attribute read(Long attributeId) throws AttributeNotFoundException {
-        return attributeRepository.findById(attributeId)
-                .orElseThrow(() -> new AttributeNotFoundException(attributeId));
+        return findByIdOrElseThrow(attributeId, attributeRepository, AttributeNotFoundException::new);
     }
 
     @Override
@@ -39,9 +40,9 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public void delete(Long attributeId) throws AttributeNotFoundException {
-        attributeRepository.deleteById(
-                read(attributeId).getId()
-        );
+        var attribute = read(attributeId);
+
+        attributeRepository.delete(attribute);
     }
 
     @Override

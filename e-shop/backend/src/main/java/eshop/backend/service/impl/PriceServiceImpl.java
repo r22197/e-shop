@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
+
 @Service
 @RequiredArgsConstructor
 public class PriceServiceImpl implements PriceService {
@@ -19,10 +21,9 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public Price create(PriceRequest request) throws VariantNotFoundException {
-        var variant = variantRepository.findById(request.getVariantId())
-                .orElseThrow(() -> new VariantNotFoundException(request.getVariantId()));
-
+        var variant = findByIdOrElseThrow(request.getVariantId(), variantRepository, VariantNotFoundException::new);
         var price = new Price(request);
+
         price.setVariant(variant);
 
         return priceRepository.save(price);
@@ -30,16 +31,14 @@ public class PriceServiceImpl implements PriceService {
 
     @Override
     public Price readLastPriceByVariantId(Long variantId) throws VariantNotFoundException {
-        var variant = variantRepository.findById(variantId)
-                .orElseThrow(() -> new VariantNotFoundException(variantId));
+        var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
 
         return priceRepository.findTopByVariantOrderByDateOfChangeDesc(variant);
     }
 
     @Override
     public List<Price> listByVariantId(Long variantId) throws VariantNotFoundException {
-        var variant = variantRepository.findById(variantId)
-                .orElseThrow(() -> new VariantNotFoundException(variantId));
+        var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
 
         return priceRepository.findByVariantOrderByDateOfChangeAsc(variant);
     }
