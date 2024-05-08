@@ -1,6 +1,7 @@
 package eshop.backend.controller;
 
-import eshop.backend.request.CartRequest;
+import eshop.backend.exception.UserNotFoundException;
+import eshop.backend.exception.VariantNotFoundException;
 import eshop.backend.request.UpdateProductCartQuantityDto;
 import eshop.backend.model.Cart;
 import eshop.backend.service.CartService;
@@ -17,38 +18,30 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public ResponseEntity<CartRequest> getCart(@AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<Cart> read(@AuthenticationPrincipal UserDetails userDetails) throws UserNotFoundException {
         String email = userDetails.getUsername();
-        Cart cart = cartService.getCartByUserEmail(email);
-
-        return ResponseEntity.ok(new CartRequest());
+        Cart cart = cartService.readByUserEmail(email);
+        return ResponseEntity.ok(cart);
     }
 
-
-    @PostMapping("/add/{id}")
-    public ResponseEntity<String> addToShoppingCart(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id) {
+    @PostMapping("/add/{variantId}")
+    public ResponseEntity<Cart> addItem(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long variantId) throws UserNotFoundException, VariantNotFoundException {
         String email = userDetails.getUsername();
-        Cart cart = cartService.getCartByUserEmail(email);
-
-        cartService.addProduct(cart, id);
-        return ResponseEntity.ok("Item added to the shopping cart.");
+        Cart cart = cartService.addItemByUserEmail(email, variantId);
+        return ResponseEntity.ok(cart);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateProductCartQuantity(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id, @RequestBody UpdateProductCartQuantityDto dto) throws IllegalAccessException {
+    @PutMapping("/{variantId}")
+    public ResponseEntity<Cart> updateItemQuantity(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long variantId, @RequestBody UpdateProductCartQuantityDto dto) throws UserNotFoundException, VariantNotFoundException {
         String email = userDetails.getUsername();
-        Cart cart = cartService.getCartByUserEmail(email);
-
-        cartService.updateProductCartQuantity(cart, id, dto.getQuantity());
-
-        return ResponseEntity.ok("quantity");
+        Cart cart = cartService.updateItemQuantityByUserEmail(email, variantId, dto.getQuantity());
+        return ResponseEntity.ok(cart);
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> removeFromShoppingCart(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long id) throws IllegalAccessException {
-        String email = userDetails.getUsername();
-        Cart cart = cartService.getCartByUserEmail(email);
 
-        cartService.removeProduct(cart, id);
-        return ResponseEntity.ok("Item removed from the shopping cart.");
+    @DeleteMapping("/{variantId}")
+    public ResponseEntity<Void> removeItem(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long variantId) throws UserNotFoundException, VariantNotFoundException {
+        String email = userDetails.getUsername();
+        cartService.removeItemByUserEmail(email, variantId);
+        return ResponseEntity.noContent().build();
     }
 }

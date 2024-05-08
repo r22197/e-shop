@@ -1,6 +1,7 @@
 package eshop.backend.service.impl;
 
 import eshop.backend.exception.CategoryNotFoundException;
+import eshop.backend.exception.InfiniteLoopException;
 import eshop.backend.model.Category;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.request.CategoryRequest;
@@ -18,7 +19,7 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Override
-    public Category create(CategoryRequest request) throws CategoryNotFoundException {
+    public Category create(CategoryRequest request) throws CategoryNotFoundException, InfiniteLoopException {
         var category = new Category(request);
 
         setParentCategoryIfExists(request, category);
@@ -32,7 +33,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(CategoryRequest request) throws CategoryNotFoundException {
+    public Category update(CategoryRequest request) throws CategoryNotFoundException, InfiniteLoopException {
         var persistedCategory = read(request.getId());
 
         persistedCategory.setName(request.getName());
@@ -55,14 +56,14 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll();
     }
 
-    private void setParentCategoryIfExists(CategoryRequest request, Category category) throws CategoryNotFoundException {
+    private void setParentCategoryIfExists(CategoryRequest request, Category category) throws CategoryNotFoundException, InfiniteLoopException {
         if (request.getParentId() != null) {
             var parent = findByIdOrElseThrow(request.getParentId(), categoryRepository, CategoryNotFoundException::new);
 
             category.setParent(parent);
 
             if (isInfiniteLoop(category, parent))
-                throw new IllegalArgumentException("Infinite loop, wrong parentId.");
+                throw new InfiniteLoopException("Infinite loop, wrong parentId.");
         }
     }
 

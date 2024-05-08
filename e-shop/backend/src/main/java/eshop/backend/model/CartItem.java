@@ -27,4 +27,9 @@ public class CartItem {
     @JoinColumn(name = "variant_id")
     private Variant variant;
 
+    public CartItem(Cart cart, Variant variant) {
+        this.cart = cart;
+        this.variant = variant;
+        this.quantity = 1;
+    }
 }

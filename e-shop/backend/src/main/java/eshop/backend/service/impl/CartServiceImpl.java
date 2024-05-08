@@ -1,84 +1,84 @@
 package eshop.backend.service.impl;
 
+import eshop.backend.exception.CartNotFoundException;
+import eshop.backend.exception.UserNotFoundException;
+import eshop.backend.exception.VariantNotFoundException;
 import eshop.backend.model.Cart;
 import eshop.backend.model.CartItem;
-import eshop.backend.model.Product;
 import eshop.backend.repository.CartItemRepository;
 import eshop.backend.repository.CartRepository;
-import eshop.backend.repository.ProductRepository;
+import eshop.backend.repository.UserRepository;
+import eshop.backend.repository.VariantRepository;
 import eshop.backend.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
+import static eshop.backend.utils.EntityUtils.findByEmailOrElseThrow;
+import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
 
 @Service
 @RequiredArgsConstructor
 public class CartServiceImpl implements CartService {
-    private final ProductRepository productRepository;
-    private final CartItemRepository cartItemRepository;
     private final CartRepository cartRepository;
+    private final CartItemRepository itemRepository;
+    private final VariantRepository variantRepository;
+    private final UserRepository userRepository;
 
     @Override
-    public Cart getCartByUserEmail(String email) {
+    public Cart createByUserEmail(String email) throws UserNotFoundException {
+        var user = findByEmailOrElseThrow(email, userRepository);
 
-        return cartRepository.findCartByUserEmail(email);
+        Cart cart = new Cart();
+        cart.setUser(user);
+
+        return cartRepository.save(cart);
     }
 
     @Override
-    public void addProduct(Cart cart, Long productId) {
-        Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new NoSuchElementException("Product not found"));
+    public Cart readByUserEmail(String email) throws UserNotFoundException {
+        var user = findByEmailOrElseThrow(email, userRepository);
 
-        Optional<CartItem> existingCartItem = cartItemRepository.findByCartAndVariantProduct(cart, product);
-
-        if (existingCartItem.isPresent()) {
-            CartItem cartItem = existingCartItem.get();
-            cartItem.setQuantity(cartItem.getQuantity() + 1);
-            cartItemRepository.save(cartItem);
-        } else {
-            CartItem newCartItem = new CartItem();
-            newCartItem.getVariant().setProduct(product);
-            newCartItem.setQuantity(1);
-            newCartItem.setCart(cart);
-            cartItemRepository.save(newCartItem);
-        }
+        return cartRepository.findCartByUser(user);
     }
 
     @Override
-    public void updateProductCartQuantity(Cart cart, Long id, Integer quantity) throws IllegalAccessException {
-        CartItem existingCartItem = cartItemRepository.findById(id)
-                .orElseThrow();
+    public Cart addItemByUserEmail(String email, Long variantId) throws UserNotFoundException, VariantNotFoundException {
+        var cart = readByUserEmail(email);
+        var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
+        var item = new CartItem(cart, variant);
 
-        if (existingCartItem.getCart() != cart) {
-            throw new IllegalAccessException("The quantity can be only changed by cart's owner.");
-        }
+        cart.addItem(item);
 
-        existingCartItem.setQuantity(existingCartItem.getQuantity() + quantity);
-        cartItemRepository.save(existingCartItem);
+        return cartRepository.save(cart);
     }
 
     @Override
-    public void removeProduct(Cart cart, Long id) throws IllegalAccessException {
-        CartItem existingCartItem = cartItemRepository.findById(id)
-                .orElseThrow();
+    public Cart updateItemQuantityByUserEmail(String email, Long variantId, Integer quantity) throws UserNotFoundException, VariantNotFoundException {
+        var cart = readByUserEmail(email);
+        var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
+        var item = itemRepository.findByCartAndVariant(cart, variant);
 
-        if (existingCartItem.getCart() != cart) {
-            throw new IllegalAccessException("The product can be only deleted by cart's owner.");
-        }
+        item.setQuantity(quantity);
+        itemRepository.save(item); //todo: je nutné?
 
-        cartItemRepository.delete(existingCartItem);
+        return cartRepository.save(cart);
     }
 
     @Override
-    public double calculateTotalPrice(Cart cart) {
-        List<CartItem> cartItems = cartItemRepository.findByCart(cart);
-        double totalPrice = 0.0;
-        for (CartItem cartItem : cartItems) {
-            totalPrice += cartItem.getVariant().getProduct().getPrice() * cartItem.getQuantity();
-        }
-        return totalPrice;
+    public void removeItemByUserEmail(String email, Long variantId) throws UserNotFoundException, VariantNotFoundException {
+        var cart = readByUserEmail(email);
+        var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
+        var item = itemRepository.findByCartAndVariant(cart, variant);
+
+        cart.removeItem(item);
+
+        cartRepository.save(cart);
     }
+
+    @Override
+    public void delete(Long cartId) throws CartNotFoundException {
+        var cart = findByIdOrElseThrow(cartId, cartRepository, CartNotFoundException::new);
+
+        cartRepository.delete(cart);
+    } //todo: použít u delete user
 }

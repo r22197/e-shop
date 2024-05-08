@@ -1,6 +1,7 @@
 package eshop.backend;
 
 import eshop.backend.exception.CategoryNotFoundException;
+import eshop.backend.exception.InfiniteLoopException;
 import eshop.backend.model.Category;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.request.CategoryRequest;
@@ -73,7 +74,7 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    void testCreate() throws CategoryNotFoundException {
+    void testCreate() throws CategoryNotFoundException, InfiniteLoopException {
         Category category = new Category();
         category.setId(1L);
         category.setName("Category 1");
@@ -87,7 +88,7 @@ class CategoryServiceImplTest {
     }
 
     @Test
-    void testUpdate() throws CategoryNotFoundException {
+    void testUpdate() throws CategoryNotFoundException, InfiniteLoopException {
         Category category = new Category();
         category.setId(1L);
         category.setName("Category 1");

@@ -7,11 +7,11 @@ import eshop.backend.model.Wishlist;
 import eshop.backend.repository.UserRepository;
 import eshop.backend.repository.VariantRepository;
 import eshop.backend.repository.WishlistRepository;
-import eshop.backend.request.WishlistRequest;
 import eshop.backend.service.WishlistService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import static eshop.backend.utils.EntityUtils.findByEmailOrElseThrow;
 import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
 
 @Service
@@ -22,44 +22,46 @@ public class WishlistServiceImpl implements WishlistService {
     private final VariantRepository variantRepository;
 
     @Override
-    public Wishlist create(WishlistRequest request) throws UserNotFoundException {
-        var user = findByIdOrElseThrow(request.getUserId(), userRepository, UserNotFoundException::new);
-        var wishlist = new Wishlist(request);
+    public Wishlist createByUserEmail(String email) throws UserNotFoundException {
+        var user = findByEmailOrElseThrow(email, userRepository);
 
+        Wishlist wishlist = new Wishlist();
         wishlist.setUser(user);
 
         return wishlistRepository.save(wishlist);
     }
 
     @Override
-    public Wishlist read(Long wishlistId) throws WishlistNotFoundException {
-        return findByIdOrElseThrow(wishlistId, wishlistRepository, WishlistNotFoundException::new);
+    public Wishlist readByUserEmail(String email) throws UserNotFoundException {
+        var user = findByEmailOrElseThrow(email, userRepository);
+
+        return wishlistRepository.findByUser(user);
     }
 
     @Override
-    public Wishlist addVariant(WishlistRequest request, Long variantId) throws WishlistNotFoundException, VariantNotFoundException {
-        var wishlist = read(request.getId());
-        var variant = findByIdOrElseThrow(request.getVariantId(), variantRepository, VariantNotFoundException::new);
+    public Wishlist addItemByUserEmail(String email, Long variantId) throws VariantNotFoundException, UserNotFoundException {
+        var wishlist = readByUserEmail(email);
+        var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
 
-        wishlist.addVariant(variant);
+        wishlist.addItem(variant);
 
         return wishlistRepository.save(wishlist);
     }
 
     @Override
-    public Wishlist removeVariant(WishlistRequest request, Long variantId) throws WishlistNotFoundException, VariantNotFoundException {
-        var wishlist = read(request.getId());
-        var variant = findByIdOrElseThrow(request.getVariantId(), variantRepository, VariantNotFoundException::new);
+    public void removeItemByUserEmail(String email, Long variantId) throws VariantNotFoundException, UserNotFoundException {
+        var wishlist = readByUserEmail(email);
+        var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
 
-        wishlist.removeVariant(variant);
+        wishlist.removeItem(variant);
 
-        return wishlistRepository.save(wishlist);
+        wishlistRepository.save(wishlist);
     }
 
     @Override
     public void delete(Long wishlistId) throws WishlistNotFoundException {
-        var wishlist = read(wishlistId);
+        var wishlist = findByIdOrElseThrow(wishlistId, wishlistRepository, WishlistNotFoundException::new);
 
         wishlistRepository.delete(wishlist);
-    }
+    } //todo: použít u delete user
 }

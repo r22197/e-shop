@@ -4,12 +4,11 @@ import eshop.backend.exception.UserNotFoundException;
 import eshop.backend.exception.VariantNotFoundException;
 import eshop.backend.exception.WishlistNotFoundException;
 import eshop.backend.model.Wishlist;
-import eshop.backend.request.WishlistRequest;
 
 public interface WishlistService {
-    Wishlist create(WishlistRequest request) throws UserNotFoundException;
-    Wishlist read(Long wishlistId) throws WishlistNotFoundException;
-    Wishlist addVariant(WishlistRequest request, Long variantId) throws WishlistNotFoundException, VariantNotFoundException;
-    Wishlist removeVariant(WishlistRequest request, Long variantId) throws WishlistNotFoundException, VariantNotFoundException;
+    Wishlist createByUserEmail(String email) throws UserNotFoundException;
+    Wishlist readByUserEmail(String email) throws UserNotFoundException;
+    Wishlist addItemByUserEmail(String email, Long variantId) throws VariantNotFoundException, UserNotFoundException;
+    void removeItemByUserEmail(String email, Long variantId) throws VariantNotFoundException, UserNotFoundException;
     void delete(Long wishlistId) throws WishlistNotFoundException;
 }

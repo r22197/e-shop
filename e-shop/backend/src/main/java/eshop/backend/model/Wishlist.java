@@ -1,6 +1,5 @@
 package eshop.backend.model;
 
-import eshop.backend.request.WishlistRequest;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -28,17 +27,13 @@ public class Wishlist {
             joinColumns = @JoinColumn(name = "wishlist_id"),
             inverseJoinColumns = @JoinColumn(name = "variant_id")
     )
-    private Set<Variant> variants;
+    private Set<Variant> items;
 
-    public Wishlist(WishlistRequest request) {
-        this.id = request.getId();
+    public void addItem(Variant variant) {
+        items.add(variant);
     }
 
-    public void addVariant(Variant variant) {
-        variants.add(variant);
-    }
-
-    public void removeVariant(Variant variant) {
-        variants.remove(variant);
+    public void removeItem(Variant variant) {
+        items.remove(variant);
     }
 }

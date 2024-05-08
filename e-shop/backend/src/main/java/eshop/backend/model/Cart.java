@@ -29,4 +29,12 @@ public class Cart {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    public void addItem(CartItem item) {
+        this.cartItems.add(item);
+    }
+
+    public void removeItem(CartItem item) {
+        this.cartItems.remove(item);
+    }
 }

@@ -2,7 +2,6 @@ package eshop.backend.service.impl;
 
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.exception.ProductNotFoundException;
-import eshop.backend.model.Category;
 import eshop.backend.model.Product;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.repository.ProductRepository;

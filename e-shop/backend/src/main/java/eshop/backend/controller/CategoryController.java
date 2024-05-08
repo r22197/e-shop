@@ -1,6 +1,7 @@
 package eshop.backend.controller;
 
 import eshop.backend.exception.CategoryNotFoundException;
+import eshop.backend.exception.InfiniteLoopException;
 import eshop.backend.model.Category;
 import eshop.backend.request.CategoryRequest;
 import eshop.backend.service.CategoryService;
@@ -40,11 +41,13 @@ public class CategoryController {
             return ResponseEntity.ok(category);
         } catch (CategoryNotFoundException e) {
             return ResponseEntity.badRequest().build();
+        } catch (InfiniteLoopException e) {
+            throw new RuntimeException(e);
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryRequest> updateCategory(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest) throws CategoryNotFoundException {
+    public ResponseEntity<CategoryRequest> updateCategory(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest) throws CategoryNotFoundException, InfiniteLoopException {
         if (!Objects.equals(id, categoryRequest.getId())) {
             throw new CategoryNotFoundException(id);
         }
