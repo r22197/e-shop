@@ -29,4 +29,9 @@ public class OrderItem {
     @ManyToOne
     @JoinColumn(name = "variant_id")
     private Variant variant;
+
+    public OrderItem(CartItem cartItem) {
+        this.quantity = cartItem.getQuantity();
+        this.variant = cartItem.getVariant();
+    }
 }

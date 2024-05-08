@@ -22,42 +22,17 @@ import java.util.Objects;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/search")
-    public ResponseEntity<List<Product>> searchProducts(@RequestParam String query) {
-        List<Product> productRequestList = productService.search(query);
-
-        return ResponseEntity.ok(productRequestList);
-    }
-
-
-
-    @GetMapping("/category/{id}")
-    public ResponseEntity<Page<Product>> getProductsInCategory(
-            @PathVariable Long id,
-            @RequestParam(defaultValue = "0") Integer pageNumber,
-            @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "asc") String sortBy,
-            @RequestParam(required = false) Double lowPrice,
-            @RequestParam(required = false) Double maxPrice) throws CategoryNotFoundException {
-
-        Page<Product> productPage = productService.listByCategory(id, pageNumber, pageSize, sortBy, lowPrice, maxPrice);
-        return ResponseEntity.ok(productPage);
-    }
-
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Product> getProductById(@PathVariable Long id) throws ProductNotFoundException {
-        Product product = productService.read(id);
-
-        return ResponseEntity.ok(product);
-    }
-
     @PostMapping
     public ResponseEntity<ProductRequest> createProduct(@Valid @RequestBody ProductRequest productRequest) throws CategoryNotFoundException {
         productService.create(productRequest);
-
         return new ResponseEntity<>(productRequest, HttpStatus.CREATED);
 
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> readProduct(@PathVariable Long id) throws ProductNotFoundException {
+        Product product = productService.read(id);
+        return ResponseEntity.ok(product);
     }
 
     @PutMapping("/{id}")
@@ -78,7 +53,7 @@ public class ProductController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Product>> listProducts(
+    public ResponseEntity<Page<Product>> pageOfAllProducts(
             @RequestParam(defaultValue = "ASC") String direction,
             @RequestParam(defaultValue = "id") String attribute,
             @RequestParam(defaultValue = "0") Integer pageNumber,
@@ -87,5 +62,25 @@ public class ProductController {
         Page<Product> productsPage = productService.pageOfAllProducts(sortDirection, attribute, pageNumber, pageSize);
 
         return ResponseEntity.ok(productsPage);
+    }
+
+    @GetMapping("/search")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam String query) {
+        List<Product> productRequestList = productService.search(query);
+
+        return ResponseEntity.ok(productRequestList);
+    }
+
+    @GetMapping("/category/{id}")
+    public ResponseEntity<Page<Product>> getProductsInCategory(
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "10") Integer pageSize,
+            @RequestParam(defaultValue = "asc") String sortBy,
+            @RequestParam(required = false) Double lowPrice,
+            @RequestParam(required = false) Double maxPrice) throws CategoryNotFoundException {
+
+        Page<Product> productPage = productService.listByCategory(id, pageNumber, pageSize, sortBy, lowPrice, maxPrice);
+        return ResponseEntity.ok(productPage);
     }
 }

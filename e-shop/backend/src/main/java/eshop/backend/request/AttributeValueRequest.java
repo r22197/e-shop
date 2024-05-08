@@ -1,5 +1,6 @@
 package eshop.backend.request;
 
+import eshop.backend.model.AttributeValue;
 import lombok.Data;
 
 @Data

@@ -18,7 +18,7 @@ public class CartController {
     private final CartService cartService;
 
     @GetMapping
-    public ResponseEntity<Cart> read(@AuthenticationPrincipal UserDetails userDetails) throws UserNotFoundException {
+    public ResponseEntity<Cart> read(@AuthenticationPrincipal UserDetails userDetails) throws UserNotFoundException, VariantNotFoundException {
         String email = userDetails.getUsername();
         Cart cart = cartService.readByUserEmail(email);
         return ResponseEntity.ok(cart);

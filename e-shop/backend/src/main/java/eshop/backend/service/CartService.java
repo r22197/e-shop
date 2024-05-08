@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 public interface CartService {
     Cart createByUserEmail(String email) throws UserNotFoundException;
-    Cart readByUserEmail(String email) throws UserNotFoundException;
+    Cart readByUserEmail(String email) throws UserNotFoundException, VariantNotFoundException;
     Cart addItemByUserEmail(String email, Long variantId) throws UserNotFoundException, VariantNotFoundException;
     Cart updateItemQuantityByUserEmail(String email, Long variantId, Integer quantity) throws UserNotFoundException, VariantNotFoundException;
     void removeItemByUserEmail(String email, Long variantId) throws UserNotFoundException, VariantNotFoundException;
     void delete(Long cartId) throws CartNotFoundException;
+    void deleteAllItemsByUserEmail(String email) throws UserNotFoundException;
 }

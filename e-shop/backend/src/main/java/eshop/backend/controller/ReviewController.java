@@ -33,7 +33,7 @@ public class ReviewController {
         return ResponseEntity.ok(review);
     }
 
-    //@PreAuthorize("#request.userId == principal") todo
+    //@PreAuthorize("#request.userId == principal") todo + id?
     @PutMapping("/{reviewId}")
     public ResponseEntity<Review> update(@PathVariable Long reviewId, @RequestBody ReviewRequest request) throws ReviewNotFoundException {
         Review updatedReview = reviewService.update(request);

@@ -9,9 +9,13 @@ import eshop.backend.repository.CartItemRepository;
 import eshop.backend.repository.CartRepository;
 import eshop.backend.repository.UserRepository;
 import eshop.backend.repository.VariantRepository;
+import eshop.backend.response.CartResponse;
 import eshop.backend.service.CartService;
+import eshop.backend.service.PriceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 import static eshop.backend.utils.EntityUtils.findByEmailOrElseThrow;
 import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
@@ -23,20 +27,26 @@ public class CartServiceImpl implements CartService {
     private final CartItemRepository itemRepository;
     private final VariantRepository variantRepository;
     private final UserRepository userRepository;
+    private final PriceService priceService;
 
     @Override
     public Cart createByUserEmail(String email) throws UserNotFoundException {
         var user = findByEmailOrElseThrow(email, userRepository);
 
         Cart cart = new Cart();
-        cart.setUser(user);
+        cart.setUser(user); //todo u create uživatele
 
         return cartRepository.save(cart);
     }
 
     @Override
-    public Cart readByUserEmail(String email) throws UserNotFoundException {
+    public Cart readByUserEmail(String email) throws UserNotFoundException, VariantNotFoundException {
         var user = findByEmailOrElseThrow(email, userRepository);
+        var cart = cartRepository.findCartByUser(user);
+        var response = new CartResponse();
+
+        response.setCart(cart);
+        response.setTotalPrice(calculateTotalPrice(cart));
 
         return cartRepository.findCartByUser(user);
     }
@@ -81,4 +91,20 @@ public class CartServiceImpl implements CartService {
 
         cartRepository.delete(cart);
     } //todo: použít u delete user
+
+    @Override
+    public void deleteAllItemsByUserEmail(String email) throws UserNotFoundException {
+        var user = findByEmailOrElseThrow(email, userRepository);
+
+        itemRepository.deleteAllByCartUser(user);
+    }
+
+    private BigDecimal calculateTotalPrice(Cart cart) throws VariantNotFoundException {
+        BigDecimal totalPrice = BigDecimal.valueOf(0);
+
+        for (CartItem cartItem : cart.getCartItems()) {
+            totalPrice = totalPrice.add(priceService.readLastPriceByVariantId(cartItem.getId()).getPrice());
+        }
+        return totalPrice;
+    }
 }
