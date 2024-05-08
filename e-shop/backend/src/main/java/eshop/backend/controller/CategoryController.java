@@ -6,13 +6,11 @@ import eshop.backend.model.Category;
 import eshop.backend.request.CategoryRequest;
 import eshop.backend.service.CategoryService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/categories")
@@ -22,45 +20,34 @@ public class CategoryController {
 
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategories() {
-        List<Category> categoryRequestList = categoryService.list();
-
+        var categoryRequestList = categoryService.list();
         return ResponseEntity.ok(categoryRequestList);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable Long id) throws CategoryNotFoundException {
-        Category category = categoryService.read(id);
-
+        var category = categoryService.read(id);
         return ResponseEntity.ok(category);
     }
 
     @PostMapping
-    public ResponseEntity<Category> createCategory(@RequestBody CategoryRequest categoryRequest) {
-        try {
-            var category = categoryService.create(categoryRequest);
-            return ResponseEntity.ok(category);
-        } catch (CategoryNotFoundException e) {
-            return ResponseEntity.badRequest().build();
-        } catch (InfiniteLoopException e) {
-            throw new RuntimeException(e);
-        }
+    public ResponseEntity<Category> createCategory(@RequestBody CategoryRequest categoryRequest) throws CategoryNotFoundException, InfiniteLoopException {
+        var category = categoryService.create(categoryRequest);
+        return ResponseEntity.ok(category);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CategoryRequest> updateCategory(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest) throws CategoryNotFoundException, InfiniteLoopException {
+    public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest) throws CategoryNotFoundException, InfiniteLoopException {
         if (!Objects.equals(id, categoryRequest.getId())) {
             throw new CategoryNotFoundException(id);
         }
-        System.out.println(categoryRequest);
-        categoryService.update(categoryRequest);
-
-        return ResponseEntity.ok(categoryRequest);
+        var category = categoryService.update(categoryRequest);
+        return ResponseEntity.ok(category);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable Long id) throws CategoryNotFoundException {
+    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) throws CategoryNotFoundException {
         categoryService.delete(id);
-
         return ResponseEntity.ok().build();
     }
 }

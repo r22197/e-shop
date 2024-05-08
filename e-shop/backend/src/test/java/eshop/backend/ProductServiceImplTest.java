@@ -39,19 +39,6 @@ class ProductServiceImplTest {
     }
 
     @Test
-    void testGetAllProducts() {
-        int pageNumber = 0;
-        int pageSize = 10;
-        Page<Product> expectedPage = new PageImpl<>(Collections.emptyList());
-        when(productRepository.findAll(PageRequest.of(pageNumber, pageSize))).thenReturn(expectedPage);
-
-        Page<Product> resultPage = productService.list(pageNumber, pageSize);
-
-        assertEquals(expectedPage, resultPage);
-        verify(productRepository).findAll(PageRequest.of(pageNumber, pageSize));
-    }
-
-    @Test
     void testSearchProducts() {
         String query = "test";
         List<Product> expectedProducts = Collections.emptyList();

@@ -28,7 +28,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product create(ProductRequest request) throws CategoryNotFoundException {
         var product = new Product(request);
-
         setCategoryIfExists(request, product);
 
         return productRepository.save(product);
@@ -54,13 +53,14 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void delete(Long productId) throws ProductNotFoundException {
         var product = read(productId);
-
         productRepository.delete(product);
     }
 
     @Override
-    public Page<Product> list(Integer pageNumber, Integer pageSize) {
-        return productRepository.findAll(PageRequest.of(pageNumber, pageSize));
+    public Page<Product> pageOfAllProducts(Sort.Direction direction, String attribute, Integer pageNumber, Integer pageSize) {
+        Sort sort = Sort.by(direction, attribute);
+        Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+        return productRepository.findAll(pageable);
     }
 
     @Override
