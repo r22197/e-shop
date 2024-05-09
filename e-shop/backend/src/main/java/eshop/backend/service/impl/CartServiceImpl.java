@@ -15,8 +15,6 @@ import eshop.backend.service.PriceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
-
 import static eshop.backend.utils.EntityUtils.findByEmailOrElseThrow;
 import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
 
@@ -46,7 +44,7 @@ public class CartServiceImpl implements CartService {
         var response = new CartResponse();
 
         response.setCart(cart);
-        response.setTotalPrice(calculateTotalPrice(cart));
+        response.setTotalPrice(cart.getTotalPriceForJson());
 
         return cartRepository.findCartByUser(user);
     }
@@ -97,14 +95,5 @@ public class CartServiceImpl implements CartService {
         var user = findByEmailOrElseThrow(email, userRepository);
 
         itemRepository.deleteAllByCartUser(user);
-    }
-
-    private BigDecimal calculateTotalPrice(Cart cart) throws VariantNotFoundException {
-        BigDecimal totalPrice = BigDecimal.valueOf(0);
-
-        for (CartItem cartItem : cart.getCartItems()) {
-            totalPrice = totalPrice.add(priceService.readLastPriceByVariantId(cartItem.getId()).getPrice());
-        }
-        return totalPrice;
     }
 }

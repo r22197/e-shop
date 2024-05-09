@@ -14,7 +14,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     // https://i.stack.imgur.com/SOCCZ.png
     List<Product> findByNameContainingIgnoreCase(String contains);
     Page<Product> findByCategory(Category category, Pageable pageable);
-    Page<Product> findByCategoryAndPriceBetween(Category category, Double lowPrice, Double maxPrice, Pageable pageable);
+    //Page<Product> findByCategoryAndPriceBetween(Category category, Double lowPrice, Double maxPrice, Pageable pageable);
 
 
 }

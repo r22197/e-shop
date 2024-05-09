@@ -1,10 +1,12 @@
 package eshop.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 @Entity
@@ -36,5 +38,12 @@ public class Cart {
 
     public void removeItem(CartItem item) {
         this.cartItems.remove(item);
+    }
+
+    @JsonProperty("totalPrice")
+    public BigDecimal getTotalPriceForJson() {
+        return cartItems.stream()
+                .map(CartItem::getTotalPriceInclQuantityForJson)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

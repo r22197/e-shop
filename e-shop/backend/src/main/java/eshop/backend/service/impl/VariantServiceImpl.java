@@ -42,10 +42,10 @@ public class VariantServiceImpl implements VariantService {
     @Override
     public VariantResponse read(Long variantId) throws VariantNotFoundException {
         var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
-        var priceValue = priceService.readLastPriceByVariantId(variantId).getPrice();
+        //var priceValue = priceService.readLastPriceByVariantId(variantId).getPrice();
         var response = new VariantResponse(variant);
 
-        response.setStandardPrice(priceValue);
+        //response.setStandardPrice(priceValue);
         setDiscountPriceIfExists(response);
 
         return response;
@@ -76,13 +76,13 @@ public class VariantServiceImpl implements VariantService {
 
     private void setDiscountPriceIfExists(VariantResponse response) throws VariantNotFoundException {
         var discount = response.getProduct().getCategory().getDiscount();
-        var priceValue = priceService.readLastPriceByVariantId(response.getId()).getPrice();
+        //var priceValue = priceService.readLastPriceByVariantId(response.getId()).getPrice();
         var isCategoryDiscounted = discount != null;
 
         if (isCategoryDiscounted) {
             var discountAmount = BigDecimal.valueOf(discount.getAmount());
-            var discountedPrice = priceValue.multiply(BigDecimal.ONE.subtract(discountAmount));
-            response.setPriceAfterDiscount(discountedPrice);
+            //var discountedPrice = priceValue.multiply(BigDecimal.ONE.subtract(discountAmount));
+            //response.setPriceAfterDiscount(discountedPrice);
         }
     }
 
@@ -96,11 +96,14 @@ public class VariantServiceImpl implements VariantService {
     }
 
     private void findIfPriceChangedThenCreate(VariantRequest request, Variant persistedVariant) throws VariantNotFoundException {
+        /*
         var price = priceService.readLastPriceByVariantId(persistedVariant.getId()).getPrice();
         var isNotIdenticalAsLastPrice = !Objects.equals(price, request.getPriceRequest().getPrice());
 
         if (isNotIdenticalAsLastPrice) {
             priceService.create(request.getPriceRequest());
         }
+
+         */
     }
 }

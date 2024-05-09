@@ -1,10 +1,17 @@
 package eshop.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
+import java.util.Optional;
 
 @Entity
 @Data
@@ -19,9 +26,6 @@ public class OrderItem {
     @Min(1)
     private Integer quantity;
 
-    @Min(0)
-    private double price;
-
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
@@ -34,4 +38,17 @@ public class OrderItem {
         this.quantity = cartItem.getQuantity();
         this.variant = cartItem.getVariant();
     }
+
+    @JsonProperty("priceInclQuantityByDate")
+    public BigDecimal getPriceInclQuantityByDateForJson() {
+        Optional<Price> closestPrice = variant.getPrices().stream()
+                .min(Comparator.comparingLong(p -> Math.abs(ChronoUnit.DAYS.between(order.getCreateDate(), LocalDateTime.now()))));
+
+        if (closestPrice.isEmpty())
+            return BigDecimal.ZERO;
+
+        BigDecimal priceValue = closestPrice.get().getPrice();
+        return priceValue.multiply(BigDecimal.valueOf(quantity));
+    }
+
 }

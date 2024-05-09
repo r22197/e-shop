@@ -22,7 +22,7 @@ public class Price {
 
     @Min(0)
     private BigDecimal price;
-    private LocalDateTime dateOfChange;
+    private LocalDateTime createDate;
 
     @ManyToOne
     @JoinColumn(name = "variant_id")
@@ -31,6 +31,6 @@ public class Price {
     public Price(PriceRequest request) {
         this.id = request.getId();
         this.price = request.getPrice();
-        this.dateOfChange = LocalDateTime.now();
+        this.createDate = LocalDateTime.now();
     }
 }

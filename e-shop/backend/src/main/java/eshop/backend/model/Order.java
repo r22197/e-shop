@@ -1,11 +1,13 @@
 package eshop.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eshop.backend.enums.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
 
@@ -22,7 +24,7 @@ public class Order {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    private LocalDateTime dateOfCreation;
+    private LocalDateTime createDate;
 
     @OneToMany(mappedBy = "order")
     private Set<OrderItem> orderItems;
@@ -35,5 +37,12 @@ public class Order {
         this.user = user;
         this.orderItems = orderItems;
         this.setStatus(OrderStatus.CREATED);
+    }
+
+    @JsonProperty("totalPrice")
+    public BigDecimal getTotalPriceForJson() {
+        return orderItems.stream()
+                .map(OrderItem::getPriceInclQuantityByDateForJson)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

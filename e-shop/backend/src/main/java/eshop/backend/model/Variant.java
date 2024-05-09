@@ -1,6 +1,7 @@
 package eshop.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eshop.backend.request.VariantRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -8,6 +9,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+import java.util.Comparator;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -56,5 +60,16 @@ public class Variant {
     public Variant(VariantRequest request) {
         this.id = request.getId();
         this.quantity = request.getQuantity();
+    }
+
+    @JsonProperty("currentPrice")
+    public BigDecimal getCurrentPriceForJson() {
+        if (prices.isEmpty())
+            return BigDecimal.ZERO;
+
+        Optional<Price> latestPrice = prices.stream()
+                .max(Comparator.comparing(Price::getCreateDate));
+
+        return latestPrice.map(Price::getPrice).orElse(BigDecimal.ZERO);
     }
 }

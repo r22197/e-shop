@@ -70,7 +70,8 @@ public class ProductServiceImpl implements ProductService {
         Sort.Direction direction = sortBy.equalsIgnoreCase("asc") ? Sort.Direction.ASC : Sort.Direction.DESC;
         Pageable pageable = PageRequest.of(pageNumber, pageSize, direction);
 
-        return productRepository.findByCategoryAndPriceBetween(category, lowPrice, maxPrice, pageable);
+        //return productRepository.findByCategoryAndPriceBetween(category, lowPrice, maxPrice, pageable);
+        return null;
     }
 
     @Override

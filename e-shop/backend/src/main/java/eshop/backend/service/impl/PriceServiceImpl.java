@@ -30,13 +30,6 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public Price readLastPriceByVariantId(Long variantId) throws VariantNotFoundException {
-        var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
-
-        return priceRepository.findTopByVariantOrderByDateOfChangeDesc(variant);
-    }
-
-    @Override
     public List<Price> listByVariantId(Long variantId) throws VariantNotFoundException {
         var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
 
