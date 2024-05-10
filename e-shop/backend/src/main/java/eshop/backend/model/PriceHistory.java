@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "price")
-public class Price {
+public class PriceHistory {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,7 +28,7 @@ public class Price {
     @JoinColumn(name = "variant_id")
     private Variant variant;
 
-    public Price(PriceRequest request) {
+    public PriceHistory(PriceRequest request) {
         this.id = request.getId();
         this.price = request.getPrice();
         this.createDate = LocalDateTime.now();

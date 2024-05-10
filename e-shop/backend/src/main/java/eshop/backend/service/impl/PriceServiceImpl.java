@@ -1,7 +1,7 @@
 package eshop.backend.service.impl;
 
 import eshop.backend.exception.VariantNotFoundException;
-import eshop.backend.model.Price;
+import eshop.backend.model.PriceHistory;
 import eshop.backend.repository.PriceRepository;
 import eshop.backend.repository.VariantRepository;
 import eshop.backend.request.PriceRequest;
@@ -20,9 +20,9 @@ public class PriceServiceImpl implements PriceService {
     private final VariantRepository variantRepository;
 
     @Override
-    public Price create(PriceRequest request) throws VariantNotFoundException {
+    public PriceHistory create(PriceRequest request) throws VariantNotFoundException {
         var variant = findByIdOrElseThrow(request.getVariantId(), variantRepository, VariantNotFoundException::new);
-        var price = new Price(request);
+        var price = new PriceHistory(request);
 
         price.setVariant(variant);
 
@@ -30,9 +30,9 @@ public class PriceServiceImpl implements PriceService {
     }
 
     @Override
-    public List<Price> listByVariantId(Long variantId) throws VariantNotFoundException {
+    public List<PriceHistory> listByVariantId(Long variantId) throws VariantNotFoundException {
         var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
 
-        return priceRepository.findByVariantOrderByDateOfChangeAsc(variant);
+        return priceRepository.findByVariantOrderByCreateDateAsc(variant);
     }
 }

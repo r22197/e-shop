@@ -40,10 +40,13 @@ public class Cart {
         this.cartItems.remove(item);
     }
 
-    @JsonProperty("totalPrice")
+    @JsonProperty("total_price")
     public BigDecimal getTotalPriceForJson() {
+        if (cartItems.isEmpty())
+            return BigDecimal.ONE;
+
         return cartItems.stream()
-                .map(CartItem::getTotalPriceInclQuantityForJson)
+                .map(CartItem::calculateTotalBasicPriceForJson)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 }

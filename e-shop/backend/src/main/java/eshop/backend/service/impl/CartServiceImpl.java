@@ -41,10 +41,6 @@ public class CartServiceImpl implements CartService {
     public Cart readByUserEmail(String email) throws UserNotFoundException, VariantNotFoundException {
         var user = findByEmailOrElseThrow(email, userRepository);
         var cart = cartRepository.findCartByUser(user);
-        var response = new CartResponse();
-
-        response.setCart(cart);
-        response.setTotalPrice(cart.getTotalPriceForJson());
 
         return cartRepository.findCartByUser(user);
     }

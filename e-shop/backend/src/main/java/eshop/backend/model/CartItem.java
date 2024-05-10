@@ -36,8 +36,13 @@ public class CartItem {
         this.quantity = 1;
     }
 
-    @JsonProperty("priceInclQuantity")
-    public BigDecimal getTotalPriceInclQuantityForJson() {
-        return variant.getCurrentPriceForJson().multiply(BigDecimal.valueOf(quantity));
+    @JsonProperty("price")
+    public BigDecimal calculateTotalBasicPriceForJson() {
+        return variant.calculateBasicPriceForJson().multiply(BigDecimal.valueOf(quantity));
+    }
+
+    @JsonProperty("discounted_price")
+    public BigDecimal calculateTotalDiscountedPriceForJson() {
+        return variant.calculateDiscountedPriceForJson().multiply(BigDecimal.valueOf(quantity));
     }
 }

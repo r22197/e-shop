@@ -2,6 +2,7 @@ package eshop.backend.model;
 
 
 import eshop.backend.enums.DiscountType;
+import eshop.backend.request.DiscountRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
@@ -36,4 +37,13 @@ public class Discount {
 
     @OneToMany(mappedBy = "discount")
     private Set<Category> categories;
+
+    public Discount(DiscountRequest request) {
+        this.id = request.getId();
+        this.name = request.getName();
+        this.amount = request.getAmount();
+        this.type = request.getType();
+        this.startDate = request.getStartDate();
+        this.endDate = request.getEndDate();
+    }
 }

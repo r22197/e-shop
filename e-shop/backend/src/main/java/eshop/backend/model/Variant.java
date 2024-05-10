@@ -32,7 +32,7 @@ public class Variant {
     private Product product;
 
     @OneToMany(mappedBy = "variant", cascade = CascadeType.REMOVE)
-    private Set<Price> prices;
+    private Set<PriceHistory> priceHistories;
 
     @OneToMany(mappedBy = "variant")
     private Set<CartItem> cartItems;
@@ -57,19 +57,25 @@ public class Variant {
     )
     private Set<Wishlist> wishlists;
 
+    @JsonProperty("price")
+    public BigDecimal calculateBasicPriceForJson() {
+        Optional<PriceHistory> latestPrice = priceHistories.stream()
+                .max(Comparator.comparing(PriceHistory::getCreateDate));
+
+        return latestPrice.map(PriceHistory::getPrice).orElse(BigDecimal.ZERO);
+    }
+
+    @JsonProperty("discounted_price")
+    public BigDecimal calculateDiscountedPriceForJson() {
+        var discount = product.getCategory().getDiscount();
+        if (discount == null)
+            return BigDecimal.ZERO;
+
+        return calculateBasicPriceForJson().multiply(BigDecimal.valueOf(discount.getAmount()));
+    }
+
     public Variant(VariantRequest request) {
         this.id = request.getId();
         this.quantity = request.getQuantity();
-    }
-
-    @JsonProperty("currentPrice")
-    public BigDecimal getCurrentPriceForJson() {
-        if (prices.isEmpty())
-            return BigDecimal.ZERO;
-
-        Optional<Price> latestPrice = prices.stream()
-                .max(Comparator.comparing(Price::getCreateDate));
-
-        return latestPrice.map(Price::getPrice).orElse(BigDecimal.ZERO);
     }
 }

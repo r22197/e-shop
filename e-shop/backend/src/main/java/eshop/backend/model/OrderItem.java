@@ -41,7 +41,7 @@ public class OrderItem {
 
     @JsonProperty("priceInclQuantityByDate")
     public BigDecimal getPriceInclQuantityByDateForJson() {
-        Optional<Price> closestPrice = variant.getPrices().stream()
+        Optional<PriceHistory> closestPrice = variant.getPriceHistories().stream()
                 .min(Comparator.comparingLong(p -> Math.abs(ChronoUnit.DAYS.between(order.getCreateDate(), LocalDateTime.now()))));
 
         if (closestPrice.isEmpty())

@@ -1,12 +1,20 @@
 package eshop.backend.response;
 
 import eshop.backend.model.Cart;
+import eshop.backend.model.CartItem;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 @Data
 public class CartResponse {
-    private Cart cart;
     private BigDecimal totalPrice;
+    private BigDecimal totalPriceIfDiscounted;
+    private Set<CartItem> cartItems;
+
+    public CartResponse(Cart cart) {
+        //cartItems = cart.getCartItems();
+        totalPrice = cart.getTotalPriceForJson();
+    }
 }
