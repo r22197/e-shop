@@ -39,7 +39,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ProductRequest> updateProduct(@PathVariable Long id, @RequestBody ProductRequest productRequest) throws ProductNotFoundException, CategoryNotFoundException {
-        if (!Objects.equals(id, productRequest.getId())) {
+        if (!Objects.equals(id, productRequest.id())) {
             throw new ProductNotFoundException(id);
         }
         productService.update(productRequest);

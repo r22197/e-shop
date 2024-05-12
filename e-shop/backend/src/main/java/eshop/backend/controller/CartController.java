@@ -34,7 +34,7 @@ public class CartController {
     @PutMapping("/{variantId}")
     public ResponseEntity<Cart> updateItemQuantity(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long variantId, @RequestBody UpdateProductCartQuantityDto dto) throws UserNotFoundException, VariantNotFoundException {
         String email = userDetails.getUsername();
-        Cart cart = cartService.updateItemQuantityByUserEmail(email, variantId, dto.getQuantity());
+        Cart cart = cartService.updateItemQuantityByUserEmail(email, variantId, dto.quantity());
         return ResponseEntity.ok(cart);
     }
 

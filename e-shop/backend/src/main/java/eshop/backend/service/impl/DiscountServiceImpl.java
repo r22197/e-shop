@@ -34,12 +34,12 @@ public class DiscountServiceImpl implements DiscountService {
 
     @Override
     public Discount update(DiscountRequest request) throws DiscountNotFoundException {
-        var discount = read(request.getId());
+        var discount = read(request.id());
 
-        discount.setName(request.getName());
-        discount.setType(request.getType());
-        discount.setStartDate(request.getStartDate());
-        discount.setEndDate(request.getEndDate());
+        discount.setName(request.name());
+        discount.setType(request.type());
+        discount.setStartDate(request.startDate());
+        discount.setEndDate(request.endDate());
         manageCategoriesIfExist(discount, request);
 
         return discountRepository.save(discount);
@@ -52,10 +52,10 @@ public class DiscountServiceImpl implements DiscountService {
     }
 
     private void manageCategoriesIfExist(Discount discount, DiscountRequest request) {
-        var isCategoriesNotEmpty = request.getCategoryIds() != null && request.getCategoryIds().isEmpty();
+        var isCategoriesNotEmpty = request.categoryIds() != null && request.categoryIds().isEmpty();
 
         if (isCategoriesNotEmpty) {
-            var categories = categoryRepository.findAllById(request.getCategoryIds());
+            var categories = categoryRepository.findAllById(request.categoryIds());
             discount.setCategories(new HashSet<>(categories));
         }
     }

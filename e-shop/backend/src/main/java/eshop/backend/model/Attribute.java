@@ -37,7 +37,7 @@ public class Attribute {
     private Set<Product> products;
 
     public Attribute(AttributeRequest request) {
-        this.id = request.getId();
-        this.name = request.getName();
+        this.id = request.id();
+        this.name = request.name();
     }
 }

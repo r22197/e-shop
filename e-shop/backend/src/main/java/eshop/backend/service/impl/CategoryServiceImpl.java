@@ -34,9 +34,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category update(CategoryRequest request) throws CategoryNotFoundException, InfiniteLoopException {
-        var persistedCategory = read(request.getId());
+        var persistedCategory = read(request.id());
 
-        persistedCategory.setName(request.getName());
+        persistedCategory.setName(request.name());
         setParentCategoryIfExists(request, persistedCategory);
 
         return categoryRepository.save(persistedCategory);
@@ -57,8 +57,8 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     private void setParentCategoryIfExists(CategoryRequest request, Category category) throws CategoryNotFoundException, InfiniteLoopException {
-        if (request.getParentId() != null) {
-            var parent = findByIdOrElseThrow(request.getParentId(), categoryRepository, CategoryNotFoundException::new);
+        if (request.parentId() != null) {
+            var parent = findByIdOrElseThrow(request.parentId(), categoryRepository, CategoryNotFoundException::new);
 
             category.setParent(parent);
 

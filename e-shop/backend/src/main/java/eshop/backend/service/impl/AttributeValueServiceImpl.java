@@ -20,8 +20,8 @@ public class AttributeValueServiceImpl implements AttributeValueService {
 
     @Override
     public AttributeValue create(AttributeValueRequest request) throws AttributeNotFoundException {
-        var attribute = attributeRepository.findById(request.getAttributeId())
-                .orElseThrow(() -> new AttributeNotFoundException(request.getAttributeId()));
+        var attribute = attributeRepository.findById(request.attributeId())
+                .orElseThrow(() -> new AttributeNotFoundException(request.attributeId()));
 
         var value = new AttributeValue(request);
         value.setAttribute(attribute);
@@ -37,9 +37,9 @@ public class AttributeValueServiceImpl implements AttributeValueService {
 
     @Override
     public AttributeValue update(AttributeValueRequest request) throws AttributeValueNotFoundException {
-        var persistedValue = read(request.getId());
+        var persistedValue = read(request.id());
 
-        persistedValue.setValue(request.getValue());
+        persistedValue.setValue(request.value());
 
         return valueRepository.save(persistedValue);
     }

@@ -55,7 +55,7 @@ public class Variant {
     private Set<Wishlist> wishlists;
 
     public Variant(VariantRequest request) {
-        this.id = request.getId();
-        this.quantity = request.getQuantity();
+        this.id = request.id();
+        this.quantity = request.quantity();
     }
 }

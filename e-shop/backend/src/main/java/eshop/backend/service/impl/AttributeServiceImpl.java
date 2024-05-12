@@ -31,9 +31,9 @@ public class AttributeServiceImpl implements AttributeService {
 
     @Override
     public Attribute update(AttributeRequest request) throws AttributeNotFoundException {
-        var persistedAttribute = read(request.getId());
+        var persistedAttribute = read(request.id());
 
-        persistedAttribute.setName(request.getName());
+        persistedAttribute.setName(request.name());
 
         return attributeRepository.save(persistedAttribute);
     }

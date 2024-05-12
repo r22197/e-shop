@@ -39,11 +39,11 @@ public class Discount {
     private Set<Category> categories;
 
     public Discount(DiscountRequest request) {
-        this.id = request.getId();
-        this.name = request.getName();
-        this.amount = request.getAmount();
-        this.type = request.getType();
-        this.startDate = request.getStartDate();
-        this.endDate = request.getEndDate();
+        this.id = request.id();
+        this.name = request.name();
+        this.amount = request.amount();
+        this.type = request.type();
+        this.startDate = request.startDate();
+        this.endDate = request.endDate();
     }
 }

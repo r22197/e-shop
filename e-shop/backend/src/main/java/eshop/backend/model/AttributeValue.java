@@ -37,7 +37,7 @@ public class AttributeValue {
     private Set<Variant> variants;
 
     public AttributeValue(AttributeValueRequest request) {
-        this.id = request.getId();
-        this.value = request.getValue();
+        this.id = request.id();
+        this.value = request.value();
     }
 }

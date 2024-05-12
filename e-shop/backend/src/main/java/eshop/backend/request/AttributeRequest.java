@@ -1,12 +1,9 @@
 package eshop.backend.request;
 
-import lombok.Data;
-
 import java.util.Set;
 
-@Data
-public class AttributeRequest {
-    private Long id;
-    private String name;
-    private Set<AttributeValueRequest> valueRequests;
-}
+public record AttributeRequest(
+        Long id,
+        String name,
+        Set<AttributeValueRequest> valueRequests
+) {}

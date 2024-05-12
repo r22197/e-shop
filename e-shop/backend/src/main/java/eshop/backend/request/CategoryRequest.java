@@ -1,15 +1,10 @@
 package eshop.backend.request;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 import java.util.Set;
 
-@Data @NoArgsConstructor @AllArgsConstructor
-public class CategoryRequest {
-    private Long id;
-    private String name;
-    private Long parentId;
-    private Set<CategoryRequest> childCategories;
-}
+public record CategoryRequest(
+        Long id,
+        String name,
+        Long parentId,
+        Set<CategoryRequest> childCategories
+) {}

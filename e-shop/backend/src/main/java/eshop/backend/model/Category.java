@@ -35,8 +35,8 @@ public class Category {
     private Discount discount;
 
     public Category(CategoryRequest request) {
-        this.id = request.getId();
-        this.name = request.getName();
+        this.id = request.id();
+        this.name = request.name();
     }
 
     @Override

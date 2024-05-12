@@ -29,8 +29,8 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review create(ReviewRequest request) throws ProductNotFoundException, UserNotFoundException {
-        var product = findByIdOrElseThrow(request.getProductId(), productRepository, ProductNotFoundException::new);
-        var user = findByIdOrElseThrow(request.getUserId(), userRepository, UserNotFoundException::new);
+        var product = findByIdOrElseThrow(request.productId(), productRepository, ProductNotFoundException::new);
+        var user = findByIdOrElseThrow(request.userId(), userRepository, UserNotFoundException::new);
         var review = new Review(request);
 
         review.setProduct(product);
@@ -46,12 +46,12 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review update(ReviewRequest request) throws ReviewNotFoundException {
-        var review = read(request.getId());
+        var review = read(request.id());
 
-        review.setRating(request.getRating());
-        review.setText(request.getText());
-        review.setPros(request.getCons());
-        review.setCons(request.getCons());
+        review.setRating(request.rating());
+        review.setText(request.text());
+        review.setPros(request.pros());
+        review.setCons(request.cons());
 
         return reviewRepository.save(review);
     }

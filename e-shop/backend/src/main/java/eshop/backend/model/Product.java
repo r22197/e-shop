@@ -47,9 +47,9 @@ public class Product {
     private Set<Attribute> attributes = new HashSet<>();
 
     public Product(ProductRequest request) {
-        this.id = request.getId();
-        this.name = request.getName();
-        this.imagePath = request.getImagePath();
+        this.id = request.id();
+        this.name = request.name();
+        this.imagePath = request.imagePath();
     }
 
     // source https://stackoverflow.com/questions/24994440/no-serializer-found-for-class-org-hibernate-proxy-pojo-javassist-javassist

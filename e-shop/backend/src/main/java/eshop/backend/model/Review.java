@@ -51,10 +51,10 @@ public class Review {
     private Product product;
 
     public Review(ReviewRequest request) {
-        this.id = request.getId();
-        this.rating = request.getRating();
-        this.text = request.getText();
-        this.pros = request.getPros();
-        this.cons = request.getCons();
+        this.id = request.id();
+        this.rating = request.rating();
+        this.text = request.text();
+        this.pros = request.pros();
+        this.cons = request.cons();
     }
 }

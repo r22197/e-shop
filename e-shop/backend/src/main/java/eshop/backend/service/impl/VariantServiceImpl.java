@@ -27,7 +27,7 @@ public class VariantServiceImpl implements VariantService {
 
     @Override
     public Variant create(VariantRequest request) throws ProductNotFoundException {
-        var product = findByIdOrElseThrow(request.getId(), productRepository, ProductNotFoundException::new);
+        var product = findByIdOrElseThrow(request.id(), productRepository, ProductNotFoundException::new);
         var variant = new Variant(request);
 
         variant.setProduct(product);
@@ -47,10 +47,10 @@ public class VariantServiceImpl implements VariantService {
 
     @Override
     public Variant update(VariantRequest request) throws VariantNotFoundException {
-        var variant = findByIdOrElseThrow(request.getId(), variantRepository, VariantNotFoundException::new);
+        var variant = findByIdOrElseThrow(request.id(), variantRepository, VariantNotFoundException::new);
 
-        variant.setQuantity(request.getQuantity());
-        variant.setPrice(request.getPrice());
+        variant.setQuantity(request.quantity());
+        variant.setPrice(request.price());
         manageAttributeValuesIfExist(variant, request);
 
         return variantRepository.save(variant);
@@ -69,10 +69,10 @@ public class VariantServiceImpl implements VariantService {
     }
 
     private void manageAttributeValuesIfExist(Variant variant, VariantRequest request) {
-        var isAttributeValuesNotEmpty = request.getAttributeValueIds().isEmpty();
+        var isAttributeValuesNotEmpty = request.attributeValueIds().isEmpty();
 
         if (isAttributeValuesNotEmpty) {
-            var attributeValues = attributeValueRepository.findAllById(request.getAttributeValueIds());
+            var attributeValues = attributeValueRepository.findAllById(request.attributeValueIds());
             variant.setValues(new HashSet<>(attributeValues));
         }
     }

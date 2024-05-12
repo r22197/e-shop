@@ -6,14 +6,12 @@ import lombok.Data;
 import java.time.LocalDateTime;
 import java.util.Set;
 
-@Data
-public class DiscountRequest {
-    private Long id;
-    private String name;
-    private double amount;
-    private DiscountType type;
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-    private Set<Long> categoryIds;
-}
-
+public record DiscountRequest(
+        Long id,
+        String name,
+        double amount,
+        DiscountType type,
+        LocalDateTime startDate,
+        LocalDateTime endDate,
+        Set<Long> categoryIds
+) {}

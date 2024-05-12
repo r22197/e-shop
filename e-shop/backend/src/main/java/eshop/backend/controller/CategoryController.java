@@ -38,7 +38,7 @@ public class CategoryController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest) throws CategoryNotFoundException, InfiniteLoopException {
-        if (!Objects.equals(id, categoryRequest.getId())) {
+        if (!Objects.equals(id, categoryRequest.id())) {
             throw new CategoryNotFoundException(id);
         }
         var category = categoryService.update(categoryRequest);

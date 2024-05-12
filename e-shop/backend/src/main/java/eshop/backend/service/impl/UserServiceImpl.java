@@ -56,8 +56,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public AuthenticationResponse logIn(LoginRequest request) {
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        var user = userRepository.findByEmail(request.getEmail()).orElseThrow();
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.email(), request.password()));
+        var user = userRepository.findByEmail(request.email()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         revokeAllUserTokens(user);
@@ -70,10 +70,10 @@ public class UserServiceImpl implements UserService {
     public void changePassword(ChangePasswordRequest request, Principal principal) throws IncorrectPasswordException {
         var user = (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
 
-        if (!passwordEncoder.matches(request.getCurrentPassword(), user.getPassword()))
+        if (!passwordEncoder.matches(request.currentPassword(), user.getPassword()))
             throw new IncorrectPasswordException();
 
-        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+        user.setPassword(passwordEncoder.encode(request.newPassword()));
 
         userRepository.save(user);
     }

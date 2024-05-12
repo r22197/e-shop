@@ -44,11 +44,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product update(ProductRequest request) throws ProductNotFoundException, CategoryNotFoundException {
-        var product = read(request.getId());
+        var product = read(request.id());
 
-        product.setName(request.getName());
-        product.setDescription(request.getDescription());
-        product.setImagePath(request.getImagePath());
+        product.setName(request.name());
+        product.setDescription(request.description());
+        product.setImagePath(request.imagePath());
         setCategoryIfSelectedAndExists(product, request);
 
         return productRepository.save(product);
@@ -88,8 +88,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
     private void setCategoryIfSelectedAndExists(Product product, ProductRequest request) throws CategoryNotFoundException {
-        if (request.getCategoryId() != null) {
-            var category = findByIdOrElseThrow(request.getCategoryId(), categoryRepository, CategoryNotFoundException::new);
+        if (request.categoryId() != null) {
+            var category = findByIdOrElseThrow(request.categoryId(), categoryRepository, CategoryNotFoundException::new);
 
             product.setCategory(category);
         }
