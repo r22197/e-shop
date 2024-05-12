@@ -14,5 +14,4 @@ public interface ReviewService {
     Review read(Long reviewId) throws ReviewNotFoundException;
     Review update(ReviewRequest request) throws ReviewNotFoundException;
     void delete(Long reviewId) throws ReviewNotFoundException;
-    List<Review> list();
 }

@@ -9,11 +9,12 @@ import eshop.backend.repository.CartItemRepository;
 import eshop.backend.repository.CartRepository;
 import eshop.backend.repository.UserRepository;
 import eshop.backend.repository.VariantRepository;
-import eshop.backend.response.CartResponse;
+import eshop.backend.request.ProductSearchRequest;
 import eshop.backend.service.CartService;
-import eshop.backend.service.PriceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 import static eshop.backend.utils.EntityUtils.findByEmailOrElseThrow;
 import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
@@ -25,7 +26,6 @@ public class CartServiceImpl implements CartService {
     private final CartItemRepository itemRepository;
     private final VariantRepository variantRepository;
     private final UserRepository userRepository;
-    private final PriceService priceService;
 
     @Override
     public Cart createByUserEmail(String email) throws UserNotFoundException {
@@ -38,9 +38,8 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart readByUserEmail(String email) throws UserNotFoundException, VariantNotFoundException {
+    public Cart readByUserEmail(String email) throws UserNotFoundException {
         var user = findByEmailOrElseThrow(email, userRepository);
-        var cart = cartRepository.findCartByUser(user);
 
         return cartRepository.findCartByUser(user);
     }
@@ -91,5 +90,16 @@ public class CartServiceImpl implements CartService {
         var user = findByEmailOrElseThrow(email, userRepository);
 
         itemRepository.deleteAllByCartUser(user);
+    }
+
+    private BigDecimal calculateTotalPrice(Cart cart) {
+        BigDecimal totalPrice = BigDecimal.ZERO;
+
+        for (CartItem item : cart.getCartItems()) {
+            BigDecimal itemPrice = item.getVariant().getPrice().multiply(BigDecimal.valueOf(item.getQuantity()));
+            totalPrice = totalPrice.add(itemPrice);
+        }
+
+        return totalPrice;
     }
 }

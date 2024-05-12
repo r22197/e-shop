@@ -1,5 +1,6 @@
 package eshop.backend.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.exception.VariantNotFoundException;
 import eshop.backend.model.Variant;
@@ -7,16 +8,13 @@ import eshop.backend.repository.AttributeValueRepository;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.repository.VariantRepository;
 import eshop.backend.request.VariantRequest;
-import eshop.backend.response.VariantResponse;
 import eshop.backend.service.VariantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
 
@@ -26,7 +24,6 @@ public class VariantServiceImpl implements VariantService {
     private final VariantRepository variantRepository;
     private final ProductRepository productRepository;
     private final AttributeValueRepository attributeValueRepository;
-    private final PriceServiceImpl priceService;
 
     @Override
     public Variant create(VariantRequest request) throws ProductNotFoundException {
@@ -40,26 +37,23 @@ public class VariantServiceImpl implements VariantService {
     }
 
     @Override
-    public VariantResponse read(Long variantId) throws VariantNotFoundException {
+    public Variant read(Long variantId) throws VariantNotFoundException {
         var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
-        //var priceValue = priceService.readLastPriceByVariantId(variantId).getPrice();
-        var response = new VariantResponse(variant);
 
-        //response.setStandardPrice(priceValue);
-        setDiscountPriceIfExists(response);
+        calculateDiscountedPriceForJson(variant);
 
-        return response;
+        return variant;
     }
 
     @Override
     public Variant update(VariantRequest request) throws VariantNotFoundException {
-        var persistedVariant = findByIdOrElseThrow(request.getId(), variantRepository, VariantNotFoundException::new);
+        var variant = findByIdOrElseThrow(request.getId(), variantRepository, VariantNotFoundException::new);
 
-        persistedVariant.setQuantity(request.getQuantity());
-        manageAttributeValuesIfExist(persistedVariant, request);
-        findIfPriceChangedThenCreate(request, persistedVariant);
+        variant.setQuantity(request.getQuantity());
+        variant.setPrice(request.getPrice());
+        manageAttributeValuesIfExist(variant, request);
 
-        return variantRepository.save(persistedVariant);
+        return variantRepository.save(variant);
     }
 
     @Override
@@ -74,20 +68,8 @@ public class VariantServiceImpl implements VariantService {
         return variantRepository.findAll(Sort.by(direction, attribute));
     }
 
-    private void setDiscountPriceIfExists(VariantResponse response) throws VariantNotFoundException {
-        var discount = response.getProduct().getCategory().getDiscount();
-        //var priceValue = priceService.readLastPriceByVariantId(response.getId()).getPrice();
-        var isCategoryDiscounted = discount != null;
-
-        if (isCategoryDiscounted) {
-            var discountAmount = BigDecimal.valueOf(discount.getAmount());
-            //var discountedPrice = priceValue.multiply(BigDecimal.ONE.subtract(discountAmount));
-            //response.setPriceAfterDiscount(discountedPrice);
-        }
-    }
-
     private void manageAttributeValuesIfExist(Variant variant, VariantRequest request) {
-        var isAttributeValuesNotEmpty = request.getAttributeValueIds() != null && !request.getAttributeValueIds().isEmpty();
+        var isAttributeValuesNotEmpty = request.getAttributeValueIds().isEmpty();
 
         if (isAttributeValuesNotEmpty) {
             var attributeValues = attributeValueRepository.findAllById(request.getAttributeValueIds());
@@ -95,15 +77,13 @@ public class VariantServiceImpl implements VariantService {
         }
     }
 
-    private void findIfPriceChangedThenCreate(VariantRequest request, Variant persistedVariant) throws VariantNotFoundException {
-        /*
-        var price = priceService.readLastPriceByVariantId(persistedVariant.getId()).getPrice();
-        var isNotIdenticalAsLastPrice = !Objects.equals(price, request.getPriceRequest().getPrice());
+    @JsonProperty("discounted_price")
+    private BigDecimal calculateDiscountedPriceForJson(Variant variant) {
+        var discount = variant.getProduct().getCategory().getDiscount();
 
-        if (isNotIdenticalAsLastPrice) {
-            priceService.create(request.getPriceRequest());
-        }
+        if (discount == null)
+            return variant.getPrice();
 
-         */
+        return variant.getPrice().multiply(BigDecimal.valueOf(1 - discount.getAmount()));
     }
 }

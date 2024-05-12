@@ -8,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -24,7 +25,7 @@ public class Attribute {
     private String name;
 
     @OneToMany(mappedBy = "attribute", cascade = CascadeType.REMOVE)
-    private Set<AttributeValue> values;
+    private Set<AttributeValue> values = new HashSet<>();
 
     @JsonIgnore
     @ManyToMany

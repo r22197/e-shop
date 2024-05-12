@@ -1,5 +1,6 @@
 package eshop.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import eshop.backend.request.ProductRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -31,7 +33,7 @@ public class Product {
     private Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
-    private Set<Variant> variants;
+    private Set<Variant> variants = new HashSet<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
     private Set<Review> reviews;
@@ -42,7 +44,7 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "attribute_id")
     )
-    private Set<Attribute> attributes;
+    private Set<Attribute> attributes = new HashSet<>();
 
     public Product(ProductRequest request) {
         this.id = request.getId();

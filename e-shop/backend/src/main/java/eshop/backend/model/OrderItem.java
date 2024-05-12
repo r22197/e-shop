@@ -39,16 +39,4 @@ public class OrderItem {
         this.variant = cartItem.getVariant();
     }
 
-    @JsonProperty("priceInclQuantityByDate")
-    public BigDecimal getPriceInclQuantityByDateForJson() {
-        Optional<PriceHistory> closestPrice = variant.getPriceHistories().stream()
-                .min(Comparator.comparingLong(p -> Math.abs(ChronoUnit.DAYS.between(order.getCreateDate(), LocalDateTime.now()))));
-
-        if (closestPrice.isEmpty())
-            return BigDecimal.ZERO;
-
-        BigDecimal priceValue = closestPrice.get().getPrice();
-        return priceValue.multiply(BigDecimal.valueOf(quantity));
-    }
-
 }

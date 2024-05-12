@@ -4,10 +4,12 @@ import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.model.Product;
 import eshop.backend.request.ProductRequest;
+import eshop.backend.request.ProductSearchRequest;
 import eshop.backend.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -52,18 +54,6 @@ public class ProductController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping
-    public ResponseEntity<Page<Product>> pageOfAllProducts(
-            @RequestParam(defaultValue = "ASC") String direction,
-            @RequestParam(defaultValue = "id") String attribute,
-            @RequestParam(defaultValue = "0") Integer pageNumber,
-            @RequestParam(defaultValue = "10") Integer pageSize) {
-        Sort.Direction sortDirection = Sort.Direction.fromString(direction.toUpperCase());
-        Page<Product> productsPage = productService.pageOfAllProducts(sortDirection, attribute, pageNumber, pageSize);
-
-        return ResponseEntity.ok(productsPage);
-    }
-
     @GetMapping("/search")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam String query) {
         List<Product> productRequestList = productService.search(query);
@@ -71,16 +61,28 @@ public class ProductController {
         return ResponseEntity.ok(productRequestList);
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/category/{categoryId}")
     public ResponseEntity<Page<Product>> getProductsInCategory(
-            @PathVariable Long id,
+            @RequestBody(required = false) ProductSearchRequest searchRequest,
+            @RequestParam(defaultValue = "0") Integer pageNumber,
+            @RequestParam(defaultValue = "27") Integer pageSize,
+            @RequestParam(defaultValue = "ASC") String direction,
+            @RequestParam(required = false) String attribute,
+            @PathVariable Long categoryId) throws CategoryNotFoundException {
+        var pageRequest = PageRequest.of(pageNumber, pageSize, Sort.Direction.fromString(direction), attribute);
+        var productPage = productService.pageByCategoryAndSpecifications(categoryId, searchRequest, pageRequest);
+
+        return ResponseEntity.ok(productPage);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<Product>> pageOfAllProducts(
             @RequestParam(defaultValue = "0") Integer pageNumber,
             @RequestParam(defaultValue = "10") Integer pageSize,
-            @RequestParam(defaultValue = "asc") String sortBy,
-            @RequestParam(required = false) Double lowPrice,
-            @RequestParam(required = false) Double maxPrice) throws CategoryNotFoundException {
+            @RequestParam(defaultValue = "ASC") String direction,
+            @RequestParam(required = false) String attribute) {
+        var request = PageRequest.of(pageNumber, pageSize, Sort.Direction.fromString(direction), attribute);
 
-        Page<Product> productPage = productService.listByCategory(id, pageNumber, pageSize, sortBy, lowPrice, maxPrice);
-        return ResponseEntity.ok(productPage);
+        return ResponseEntity.ok(productService.pageAllProducts(request));
     }
 }

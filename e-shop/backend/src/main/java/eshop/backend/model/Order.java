@@ -38,11 +38,4 @@ public class Order {
         this.orderItems = orderItems;
         this.setStatus(OrderStatus.CREATED);
     }
-
-    @JsonProperty("totalPrice")
-    public BigDecimal getTotalPriceForJson() {
-        return orderItems.stream()
-                .map(OrderItem::getPriceInclQuantityByDateForJson)
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
 }

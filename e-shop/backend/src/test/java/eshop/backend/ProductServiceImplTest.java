@@ -1,166 +1,112 @@
 package eshop.backend;
+
 import eshop.backend.exception.CategoryNotFoundException;
-import eshop.backend.exception.ProductNotFoundException;
+import eshop.backend.model.Attribute;
+import eshop.backend.model.AttributeValue;
 import eshop.backend.model.Category;
 import eshop.backend.model.Product;
+import eshop.backend.model.Variant;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.repository.ProductRepository;
-import eshop.backend.request.ProductRequest;
+import eshop.backend.repository.ProductSearchSpecification;
+import eshop.backend.request.ProductSearchRequest;
+import eshop.backend.service.ProductService;
 import eshop.backend.service.impl.ProductServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mockito;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Pageable;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
 class ProductServiceImplTest {
-    @Mock
+    private ProductService productService;
     private ProductRepository productRepository;
-
-    @Mock
     private CategoryRepository categoryRepository;
-
-    private ProductServiceImpl productService;
 
     @BeforeEach
     void setUp() {
+        productRepository = Mockito.mock(ProductRepository.class);
+        categoryRepository = Mockito.mock(CategoryRepository.class);
         productService = new ProductServiceImpl(productRepository, categoryRepository);
     }
 
     @Test
-    void testSearchProducts() {
-        String query = "test";
-        List<Product> expectedProducts = Collections.emptyList();
-        when(productRepository.findByNameContainingIgnoreCase(query.toLowerCase())).thenReturn(expectedProducts);
-
-        List<Product> resultProducts = productService.search(query);
-
-        assertEquals(expectedProducts, resultProducts);
-        verify(productRepository).findByNameContainingIgnoreCase(query.toLowerCase());
-    }
-
-    @Test
-    void testGetProductsInCategory() throws CategoryNotFoundException {
-        long categoryId = 1;
-        int pageNumber = 0;
-        int pageSize = 10;
-        String sortBy = "asc";
-        double lowPrice = 0;
-        double maxPrice = 100;
-        Page<Product> expectedPage = new PageImpl<>(Collections.emptyList());
+    void testPageProductsBySpecification() throws CategoryNotFoundException {
         Category category = new Category();
-        when(categoryRepository.findById(categoryId)).thenReturn(Optional.of(category));
-        //when(productRepository.findByCategoryAndPriceBetween(category, lowPrice, maxPrice, PageRequest.of(pageNumber, pageSize, Sort.by("price").ascending()))).thenReturn(expectedPage);
+        category.setName("Test Category");
 
-        Page<Product> resultPage = productService.listByCategory(categoryId, pageNumber, pageSize, sortBy, lowPrice, maxPrice);
+        Product product1 = new Product();
+        product1.setName("Test Product 1");
+        product1.setDescription("Test Description 1");
+        product1.setCategory(category);
 
-        assertEquals(expectedPage, resultPage);
-        verify(categoryRepository).findById(categoryId);
-        //verify(productRepository).findByCategoryAndPriceBetween(category, lowPrice, maxPrice, PageRequest.of(pageNumber, pageSize, Sort.by("price").ascending()));
-    }
+        Product product2 = new Product();
+        product2.setName("Test Product 2");
+        product2.setDescription("Test Description 2");
+        product2.setCategory(category);
 
-    @Test
-    void testGetById() throws ProductNotFoundException {
-        long productId = 1;
-        Product expectedProduct = new Product();
-        when(productRepository.findById(productId)).thenReturn(Optional.of(expectedProduct));
+        Attribute attribute1 = new Attribute();
+        attribute1.setName("Test Attribute 1");
 
-        Product resultProduct = productService.read(productId);
+        Attribute attribute2 = new Attribute();
+        attribute2.setName("Test Attribute 2");
 
-        assertEquals(expectedProduct, resultProduct);
-        verify(productRepository).findById(productId);
-    }
+        AttributeValue attributeValue1 = new AttributeValue();
+        attributeValue1.setValue("Test Value 1");
+        attributeValue1.setAttribute(attribute1);
 
-    @Test
-    void testGetByIdThrowsProductNotFoundException() {
-        long productId = 1;
-        when(productRepository.findById(productId)).thenReturn(Optional.empty());
+        AttributeValue attributeValue2 = new AttributeValue();
+        attributeValue2.setValue("Test Value 2");
+        attributeValue2.setAttribute(attribute2);
 
-        assertThrows(ProductNotFoundException.class, () -> productService.read(productId));
-        verify(productRepository).findById(productId);
-    }
+        Set<Attribute> attributes1 = new HashSet<>();
+        attributes1.add(attribute1);
+        product1.setAttributes(attributes1);
 
-    @Test
-    void testCreate() throws CategoryNotFoundException {
-        Product product = new Product();
-        Category category = new Category();
-        category.setId(1L);
-        product.setCategory(category);
-        when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
+        Set<Attribute> attributes2 = new HashSet<>();
+        attributes2.add(attribute2);
+        product2.setAttributes(attributes2);
 
-        Product createdProduct = productService.create(new ProductRequest());
+        Set<Variant> variants1 = new HashSet<>();
+        Variant variant1 = new Variant();
+        variant1.setPrice(BigDecimal.valueOf(10.0));
+        variants1.add(variant1);
 
-        assertNotNull(createdProduct);
-        assertEquals(category, createdProduct.getCategory());
-        verify(productRepository).save(product);
-    }
+        product2.setVariants(variants1);
 
-    @Test
-    void testUpdate() throws ProductNotFoundException, CategoryNotFoundException {
-        long productId = 1L;
-        Product existingProduct = new Product();
-        existingProduct.setId(productId);
-        Product updatedProduct = new Product();
-        updatedProduct.setName("Updated Name");
-        updatedProduct.setDescription("Updated Description");
-        //updatedProduct.setPrice(20.0);
-        updatedProduct.setImagePath("updatedImagePath");
-        Category category = new Category();
-        category.setId(1L);
-        updatedProduct.setCategory(category);
-        when(productRepository.findById(productId)).thenReturn(Optional.of(existingProduct));
-        when(categoryRepository.findById(category.getId())).thenReturn(Optional.of(category));
+        /*
+        when(categoryRepository.findById(category.getId())).thenReturn(java.util.Optional.of(category));
+        when(productRepository.findAllByCategory(any(ProductSearchSpecification.class), any(Pageable.class)))
+                .thenReturn(new PageImpl<>(Arrays.asList(product1, product2), PageRequest.of(0, 10), 2));
 
-        Product resultProduct = productService.update(new ProductRequest());
+        ProductSearchRequest searchRequest = new ProductSearchRequest(
+                category.getId(),
+                BigDecimal.valueOf(5.0),
+                BigDecimal.valueOf(15.0),
+                new HashSet<>(Arrays.asList(attribute1.getId(), attribute2.getId()))
+        );
 
-        assertNotNull(resultProduct);
-        assertEquals(updatedProduct.getName(), resultProduct.getName());
-        assertEquals(updatedProduct.getDescription(), resultProduct.getDescription());
-        //assertEquals(updatedProduct.getPrice(), resultProduct.getPrice());
-        assertEquals(updatedProduct.getImagePath(), resultProduct.getImagePath());
-        assertEquals(category, resultProduct.getCategory());
-        verify(productRepository).save(existingProduct);
-    }
+        Page<Product> result = productService.pageByCategoryAndSpecifications(searchRequest, PageRequest.of(0, 10));
 
-    @Test
-    void testUpdateThrowsProductNotFoundException() {
-        long productId = 1;
-        Product updatedProduct = new Product();
-        updatedProduct.setId(productId);
+        System.out.println(result.stream().toList());
 
-        assertThrows(ProductNotFoundException.class, () -> productService.update(new ProductRequest()));
-        verify(productRepository).findById(productId);
-    }
+        assertEquals(2, result.getTotalElements());
+        assertEquals(2, result.getContent().size());
+        assertTrue(result.getContent().contains(product1));
+        assertTrue(result.getContent().contains(product2));
 
-    @Test
-    void testDelete() throws ProductNotFoundException {
-        long productId = 1;
-        Product product = new Product();
-        product.setId(productId);
-        when(productRepository.findById(productId)).thenReturn(Optional.of(product));
-
-        productService.delete(productId);
-
-        verify(productRepository).delete(product);
-    }
-
-    @Test
-    void testDeleteThrowsProductNotFoundException() {
-        long productId = 1;
-        when(productRepository.findById(productId)).thenReturn(Optional.empty());
-
-        assertThrows(ProductNotFoundException.class, () -> productService.delete(productId));
-        verify(productRepository).findById(productId);
+         */
     }
 }

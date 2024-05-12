@@ -4,31 +4,32 @@ import eshop.backend.request.ReviewRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
 @Data
-@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "review")
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Min(1)
-    @Max(5)
-    @NotNull //todo: try
+    @Min(1) @Max(5)
     private int rating;
 
     private String text;
 
-    private LocalDateTime dateOfCreation;
-    private LocalDateTime dateOfUpdate;
+    @CreationTimestamp
+    private LocalDateTime createDate;
+    @UpdateTimestamp
+    private LocalDateTime updateDate;
 
     @ElementCollection
     private Set<String> pros;
@@ -44,16 +45,11 @@ public class Review {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    public Review() {
-        this.dateOfCreation = LocalDateTime.now();
-    }
-
     public Review(ReviewRequest request) {
         this.id = request.getId();
         this.rating = request.getRating();
         this.text = request.getText();
         this.pros = request.getPros();
         this.cons = request.getCons();
-        this.dateOfCreation = LocalDateTime.now();
     }
 }

@@ -45,10 +45,4 @@ public class ReviewController {
         reviewService.delete(reviewId);
         return ResponseEntity.noContent().build();
     }
-
-    @GetMapping
-    public ResponseEntity<List<Review>> list() {
-        List<Review> reviews = reviewService.list();
-        return ResponseEntity.ok(reviews);
-    }
 }

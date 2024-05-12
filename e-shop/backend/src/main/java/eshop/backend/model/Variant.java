@@ -1,7 +1,6 @@
 package eshop.backend.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import eshop.backend.request.VariantRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
@@ -10,8 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -27,12 +24,12 @@ public class Variant {
     @Min(0)
     private Integer quantity;
 
+    @Min(0)
+    private BigDecimal price;
+
     @ManyToOne
     @JoinColumn(name = "product_id")
     private Product product;
-
-    @OneToMany(mappedBy = "variant", cascade = CascadeType.REMOVE)
-    private Set<PriceHistory> priceHistories;
 
     @OneToMany(mappedBy = "variant")
     private Set<CartItem> cartItems;
@@ -56,23 +53,6 @@ public class Variant {
             inverseJoinColumns = @JoinColumn(name = "wishlist_id")
     )
     private Set<Wishlist> wishlists;
-
-    @JsonProperty("price")
-    public BigDecimal calculateBasicPriceForJson() {
-        Optional<PriceHistory> latestPrice = priceHistories.stream()
-                .max(Comparator.comparing(PriceHistory::getCreateDate));
-
-        return latestPrice.map(PriceHistory::getPrice).orElse(BigDecimal.ZERO);
-    }
-
-    @JsonProperty("discounted_price")
-    public BigDecimal calculateDiscountedPriceForJson() {
-        var discount = product.getCategory().getDiscount();
-        if (discount == null)
-            return BigDecimal.ZERO;
-
-        return calculateBasicPriceForJson().multiply(BigDecimal.valueOf(discount.getAmount()));
-    }
 
     public Variant(VariantRequest request) {
         this.id = request.getId();

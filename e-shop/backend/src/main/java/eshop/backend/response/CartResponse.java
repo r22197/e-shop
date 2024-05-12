@@ -15,6 +15,5 @@ public class CartResponse {
 
     public CartResponse(Cart cart) {
         //cartItems = cart.getCartItems();
-        totalPrice = cart.getTotalPriceForJson();
     }
 }

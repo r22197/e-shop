@@ -3,13 +3,16 @@ package eshop.backend.service.impl;
 import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.exception.ReviewNotFoundException;
 import eshop.backend.exception.UserNotFoundException;
+import eshop.backend.model.Product;
 import eshop.backend.model.Review;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.repository.ReviewRepository;
 import eshop.backend.repository.UserRepository;
 import eshop.backend.request.ReviewRequest;
 import eshop.backend.service.ReviewService;
+import eshop.backend.utils.EntityUtils;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -43,15 +46,14 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public Review update(ReviewRequest request) throws ReviewNotFoundException {
-        var persistedReview = read(request.getId());
+        var review = read(request.getId());
 
-        persistedReview.setRating(request.getRating());
-        persistedReview.setText(request.getText());
-        persistedReview.setPros(request.getCons());
-        persistedReview.setCons(request.getCons());
-        persistedReview.setDateOfUpdate(LocalDateTime.now());
+        review.setRating(request.getRating());
+        review.setText(request.getText());
+        review.setPros(request.getCons());
+        review.setCons(request.getCons());
 
-        return reviewRepository.save(persistedReview);
+        return reviewRepository.save(review);
     }
 
     @Override
@@ -59,10 +61,5 @@ public class ReviewServiceImpl implements ReviewService {
         var review = read(reviewId);
 
         reviewRepository.delete(review);
-    }
-
-    @Override
-    public List<Review> list() {
-        return reviewRepository.findAll();
     }
 }
