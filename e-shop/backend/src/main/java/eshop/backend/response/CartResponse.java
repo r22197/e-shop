@@ -13,7 +13,4 @@ public class CartResponse {
     private BigDecimal totalPriceIfDiscounted;
     private Set<CartItem> cartItems;
 
-    public CartResponse(Cart cart) {
-        //cartItems = cart.getCartItems();
-    }
 }

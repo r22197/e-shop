@@ -4,7 +4,6 @@ import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.exception.VariantNotFoundException;
 import eshop.backend.model.Variant;
 import eshop.backend.request.VariantRequest;
-import eshop.backend.response.VariantResponse;
 import org.springframework.data.domain.Sort;
 
 import java.util.List;

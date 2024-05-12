@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -27,8 +29,11 @@ public class Review {
     private String text;
 
     @CreationTimestamp
+    @Column(updatable = false, insertable = false)
     private LocalDateTime createDate;
+
     @UpdateTimestamp
+    @Column(insertable = false)
     private LocalDateTime updateDate;
 
     @ElementCollection

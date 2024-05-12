@@ -1,22 +1,23 @@
 package eshop.backend.controller;
 
 
-import eshop.backend.config.jwt.JwtUtils;
-import eshop.backend.config.user.ShopUserDetails;
-import eshop.backend.response.JwtResponse;
-import eshop.backend.request.LoginRequest;
+import eshop.backend.exception.IncorrectPasswordException;
+import eshop.backend.exception.UserNotFoundException;
+import eshop.backend.exception.UsernameAlreadyExistsException;
 import eshop.backend.model.User;
+import eshop.backend.request.ChangePasswordRequest;
+import eshop.backend.request.RegisterRequest;
+import eshop.backend.response.AuthenticationResponse;
+import eshop.backend.request.LoginRequest;
 import eshop.backend.service.UserService;
-import jakarta.validation.Valid;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -24,31 +25,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AuthController {
     private final UserService userService;
-    private final AuthenticationManager authenticationManager;
-    private final JwtUtils jwtUtils;
 
-    @PostMapping("/register-user")
-    public ResponseEntity<?> registerUser(@RequestBody User user){
-        userService.registerUser(user);
-        return ResponseEntity.ok("Registration successful!");
-
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> registerUser(@RequestBody RegisterRequest request) throws UsernameAlreadyExistsException {
+        return ResponseEntity.ok(userService.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest request){
-        Authentication authentication =
-                authenticationManager
-                        .authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
-        SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtUtils.generateJwtTokenForUser(authentication);
-        ShopUserDetails userDetails = (ShopUserDetails) authentication.getPrincipal();
-        List<String> roles = userDetails.getAuthorities()
-                .stream()
-                .map(GrantedAuthority::getAuthority).toList();
-        return ResponseEntity.ok(new JwtResponse(
-                userDetails.getId(),
-                userDetails.getEmail(),
-                jwt,
-                roles));
+    public ResponseEntity<AuthenticationResponse> logIn(@RequestBody LoginRequest request) {
+        return ResponseEntity.ok(userService.logIn(request));
+    }
+
+    @PatchMapping("/change-password")
+    public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequest request, Principal principal) throws IncorrectPasswordException {
+        userService.changePassword(request, principal);
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> list() {
+        return ResponseEntity.ok(userService.list());
+    }
+
+    @PutMapping("/users/{userId}")
+    public ResponseEntity<Void> delete(@PathVariable Long userId) throws UserNotFoundException {
+        userService.delete(userId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/refresh-token")
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        userService. refreshToken(request, response);
     }
 }

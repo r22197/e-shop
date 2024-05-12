@@ -26,6 +26,7 @@ import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
 public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
+    private final ProductSidebarFilter productsAttributeFilter;
 
     @Override
     public Product create(ProductRequest request) throws CategoryNotFoundException {
@@ -69,56 +70,13 @@ public class ProductServiceImpl implements ProductService {
         var category = findByIdOrElseThrow(categoryId, categoryRepository, CategoryNotFoundException::new);
         var specification = new ProductSearchSpecification(searchRequest);
 
-        var productPage = productRepository.findAllByCategory(category, specification, pageRequest);
+        /*
+        Map<Attribute, Map<AttributeValue, Long>> attributeValuesMap = productsAttributeFilter.listAttributesAndValuesCountByCategory(category, productPage.getContent());
+        BigDecimal minPrice = productsAttributeFilter.minPrice(attributeValuesMap);
+        BigDecimal maxPrice = productsAttributeFilter.maxPrice(attributeValuesMap);
 
-        Map<Attribute, Map<AttributeValue, Long>> attributeValuesMap = listAttributesAndValuesCountByCategory(category, productPage);
-
-        BigDecimal minPrice = minPrice(attributeValuesMap);
-        BigDecimal maxPrice = maxPrice(attributeValuesMap);
-
-        return productPage;
-    }
-
-    @JsonProperty
-    private Map<Attribute, Map<AttributeValue, Long>> listAttributesAndValuesCountByCategory(Category category, Page<Product> productPage) {
-        // Initialize the attributeValuesMap with all possible attribute-value pairs in the category
-        Map<Attribute, Map<AttributeValue, Long>> attributeValuesMap = category.getProducts().stream()
-                .flatMap(product -> product.getAttributes().stream()
-                        .flatMap(attribute -> attribute.getValues().stream()
-                                .map(attributeValue -> new AbstractMap.SimpleEntry<>(attribute, attributeValue))))
-                .collect(Collectors.groupingBy(AbstractMap.SimpleEntry::getKey,
-                        Collectors.groupingBy(AbstractMap.SimpleEntry::getValue, Collectors.counting())));
-
-        // Update the count of each attribute-value pair based on the products in the current page
-        for (Product product : productPage.getContent()) {
-            for (Attribute attribute : product.getAttributes()) {
-                Map<AttributeValue, Long> valueCounts = attributeValuesMap.get(attribute);
-                for (AttributeValue value : attribute.getValues()) {
-                    valueCounts.put(value, valueCounts.getOrDefault(value, 0L) + 1);
-                }
-            }
-        }
-
-        return attributeValuesMap;
-    }
-    @JsonProperty
-    private BigDecimal minPrice(Map<Attribute, Map<AttributeValue, Long>> attributeValuesMap) {
-        return attributeValuesMap.values().stream()
-                .flatMap(valueCounts -> valueCounts.keySet().stream())
-                .flatMap(attributeValue -> attributeValue.getVariants().stream())
-                .map(Variant::getPrice)
-                .min(BigDecimal::compareTo)
-                .orElse(BigDecimal.ZERO);
-    }
-
-    @JsonProperty
-    private BigDecimal maxPrice(Map<Attribute, Map<AttributeValue, Long>> attributeValuesMap) {
-        return attributeValuesMap.values().stream()
-                .flatMap(valueCounts -> valueCounts.keySet().stream())
-                .flatMap(attributeValue -> attributeValue.getVariants().stream())
-                .map(Variant::getPrice)
-                .max(BigDecimal::compareTo)
-                .orElse(BigDecimal.ZERO);
+         */
+        return productRepository.findAllByCategory(category, specification, pageRequest);
     }
 
     @Override
