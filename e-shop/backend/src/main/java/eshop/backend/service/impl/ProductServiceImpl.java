@@ -1,6 +1,5 @@
 package eshop.backend.service.impl;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import eshop.backend.exception.CategoryNotFoundException;
 import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.model.*;
@@ -9,15 +8,15 @@ import eshop.backend.repository.ProductRepository;
 import eshop.backend.request.ProductRequest;
 import eshop.backend.repository.ProductSearchSpecification;
 import eshop.backend.request.ProductSearchRequest;
+import eshop.backend.response.RatingSummaryResponse;
 import eshop.backend.service.ProductService;
+import eshop.backend.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
-import java.math.BigDecimal;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
 
@@ -27,6 +26,7 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
     private final ProductSidebarFilter productsAttributeFilter;
+    private final ReviewService reviewService;
 
     @Override
     public Product create(ProductRequest request) throws CategoryNotFoundException {
@@ -39,6 +39,12 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product read(Long productId) throws ProductNotFoundException {
+        var product = findByIdOrElseThrow(productId, productRepository, ProductNotFoundException::new);
+
+        RatingSummaryResponse ratingSummaryResponse = reviewService.getRatingSummary(product);
+        ratingSummaryResponse.averageRating();
+        ratingSummaryResponse.ratingCounts();
+
         return findByIdOrElseThrow(productId, productRepository, ProductNotFoundException::new);
     }
 

@@ -1,8 +1,7 @@
 package eshop.backend.service.impl;
 
-import eshop.backend.exception.CartIsEmptyException;
-import eshop.backend.exception.UserNotFoundException;
-import eshop.backend.exception.VariantNotFoundException;
+import eshop.backend.enums.OrderStatus;
+import eshop.backend.exception.*;
 import eshop.backend.model.CartItem;
 import eshop.backend.model.Order;
 import eshop.backend.model.OrderItem;
@@ -11,6 +10,8 @@ import eshop.backend.repository.UserRepository;
 import eshop.backend.service.CartService;
 import eshop.backend.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -42,8 +43,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order read(Long orderId) {
-        return null;
+    public Order read(Long orderId) throws OrderNotFoundException {
+        return orderRepository.findById(orderId)
+                .orElseThrow(() -> new OrderNotFoundException(orderId));
     }
 
     @Override
@@ -57,18 +59,34 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Set<Order> list() {
-        return null;
+    public Page<Order> list(Pageable pageable) {
+        return orderRepository.findAll(pageable);
     }
 
     @Override
-    public void cancel() {
+    public void cancel(Long orderId) throws OrderNotFoundException {
+        var order = read(orderId);
 
+        order.setStatus(OrderStatus.CANCELED);
+        orderRepository.save(order);
     }
 
     private Set<OrderItem> convertToOrderItems(Set<CartItem> cartItems) {
         return cartItems.stream()
-                .map(OrderItem::new)
+                .map(cartItem -> {
+                    try {
+                        validateQuantityOfVariant(cartItem);
+                        return new OrderItem(cartItem);
+                    } catch (VariantOutOfStockException exception) {
+                        throw new RuntimeException(exception);
+                    }
+                })
                 .collect(Collectors.toSet());
+    }
+
+    private void validateQuantityOfVariant(CartItem cartItem) throws VariantOutOfStockException {
+        if (cartItem.getVariant().getQuantity() < 1) {
+            throw new VariantOutOfStockException(cartItem.getVariant().getId());
+        }
     }
 }

@@ -13,6 +13,10 @@ public interface ReviewRepository extends JpaRepository<Review, Long> {
     Set<Review> findByProduct(Product product);
     Set<Review> findByUser(User user);
 
+    int countAllByProduct(Product product);
+
+    int countByProductAndRating(Product product, int rating);
+
 
     //todo: @Transactional
     //cascade remove, else void deleteReviewByProductId

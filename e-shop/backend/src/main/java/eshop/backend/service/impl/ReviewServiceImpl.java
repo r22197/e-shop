@@ -9,14 +9,12 @@ import eshop.backend.repository.ProductRepository;
 import eshop.backend.repository.ReviewRepository;
 import eshop.backend.repository.UserRepository;
 import eshop.backend.request.ReviewRequest;
+import eshop.backend.response.RatingSummaryResponse;
 import eshop.backend.service.ReviewService;
-import eshop.backend.utils.EntityUtils;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.rest.webmvc.ResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.stream.Collectors;
 
 import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
 
@@ -61,5 +59,20 @@ public class ReviewServiceImpl implements ReviewService {
         var review = read(reviewId);
 
         reviewRepository.delete(review);
+    }
+
+    @Override
+    public RatingSummaryResponse getRatingSummary(Product product) {
+        int totalRating = reviewRepository.countAllByProduct(product);
+
+        int[] ratingCounts = new int[5];
+        for (int i = 1; i <= 5; i++) {
+            ratingCounts[i - 1] = reviewRepository.countByProductAndRating(product, i);
+        }
+
+        int totalReviews = product.getReviews().size();
+        double averageRating = (double) totalRating / totalReviews;
+
+        return new RatingSummaryResponse(averageRating, ratingCounts);
     }
 }
