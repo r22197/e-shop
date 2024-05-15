@@ -21,10 +21,10 @@ public class Variant {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Min(0)
+    @Min(value = 0, message = "Quantity must be at least 0.")
     private Integer quantity;
 
-    @Min(0)
+    @Min(value = 0, message = "Price must be at least 0.")
     private BigDecimal price;
 
     @ManyToOne

@@ -25,17 +25,19 @@ public class CartController {
     }
 
     @PostMapping("/add/{variantId}")
-    public ResponseEntity<Cart> addItem(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long variantId) throws UserNotFoundException, VariantNotFoundException {
+    public ResponseEntity<Void> addItem(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long variantId) throws UserNotFoundException, VariantNotFoundException {
         String email = userDetails.getUsername();
-        Cart cart = cartService.addItemByUserEmail(email, variantId);
-        return ResponseEntity.ok(cart);
+        cartService.addItemByUserEmail(email, variantId);
+
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping("/{variantId}")
-    public ResponseEntity<Cart> updateItemQuantity(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long variantId, @RequestBody UpdateProductCartQuantityDto dto) throws UserNotFoundException, VariantNotFoundException {
+    public ResponseEntity<Void> updateItemQuantity(@AuthenticationPrincipal UserDetails userDetails, @PathVariable Long variantId, @RequestBody UpdateProductCartQuantityDto dto) throws UserNotFoundException, VariantNotFoundException {
         String email = userDetails.getUsername();
-        Cart cart = cartService.updateItemQuantityByUserEmail(email, variantId, dto.quantity());
-        return ResponseEntity.ok(cart);
+        cartService.updateItemQuantityByUserEmail(email, variantId, dto.quantity());
+
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{variantId}")

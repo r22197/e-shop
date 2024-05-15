@@ -25,7 +25,7 @@ public class Attribute {
     private String name;
 
     @OneToMany(mappedBy = "attribute", cascade = CascadeType.REMOVE)
-    private Set<AttributeValue> values = new HashSet<>();
+    private Set<AttributeValue> values;
 
     @JsonIgnore
     @ManyToMany

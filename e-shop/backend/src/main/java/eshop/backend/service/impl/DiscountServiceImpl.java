@@ -1,7 +1,9 @@
 package eshop.backend.service.impl;
 
 import eshop.backend.exception.DiscountNotFoundException;
+import eshop.backend.model.Category;
 import eshop.backend.model.Discount;
+import eshop.backend.model.Product;
 import eshop.backend.model.Variant;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.repository.DiscountRepository;
@@ -12,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.util.HashSet;
+import java.util.Optional;
 
 import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
 
@@ -24,6 +27,7 @@ public class DiscountServiceImpl implements DiscountService {
     @Override
     public Discount create(DiscountRequest request) {
         var discount = new Discount(request);
+
         manageCategoriesIfExist(discount, request);
 
         return discountRepository.save(discount);
@@ -38,10 +42,7 @@ public class DiscountServiceImpl implements DiscountService {
     public Discount update(DiscountRequest request) throws DiscountNotFoundException {
         var discount = read(request.id());
 
-        discount.setName(request.name());
-        discount.setType(request.type());
-        discount.setStartDate(request.startDate());
-        discount.setEndDate(request.endDate());
+        updateDiscountProperties(discount, request);
         manageCategoriesIfExist(discount, request);
 
         return discountRepository.save(discount);
@@ -50,26 +51,33 @@ public class DiscountServiceImpl implements DiscountService {
     @Override
     public void delete(Long discountId) throws DiscountNotFoundException {
         var discount = read(discountId);
+
         discountRepository.delete(discount);
     }
 
     @Override
     public BigDecimal calculateDiscountedPrice(Variant variant) {
-        Discount discount = variant.getProduct().getCategory().getDiscount();
+        Optional<Discount> discountOptional = Optional.ofNullable(variant.getProduct())
+                .map(Product::getCategory)
+                .map(Category::getDiscount);
 
-        if (discount != null && discount.isActive()) {
-            return variant.getPrice().multiply(BigDecimal.valueOf(1 - discount.getAmount()));
-        }
-
-        return variant.getPrice();
+        return discountOptional.filter(Discount::isActive)
+                .map(discount -> variant.getPrice().multiply(BigDecimal.valueOf(1 - discount.getAmount())))
+                .orElse(variant.getPrice());
     }
 
     private void manageCategoriesIfExist(Discount discount, DiscountRequest request) {
-        var isCategoriesNotEmpty = request.categoryIds() != null && request.categoryIds().isEmpty();
-
-        if (isCategoriesNotEmpty) {
+        if (request.categoryIds() != null && !request.categoryIds().isEmpty()) {
             var categories = categoryRepository.findAllById(request.categoryIds());
+
             discount.setCategories(new HashSet<>(categories));
         }
+    }
+
+    private void updateDiscountProperties(Discount discount, DiscountRequest request) {
+        discount.setName(request.name());
+        discount.setType(request.type());
+        discount.setStartDate(request.startDate());
+        discount.setEndDate(request.endDate());
     }
 }

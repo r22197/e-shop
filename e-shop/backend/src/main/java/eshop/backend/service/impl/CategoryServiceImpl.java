@@ -1,9 +1,11 @@
 package eshop.backend.service.impl;
 
 import eshop.backend.exception.CategoryNotFoundException;
+import eshop.backend.exception.DiscountNotFoundException;
 import eshop.backend.exception.InfiniteLoopException;
 import eshop.backend.model.Category;
 import eshop.backend.repository.CategoryRepository;
+import eshop.backend.repository.DiscountRepository;
 import eshop.backend.request.CategoryRequest;
 import eshop.backend.service.CategoryService;
 import lombok.RequiredArgsConstructor;
@@ -17,12 +19,14 @@ import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
+    private final DiscountRepository discountRepository;
 
     @Override
-    public Category create(CategoryRequest request) throws CategoryNotFoundException, InfiniteLoopException {
+    public Category create(CategoryRequest request) throws CategoryNotFoundException, InfiniteLoopException, DiscountNotFoundException {
         var category = new Category(request);
 
-        setParentCategoryIfExists(request, category);
+        manageDiscountIfExists(category, request);
+        setParentCategoryIfExists(category, request);
 
         return categoryRepository.save(category);
     }
@@ -33,13 +37,14 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public Category update(CategoryRequest request) throws CategoryNotFoundException, InfiniteLoopException {
-        var persistedCategory = read(request.id());
+    public Category update(CategoryRequest request) throws CategoryNotFoundException, InfiniteLoopException, DiscountNotFoundException {
+        var category = read(request.id());
 
-        persistedCategory.setName(request.name());
-        setParentCategoryIfExists(request, persistedCategory);
+        category.setName(request.name());
+        manageDiscountIfExists(category, request);
+        setParentCategoryIfExists(category, request);
 
-        return categoryRepository.save(persistedCategory);
+        return categoryRepository.save(category);
     }
 
     @Override
@@ -56,7 +61,7 @@ public class CategoryServiceImpl implements CategoryService {
         return categoryRepository.findAll();
     }
 
-    private void setParentCategoryIfExists(CategoryRequest request, Category category) throws CategoryNotFoundException, InfiniteLoopException {
+    private void setParentCategoryIfExists(Category category, CategoryRequest request) throws CategoryNotFoundException, InfiniteLoopException {
         if (request.parentId() != null) {
             var parent = findByIdOrElseThrow(request.parentId(), categoryRepository, CategoryNotFoundException::new);
 
@@ -80,5 +85,12 @@ public class CategoryServiceImpl implements CategoryService {
             parent = parent.getParent();
         }
         return false;
+    }
+
+    private void manageDiscountIfExists(Category category, CategoryRequest request) throws DiscountNotFoundException {
+        if (request.discoundId() != null) {
+            var discount = findByIdOrElseThrow(request.discoundId(), discountRepository, DiscountNotFoundException::new);
+            category.setDiscount(discount);
+        }
     }
 }

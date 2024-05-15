@@ -1,13 +1,10 @@
 package eshop.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.math.BigDecimal;
 
 @Entity
 @Data
@@ -19,8 +16,8 @@ public class CartItem {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Min(1)
-    private Integer quantity;
+    @Min(value = 1, message = "Quantity must be at least 1.")
+    private Integer quantity = 1;
 
     @ManyToOne
     @JoinColumn(name = "cart_id")
@@ -33,6 +30,5 @@ public class CartItem {
     public CartItem(Cart cart, Variant variant) {
         this.cart = cart;
         this.variant = variant;
-        this.quantity = 1;
     }
 }

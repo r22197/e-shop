@@ -45,37 +45,36 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public Cart addItemByUserEmail(String email, Long variantId) throws UserNotFoundException, VariantNotFoundException {
+    public void addItemByUserEmail(String email, Long variantId) throws UserNotFoundException, VariantNotFoundException {
         var cart = readByUserEmail(email);
         var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
-        var item = new CartItem(cart, variant);
+        var cartItem = new CartItem(cart, variant);
 
-        cart.addItem(item);
+        cart.addItem(cartItem);
 
-        return cartRepository.save(cart);
+        itemRepository.save(cartItem);
     }
 
     @Override
-    public Cart updateItemQuantityByUserEmail(String email, Long variantId, Integer quantity) throws UserNotFoundException, VariantNotFoundException {
+    public void updateItemQuantityByUserEmail(String email, Long variantId, Integer quantity) throws UserNotFoundException, VariantNotFoundException {
         var cart = readByUserEmail(email);
         var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
-        var item = itemRepository.findByCartAndVariant(cart, variant);
+        var cartItem = itemRepository.findByCartAndVariant(cart, variant);
 
-        item.setQuantity(quantity);
-        itemRepository.save(item); //todo: je nutné?
+        cartItem.setQuantity(quantity);
 
-        return cartRepository.save(cart);
+        itemRepository.save(cartItem);
     }
 
     @Override
     public void removeItemByUserEmail(String email, Long variantId) throws UserNotFoundException, VariantNotFoundException {
         var cart = readByUserEmail(email);
         var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
-        var item = itemRepository.findByCartAndVariant(cart, variant);
+        var cartItem = itemRepository.findByCartAndVariant(cart, variant);
 
-        cart.removeItem(item);
+        cart.removeItem(cartItem);
 
-        cartRepository.save(cart);
+        itemRepository.delete(cartItem);
     }
 
     @Override

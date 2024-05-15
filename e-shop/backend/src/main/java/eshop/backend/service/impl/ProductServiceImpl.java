@@ -11,7 +11,7 @@ import eshop.backend.request.ProductSearchRequest;
 import eshop.backend.response.RatingSummaryResponse;
 import eshop.backend.service.ProductService;
 import eshop.backend.service.ReviewService;
-import eshop.backend.service.helper.ProductSidebarFilter;
+import eshop.backend.service.utils.ProductSidebarFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -53,9 +53,7 @@ public class ProductServiceImpl implements ProductService {
     public Product update(ProductRequest request) throws ProductNotFoundException, CategoryNotFoundException {
         var product = read(request.id());
 
-        product.setName(request.name());
-        product.setDescription(request.description());
-        product.setImagePath(request.imagePath());
+        updateProductProperties(product, request);
         setCategoryIfSelectedAndExists(product, request);
 
         return productRepository.save(product);
@@ -101,5 +99,11 @@ public class ProductServiceImpl implements ProductService {
 
             product.setCategory(category);
         }
+    }
+
+    private void updateProductProperties(Product product, ProductRequest request) {
+        product.setName(request.name());
+        product.setDescription(request.description());
+        product.setImagePath(request.imagePath());
     }
 }

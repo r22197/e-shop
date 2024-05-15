@@ -22,10 +22,11 @@ public class Cart {
 
     @OneToOne
     @JoinColumn(name = "user_id")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private User user;
 
     @OneToMany(mappedBy = "cart")
-    private Set<CartItem> cartItems;
+    private Set<CartItem> cartItems = new HashSet<>();
 
     @Override
     public int hashCode() {
@@ -34,10 +35,10 @@ public class Cart {
 
     public void addItem(CartItem item) {
         this.cartItems.add(item);
+        item.setCart(this);
     }
 
     public void removeItem(CartItem item) {
         this.cartItems.remove(item);
     }
-
 }

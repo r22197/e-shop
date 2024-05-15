@@ -1,6 +1,5 @@
 package eshop.backend.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import eshop.backend.request.ProductRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -26,7 +25,7 @@ public class Product {
     private String name;
     private String description;
 
-    private String imagePath;
+    private String imagePath; //todo
 
     @ManyToOne
     @JoinColumn(name = "category_id")
@@ -44,7 +43,7 @@ public class Product {
             joinColumns = @JoinColumn(name = "product_id"),
             inverseJoinColumns = @JoinColumn(name = "attribute_id")
     )
-    private Set<Attribute> attributes = new HashSet<>();
+    private Set<Attribute> attributes;
 
     public Product(ProductRequest request) {
         this.id = request.id();

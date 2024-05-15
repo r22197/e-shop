@@ -9,6 +9,8 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -26,13 +28,16 @@ public class Discount {
     @NotBlank
     private String name;
 
-    @Min(0)
+    @Min(value = 0, message = "Amount must be at least 0.")
     private double amount;
 
     @Enumerated(EnumType.STRING)
     private DiscountType type;
 
+    @CreationTimestamp
     private LocalDateTime startDate;
+
+    @UpdateTimestamp
     private LocalDateTime endDate;
 
     @OneToMany(mappedBy = "discount")

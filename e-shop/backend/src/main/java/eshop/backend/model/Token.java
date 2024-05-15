@@ -21,9 +21,9 @@ public class Token {
     @Enumerated(EnumType.STRING)
     public TokenType tokenType = TokenType.BEARER;
 
-    public boolean revoked;
+    public boolean revoked = false;
 
-    public boolean expired;
+    public boolean expired = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -32,7 +32,5 @@ public class Token {
     public Token(User user, String token) {
         this.user = user;
         this.token = token;
-        this.expired = false;
-        this.revoked = false;
     }
 }

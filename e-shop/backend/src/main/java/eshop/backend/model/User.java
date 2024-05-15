@@ -1,5 +1,6 @@
 package eshop.backend.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import eshop.backend.request.RegisterRequest;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -29,6 +30,7 @@ public class User implements UserDetails {
     private String email;
 
     @NotBlank
+    @JsonIgnore
     private String password;
 
     private String firstName;

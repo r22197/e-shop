@@ -44,10 +44,7 @@ public class ReviewServiceImpl implements ReviewService {
     public Review update(ReviewRequest request) throws ReviewNotFoundException {
         var review = read(request.id());
 
-        review.setRating(request.rating());
-        review.setText(request.text());
-        review.setPros(request.pros());
-        review.setCons(request.cons());
+        updateReviewProperties(review, request);
 
         return reviewRepository.save(review);
     }
@@ -63,7 +60,7 @@ public class ReviewServiceImpl implements ReviewService {
     public RatingSummaryResponse getRatingSummary(Product product) {
         int totalReviews = reviewRepository.countAllByProduct(product);
 
-        int[] ratingCounts = new int[5];
+        int[] ratingCounts = new int[4];
         int totalRatingSum = 0;
 
         for (int i = 1; i <= 5; i++) {
@@ -75,6 +72,13 @@ public class ReviewServiceImpl implements ReviewService {
         double averageRating = (double) totalRatingSum / totalReviews;
 
         return new RatingSummaryResponse(averageRating, ratingCounts);
+    }
+
+    private void updateReviewProperties(Review review, ReviewRequest request) {
+        review.setRating(request.rating());
+        review.setText(request.text());
+        review.setPros(request.pros());
+        review.setCons(request.cons());
     }
 
 }

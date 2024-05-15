@@ -12,6 +12,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import java.time.LocalDateTime;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +25,8 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Min(1) @Max(5)
+    @Min(value = 1, message = "Rating must be at least 1.")
+    @Max(value = 5, message = "Rating must be at most 5.")
     private int rating;
 
     private String text;
@@ -54,7 +57,7 @@ public class Review {
         this.id = request.id();
         this.rating = request.rating();
         this.text = request.text();
-        this.pros = request.pros();
-        this.cons = request.cons();
+        this.pros = request.pros() != null ? request.pros() : Collections.emptySet();
+        this.cons = request.cons() != null ? request.cons() : Collections.emptySet();
     }
 }

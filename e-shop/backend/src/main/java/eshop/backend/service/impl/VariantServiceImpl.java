@@ -3,10 +3,12 @@ package eshop.backend.service.impl;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eshop.backend.exception.ProductNotFoundException;
 import eshop.backend.exception.VariantNotFoundException;
+import eshop.backend.model.Discount;
 import eshop.backend.model.Variant;
 import eshop.backend.repository.AttributeValueRepository;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.repository.VariantRepository;
+import eshop.backend.request.DiscountRequest;
 import eshop.backend.request.VariantRequest;
 import eshop.backend.service.DiscountService;
 import eshop.backend.service.VariantService;
@@ -51,8 +53,7 @@ public class VariantServiceImpl implements VariantService {
     public Variant update(VariantRequest request) throws VariantNotFoundException {
         var variant = findByIdOrElseThrow(request.id(), variantRepository, VariantNotFoundException::new);
 
-        variant.setQuantity(request.quantity());
-        variant.setPrice(request.price());
+        updateVariantProperties(variant, request);
         manageAttributeValuesIfExist(variant, request);
 
         return variantRepository.save(variant);
@@ -77,5 +78,10 @@ public class VariantServiceImpl implements VariantService {
             var attributeValues = attributeValueRepository.findAllById(request.attributeValueIds());
             variant.setValues(new HashSet<>(attributeValues));
         }
+    }
+
+    private void updateVariantProperties(Variant variant, VariantRequest request) {
+        variant.setQuantity(request.quantity());
+        variant.setPrice(request.price());
     }
 }

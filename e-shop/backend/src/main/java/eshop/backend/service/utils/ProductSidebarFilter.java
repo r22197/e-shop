@@ -1,4 +1,4 @@
-package eshop.backend.service.helper;
+package eshop.backend.service.utils;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import eshop.backend.model.*;
