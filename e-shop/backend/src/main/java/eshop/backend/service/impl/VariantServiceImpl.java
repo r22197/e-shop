@@ -8,6 +8,7 @@ import eshop.backend.repository.AttributeValueRepository;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.repository.VariantRepository;
 import eshop.backend.request.VariantRequest;
+import eshop.backend.service.DiscountService;
 import eshop.backend.service.VariantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -24,6 +25,7 @@ public class VariantServiceImpl implements VariantService {
     private final VariantRepository variantRepository;
     private final ProductRepository productRepository;
     private final AttributeValueRepository attributeValueRepository;
+    private final DiscountService discountService;
 
     @Override
     public Variant create(VariantRequest request) throws ProductNotFoundException {
@@ -40,7 +42,7 @@ public class VariantServiceImpl implements VariantService {
     public Variant read(Long variantId) throws VariantNotFoundException {
         var variant = findByIdOrElseThrow(variantId, variantRepository, VariantNotFoundException::new);
 
-        calculateDiscountedPriceForJson(variant);
+        var discountedPrice = discountService.calculateDiscountedPrice(variant);
 
         return variant;
     }
@@ -75,15 +77,5 @@ public class VariantServiceImpl implements VariantService {
             var attributeValues = attributeValueRepository.findAllById(request.attributeValueIds());
             variant.setValues(new HashSet<>(attributeValues));
         }
-    }
-
-    @JsonProperty("discounted_price")
-    private BigDecimal calculateDiscountedPriceForJson(Variant variant) {
-        var discount = variant.getProduct().getCategory().getDiscount();
-
-        if (discount == null)
-            return variant.getPrice();
-
-        return variant.getPrice().multiply(BigDecimal.valueOf(1 - discount.getAmount()));
     }
 }

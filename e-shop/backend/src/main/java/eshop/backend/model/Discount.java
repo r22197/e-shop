@@ -46,4 +46,9 @@ public class Discount {
         this.startDate = request.startDate();
         this.endDate = request.endDate();
     }
+
+    public boolean isActive() {
+        LocalDateTime now = LocalDateTime.now();
+        return now.isAfter(startDate) && now.isBefore(endDate);
+    }
 }

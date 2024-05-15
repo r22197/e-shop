@@ -2,6 +2,7 @@ package eshop.backend.service.impl;
 
 import eshop.backend.exception.DiscountNotFoundException;
 import eshop.backend.model.Discount;
+import eshop.backend.model.Variant;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.repository.DiscountRepository;
 import eshop.backend.request.DiscountRequest;
@@ -9,6 +10,7 @@ import eshop.backend.service.DiscountService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 
 import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
@@ -49,6 +51,17 @@ public class DiscountServiceImpl implements DiscountService {
     public void delete(Long discountId) throws DiscountNotFoundException {
         var discount = read(discountId);
         discountRepository.delete(discount);
+    }
+
+    @Override
+    public BigDecimal calculateDiscountedPrice(Variant variant) {
+        Discount discount = variant.getProduct().getCategory().getDiscount();
+
+        if (discount != null && discount.isActive()) {
+            return variant.getPrice().multiply(BigDecimal.valueOf(1 - discount.getAmount()));
+        }
+
+        return variant.getPrice();
     }
 
     private void manageCategoriesIfExist(Discount discount, DiscountRequest request) {

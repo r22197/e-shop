@@ -1,4 +1,4 @@
-package eshop.backend.repository;
+package eshop.backend.repository.specification;
 
 import eshop.backend.model.AttributeValue;
 import eshop.backend.model.Product;

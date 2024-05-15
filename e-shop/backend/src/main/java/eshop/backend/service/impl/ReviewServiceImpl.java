@@ -14,8 +14,6 @@ import eshop.backend.service.ReviewService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.stream.Collectors;
-
 import static eshop.backend.utils.EntityUtils.findByIdOrElseThrow;
 
 @Service
@@ -63,16 +61,20 @@ public class ReviewServiceImpl implements ReviewService {
 
     @Override
     public RatingSummaryResponse getRatingSummary(Product product) {
-        int totalRating = reviewRepository.countAllByProduct(product);
+        int totalReviews = reviewRepository.countAllByProduct(product);
 
         int[] ratingCounts = new int[5];
+        int totalRatingSum = 0;
+
         for (int i = 1; i <= 5; i++) {
-            ratingCounts[i - 1] = reviewRepository.countByProductAndRating(product, i);
+            int count = reviewRepository.countByProductAndRating(product, i);
+            ratingCounts[i - 1] = count;
+            totalRatingSum += count * i;
         }
 
-        int totalReviews = product.getReviews().size();
-        double averageRating = (double) totalRating / totalReviews;
+        double averageRating = (double) totalRatingSum / totalReviews;
 
         return new RatingSummaryResponse(averageRating, ratingCounts);
     }
+
 }

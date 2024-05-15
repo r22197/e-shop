@@ -12,3 +12,5 @@ public interface WishlistService {
     void removeItemByUserEmail(String email, Long variantId) throws VariantNotFoundException, UserNotFoundException;
     void delete(Long wishlistId) throws WishlistNotFoundException;
 }
+
+//todo přidat dokumentaci

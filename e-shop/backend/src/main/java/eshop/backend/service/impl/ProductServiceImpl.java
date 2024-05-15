@@ -6,11 +6,12 @@ import eshop.backend.model.*;
 import eshop.backend.repository.CategoryRepository;
 import eshop.backend.repository.ProductRepository;
 import eshop.backend.request.ProductRequest;
-import eshop.backend.repository.ProductSearchSpecification;
+import eshop.backend.repository.specification.ProductSearchSpecification;
 import eshop.backend.request.ProductSearchRequest;
 import eshop.backend.response.RatingSummaryResponse;
 import eshop.backend.service.ProductService;
 import eshop.backend.service.ReviewService;
+import eshop.backend.service.helper.ProductSidebarFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -71,6 +72,7 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findAll(request);
     }
 
+    //todo cache
     @Override
     public Page<Product> pageByCategoryAndSpecifications(Long categoryId, ProductSearchRequest searchRequest, PageRequest pageRequest) throws CategoryNotFoundException {
         var category = findByIdOrElseThrow(categoryId, categoryRepository, CategoryNotFoundException::new);
