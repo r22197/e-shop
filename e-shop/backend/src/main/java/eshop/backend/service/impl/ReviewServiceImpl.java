@@ -60,7 +60,7 @@ public class ReviewServiceImpl implements ReviewService {
     public RatingSummaryResponse getRatingSummary(Product product) {
         int totalReviews = reviewRepository.countAllByProduct(product);
 
-        int[] ratingCounts = new int[4];
+        int[] ratingCounts = new int[5];
         int totalRatingSum = 0;
 
         for (int i = 1; i <= 5; i++) {
